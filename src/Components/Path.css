@@ -1,25 +1,14 @@
-
-*{
-    margin: 0;
-    padding: 0;
-  }
-  body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .node{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 15px;
-    height: 15px;
-    color: white;
-    background-color: #282847;
-    border: 1px solid #6A6A9F;
-    padding: 5px;
-    border-radius: 50%;
-    font-family: sans-serif;
-    font-weight: bold;
-  }
+.node{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  color: white;
+  background-color: #282847;
+  border: 1px solid #6A6A9F;
+  padding: 5px;
+  border-radius: 50%;
+  font-family: sans-serif;
+  font-weight: bold;
+}
