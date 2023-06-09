@@ -9,6 +9,8 @@ export default function Node({label, ref}) {
     const element = elementRef.current;
     const position = { x: 0, y: 0 }
 
+    console.log(getCoord());
+
     interact(element).draggable({
         listeners: {
           start (event) {
@@ -24,6 +26,16 @@ export default function Node({label, ref}) {
         }
       })
   }, [])
+
+  const getCoord = () => {
+    const element = elementRef.current;
+
+    if(element) {
+      const {left, top, width, height} = element.getBoundingClientRect();
+      return {x: left + width / 2, y: top + height / 2};
+    }
+    return {x: 0, y: 0};
+  }
   
   return (
     <>
