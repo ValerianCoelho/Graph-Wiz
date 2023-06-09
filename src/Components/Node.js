@@ -1,6 +1,6 @@
-import './Path.css'
+import './Node.css'
 
-export default function Path({label}) {
+export default function Node({label}) {
   return (
     <>
       <div className="node">

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Path from './Components/Path';
+import Node from './Components/Node';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Path label="B"/>
+    <Node label="B"/>
   </React.StrictMode>
 );
