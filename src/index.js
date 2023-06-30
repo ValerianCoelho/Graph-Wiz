@@ -7,10 +7,12 @@ import './style.css'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Node label="A" xPos="0" yPos="0"/>
-    <Node label="B" xPos="0" yPos="0"/>
-    <Node label="C" xPos="0" yPos="0"/>
-    <Path x1="100" y1="100" x2="100" y2="200"/>
+    <Node label="A" xPos="15" yPos="15"/>
+    <Node label="B" xPos="250" yPos="150"/>
+    <Node label="C" xPos="100" yPos="250"/>
+    <Path x1="15" y1="15" x2="250" y2="150"/>
+    <Path x1="100" y1="250" x2="250" y2="150"/>
+    <Path x1="100" y1="250" x2="15" y2="15"/>
   </React.StrictMode>
 );
 
