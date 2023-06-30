@@ -7,7 +7,7 @@ export default function Node({label, xPos, yPos}) {
   
   useEffect(() => {
     const element = elementRef.current;
-    const position = {x: parseFloat(xPos), y: parseFloat(yPos)};
+    const position = {x: parseFloat(xPos) - 15, y: parseFloat(yPos) - 15 }; // we are subtracting the radius of the node
 
     element.style.transform =`translate(${position.x}px, ${position.y}px)`;
 

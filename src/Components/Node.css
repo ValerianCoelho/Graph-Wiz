@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15px;
-  height: 15px;
+  width: 30px;
+  height: 30px;
   color: white;
   background-color: #282847;
   border: 1px solid #6A6A9F;
@@ -11,4 +11,5 @@
   border-radius: 50%;
   font-family: sans-serif;
   font-weight: bold;
+  position: absolute;
 }
