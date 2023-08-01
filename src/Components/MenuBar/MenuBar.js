@@ -3,7 +3,11 @@ import React from "react";
 function MenuBar() {
   return (
     <React.Fragment>
-      <h1>MenuBar</h1>
+      <img src="./Logo.svg"></img>
+      <div className="menu-title">File</div>
+      <div className="menu-title">Edit</div>
+      <div className="menu-title">View</div>
+      <div className="menu-title">Help</div>
     </React.Fragment>
   )
 }
