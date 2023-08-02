@@ -11,7 +11,8 @@ function App() {
   const styles = {
     body: {
       color: theme.accent,
-      fontFamily: 'arial'
+      fontFamily: 'open sans',
+      fontSize: '1.6rem'
     }
   }
   return (
