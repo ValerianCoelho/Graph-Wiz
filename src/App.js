@@ -10,9 +10,15 @@ import theme from "./Components/theme";
 function App() {
   const styles = {
     body: {
+      display: 'grid',
+      gridTemplateColumns: '3.6% auto 19.8%',
+      gridTemplateRows: '6.75% auto 5.2%',
+      minHeight: '100vh',
       color: theme.accent,
       fontFamily: 'open sans',
-      fontSize: '1.6rem'
+      fontSize: '1.6rem',
+      gap: '1px',
+      backgroundColor: theme.accent
     }
   }
   return (
