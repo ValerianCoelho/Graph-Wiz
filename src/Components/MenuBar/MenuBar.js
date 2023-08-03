@@ -6,10 +6,11 @@ function MenuBar() {
   const styles = {
     body: {
       display: 'flex',
+      alignItems: 'center',
       gap: '2.4rem',
       fontSize: '2rem',
       backgroundColor: theme.background,
-      border: `.1rem solid ${theme.accent}`
+      gridColumn: '1 / span 3'
     }
   }
 

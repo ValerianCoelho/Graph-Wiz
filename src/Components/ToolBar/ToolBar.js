@@ -1,10 +1,16 @@
 import React from "react";
+import theme from "../theme"
 
 function ToolBar() {
+  const styles = {
+    body: {
+      backgroundColor: theme.background,
+    }
+  }
   return (
-    <React.Fragment>
-      <h1>ToolBar</h1>
-    </React.Fragment>
+    <div style={styles.body}>
+      <div>T</div>
+    </div>
   )
 }
 

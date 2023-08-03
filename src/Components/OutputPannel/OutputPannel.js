@@ -1,10 +1,16 @@
 import React from "react";
+import theme from "../theme";
 
 function OutputPannel() {
+  const styles = {
+    body: {
+      backgroundColor: theme.foreground,
+    }
+  }
   return (
-    <React.Fragment>
+    <div style={styles.body}>
       <h1>OutputPannel</h1>
-    </React.Fragment>
+    </div>
   )
 }
 

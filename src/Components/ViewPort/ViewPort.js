@@ -1,10 +1,16 @@
 import React from "react";
+import theme from "../theme";
 
 function ViewPort() {
+  const styles = {
+    body: {
+      backgroundColor: '#05050F',
+    }
+  }
   return (
-    <React.Fragment>
+    <div style={styles.body}>
       <h1>ViewPort</h1>
-    </React.Fragment>
+    </div>
   )
 }
 
