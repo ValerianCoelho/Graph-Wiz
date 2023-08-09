@@ -9,14 +9,13 @@ function ViewPort() {
   const styles = {
     wrapper: {
       backgroundColor: "#05050F",
-      transform: `scale(${zoom})`, // Fix the transform property
-      // transition: "transform 0.2s ease-in-out", // Add a smooth transition
       overflow: 'hidden'
     },
     viewport: {
       width: '100%',
       height: '100%',
-      backgroundColor: 'red'
+      backgroundColor: 'red',
+      transform: `scale(${zoom})`,
     }
   };
 
@@ -24,6 +23,8 @@ function ViewPort() {
     const handleMousewheel = (event) => {
       event.preventDefault();
       const zoomFactor = 0.1;
+
+      console.log(zoom);
 
       // Calculate the new zoom level
       const zoomChange = event.deltaY > 0 ? -zoomFactor : zoomFactor;
@@ -59,15 +60,16 @@ function ViewPort() {
           const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
           const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-          target.style.transform = `translate(${x}px, ${y}px)`;
+          target.style.transform = `scale(${zoom}) translate(${x}px, ${y}px)`;
 
           target.setAttribute('data-x', x);
           target.setAttribute('data-y', y);
+
+          console.log(x, y);
         }
       }
     })
-  }, []);
-
+  }, [zoom]);
 
   return (
     <div ref={ViewportRef} style={styles.wrapper}>
