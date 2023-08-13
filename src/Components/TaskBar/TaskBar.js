@@ -10,7 +10,7 @@ function TaskBar() {
   }
   return (
     <div style={styles.body}>
-      <h1>TaskBar</h1>
+      <h4>TaskBar</h4>
     </div>
   )
 }
