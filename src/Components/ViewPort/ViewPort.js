@@ -20,7 +20,7 @@ function ViewPort() {
       height: '100%',
       backgroundColor: theme.background,
       transform: `scale(${zoom}) translate(${x}px, ${y}px)`,
-      transition: "transform 1s ease"
+      // transition: "transform 1s ease"
     }
   };
 
@@ -43,11 +43,18 @@ function ViewPort() {
       const vx = viewportRef.current.getBoundingClientRect().left - viewportRef.current.offsetLeft;
       const vy = viewportRef.current.getBoundingClientRect().top - viewportRef.current.offsetTop;
 
-      const dx = (vx + (cx / zoom)) - cx;
-      const dy = (vy + (cy / zoom)) - cy;
+      const dx = -zoomChange * 10 * ((vx + (cx * newZoom)) - cx); // change these two equations
+      const dy = -zoomChange * 10 * ((vy + (cy * newZoom)) - cy); // change these two equations
+
+      // why vx negative when zoom out?
+      console.log("dx = zoomchange * (vx + (cx / newZoom)) - cx");
+      console.log(`${dx} = ${zoomChange} (${vx} + (${cx} * ${newZoom})) - ${cx}`);
+      console.log("dy = zoomchange (vy + (cy / newZoom)) - cy");
+      console.log(`${dy} = ${zoomChange} (${vy} + (${cy}*/ ${newZoom})) - ${cy}`);
 
       const x = (parseFloat(target.getAttribute('data-x')) || 0) + dx;
       const y = (parseFloat(target.getAttribute('data-y')) || 0) + dy;
+
 
       //target.style.transform = `translate(${x}px, ${yy}px)`;
 
@@ -55,9 +62,9 @@ function ViewPort() {
       target.setAttribute('data-y', y);
 
       if (newZoom >= minZoom && newZoom <= maxZoom) {
-        setZoom((prevZoom) => newZoom);
-        setX((prevX) => x);
-        setY((prevY) => y);
+        setZoom(newZoom);
+        setX(x);
+        setY(y);
 
       }
     };
