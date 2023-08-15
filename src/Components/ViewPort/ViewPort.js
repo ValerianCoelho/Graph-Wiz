@@ -9,7 +9,7 @@ function ViewPort() {
   const [y, setY] = useState(0); // Vertical viewport position
 
   // Refs for accessing DOM elements
-  const ViewporWrappertRef = useRef(null); // Ref to the viewport wrapper
+  const ViewportWrappertRef = useRef(null); // Ref to the viewport wrapper
   const ViewportRef = useRef(null); // Ref to the actual viewport content
 
   // Styles for the components
@@ -42,26 +42,29 @@ function ViewPort() {
       // Check if the new zoom level is within limits
       if (newZoom >= minZoom && newZoom <= maxZoom) {
         const Viewport = ViewportRef.current;
+        const ViewportWrapper = ViewportWrappertRef.current;
 
-        // c(x/y) - cursor position: calculates the current cursor position from the viewportWrapper
-        // c(x/y) is independent of scale. cx will always return the actual pixel distance
-        const cx = event.clientX - Viewport.offsetLeft;
-        const cy = event.clientY - Viewport.offsetTop;
+        const px = event.clientX - Viewport.offsetLeft;
+        const py = event.clientY - Viewport.offsetTop;
 
-        // v(x/y) - viewport position: calculates the current viewport position from the viewportWrapper
-        // v(x/y) is independent of scale. vx will always return the actual pixel distance
-        const vx = Viewport.getBoundingClientRect().left - Viewport.offsetLeft;
-        const vy = Viewport.getBoundingClientRect().top - Viewport.offsetTop;
+        const spx = px * newZoom;
+        const spy = py * newZoom;
 
-        // calculates the translation required after performing scaling
-        const dx = - Math.ceil(zoomChange) * ((vx + (cx * newZoom)) - cx) / newZoom;
-        const dy = - Math.ceil(zoomChange) * ((vy + (cy * newZoom)) - cy) / newZoom;
+        const vx = (ViewportWrapper.clientWidth - ViewportWrapper.clientWidth * newZoom) / 2;
+        const vy = (ViewportWrapper.clientHeight - ViewportWrapper.clientHeight * newZoom) / 2;
 
-        // Calculate new x and y positions for the viewport
+        console.log(vx, vy);
+
+        const dx = - Math.ceil(zoomFactor) * ((vx + spx) - px);
+        const dy = - Math.ceil(zoomFactor) * ((vy + spy) - py);
+
+        console.log(Viewport.getAttribute('data-x'), Viewport.getAttribute('data-y'));
+        console.log('px, py, spx, spy, vx, vy, dx, dy');
+        console.log(px, py, spx, spy, vx, vy, dx, dy);
+
         const x = (parseFloat(Viewport.getAttribute('data-x')) || 0) + dx;
         const y = (parseFloat(Viewport.getAttribute('data-y')) || 0) + dy;
 
-        // Update attributes for dragging and set state variables
         Viewport.setAttribute('data-x', x);
         Viewport.setAttribute('data-y', y);
      
@@ -72,7 +75,7 @@ function ViewPort() {
     };
 
     // Attach the mousewheel event listener to the viewport wrapper
-    const ViewportWrapper = ViewporWrappertRef.current;
+    const ViewportWrapper = ViewportWrappertRef.current;
     if (ViewportWrapper) {
       ViewportWrapper.addEventListener("mousewheel", handleMousewheel, { passive: false });
     }
@@ -87,7 +90,7 @@ function ViewPort() {
 
   // Effect for enabling dragging using interact.js
   useEffect(()=> {
-    interact(ViewporWrappertRef.current).draggable({
+    interact(ViewportWrappertRef.current).draggable({
       listeners: {
         move: (event)=> {
           const target = event.target.children[0]; 
@@ -108,7 +111,7 @@ function ViewPort() {
 
   // Render the viewport component
   return (
-    <div ref={ViewporWrappertRef} style={styles.wrapper}>
+    <div ref={ViewportWrappertRef} style={styles.wrapper}>
       <div ref={ViewportRef} style={styles.viewport}>
         Now is the winter of our discontent
         Made glorious summer by this sun of York;
