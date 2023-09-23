@@ -7,17 +7,17 @@ import Path from "../../Graph Components/Path/Path.tsx";
 function Viewport() {
   const viewport = useRef<HTMLDivElement>(null);
 
-  useEffect(()=> {
-    if(viewport.current) {
-      const panzoom = Panzoom(viewport.current, { canvas: true });
-      const parent = viewport.current.parentElement;
-      parent?.addEventListener('wheel', (event)=> {
-        if(event.ctrlKey) {
-          panzoom.zoomWithWheel(event);
-        }
-      });
-    }
-  }, [])
+  // useEffect(()=> {
+  //   if(viewport.current) {
+  //     const panzoom = Panzoom(viewport.current, { canvas: true });
+  //     const parent = viewport.current.parentElement;
+  //     parent?.addEventListener('wheel', (event)=> {
+  //       if(event.ctrlKey) {
+  //         panzoom.zoomWithWheel(event);
+  //       }
+  //     });
+  //   }
+  // }, [])
 
   const styles: string = `
     .viewport__body__wrapper {

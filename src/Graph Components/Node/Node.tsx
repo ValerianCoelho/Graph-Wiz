@@ -1,9 +1,14 @@
 import Theme from "../../Theme";
+import { useEffect, useRef } from 'react'
+import interact from 'interactjs'
+
 type NodeProps = {
   label: string
 }
 
 function Node(props: NodeProps) {
+  const node = useRef<HTMLDivElement>(null);
+
   const styles: string = `
     .Node {
       width: 30px;
@@ -21,11 +26,30 @@ function Node(props: NodeProps) {
       font-family: Open Sans;
     }
   `
+  useEffect(()=> {
+    if(node.current) {
+      interact(node.current).draggable({
+        listeners: {
+          move: (event)=> {
+            const target = event.target; 
+  
+            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+            target.style.transform = `translate(${x}px, ${y}px)`;
+  
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+          }
+        }
+      })
+    }
+  }, []);
 
   return (
     <>
       <style> {styles} </style>
-      <div className="Node">{props.label}</div>
+      <div className="Node" ref={node}>{props.label}</div>
     </>
   )
 }
