@@ -31,7 +31,7 @@ function Viewport() {
         <div className="viewport__body" ref={viewport}>
           <Node label='A'/>
           <Node label='B'/>
-          <Path/>
+          <Path x1="10" y1="50" x2="500" y2="70"/>
         </div>
       </div>
       <style>{styles}</style>
