@@ -1,7 +1,17 @@
+import Theme from '../../Theme.tsx'
+
 function Workspace() {
+  const styles: string = `
+    .workspace__body {
+      background-color: ${Theme.bgColor};
+    }
+  `
   return (
     <>
-      <div>Task Bar</div>
+      <style> {styles} </style>
+      <div className="workspace__body">
+        <div>Workspace</div>
+      </div>
     </>
   )
 }
