@@ -1,8 +1,27 @@
-const Theme: { bgColor: string, fgColor: string, viewportColor: string, pannelColor: string} = {
+type ThemeType = {
+  bgColor: string, 
+  fgColor: string, 
+  viewportColor: string, 
+  pannelColor: string,
+
+  nodeBgColor: string,
+  nodeBorderColor: string,
+  nodeFgColor: string,
+
+  pathStroke: string
+}
+
+const Theme: ThemeType = {
   bgColor: '#191932',
   fgColor: '#6A6A9F',
   viewportColor: '#05050F',
-  pannelColor: '#0E0E1C'
+  pannelColor: '#0E0E1C',
+
+  nodeBgColor: '#282847',
+  nodeBorderColor: '#6A6A9F',
+  nodeFgColor: '#FFFFFF',
+
+  pathStroke: '#FFFFFF'
 }
 
 export default Theme;
