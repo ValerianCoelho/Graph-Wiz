@@ -1,19 +1,42 @@
-import Theme from '../../Theme.tsx'
+import { useEffect, useRef } from "react";
+import Panzoom from '@panzoom/panzoom'
+import Theme from "../../Theme.tsx";
 
 function Viewport() {
+  const viewport = useRef<HTMLDivElement>(null);
+
+  useEffect(()=> {
+    if(viewport.current) {
+      const panzoom = Panzoom(viewport.current, { canvas: true });
+      const parent = viewport.current.parentElement;
+      parent?.addEventListener('wheel', (event)=> {
+        if(event.ctrlKey) {
+          panzoom.zoomWithWheel(event);
+        }
+      });
+    }
+  }, [])
+
   const styles: string = `
-    .viewport__body {
+    .viewport__body__wrapper {
       background-color: ${Theme.bgColor};
     }
-  `
+  `;
+
   return (
     <>
-      <style> {styles} </style>
-      <div className="viewport__body">
-        <div>Viewport</div>
+      <div className="viewport__body__wrapper">
+        <div className="viewport__body" ref={viewport}>
+          ViewportWhat is Lorem Ipsum?
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+        </div>
       </div>
+      <style>{styles}</style>
     </>
-  )
+  );
 }
-  
+
 export default Viewport;
