@@ -49,7 +49,7 @@ function Node(props: NodeProps) {
   return (
     <>
       <style> {styles} </style>
-      <div className="Node" ref={node}>{props.label}</div>
+      <div className="Node custom-excluded-class" ref={node}>{props.label}</div>
     </>
   )
 }
