@@ -10,7 +10,7 @@ function Node(props: NodeProps) {
   const node = useRef<HTMLDivElement>(null);
 
   const styles: string = `
-    .Node {
+    .node {
       width: 30px;
       height: 30px;
       border-radius: 50%;
@@ -49,7 +49,7 @@ function Node(props: NodeProps) {
   return (
     <>
       <style> {styles} </style>
-      <div className="Node custom-excluded-class" ref={node}>{props.label}</div>
+      <div className="node excluded-class" ref={node}>{props.label}</div>
     </>
   )
 }

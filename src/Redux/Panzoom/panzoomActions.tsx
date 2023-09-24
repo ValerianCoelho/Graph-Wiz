@@ -1,0 +1,1 @@
+export const UPDATE_SCALE: string = 'UPDATE_SCALE'
