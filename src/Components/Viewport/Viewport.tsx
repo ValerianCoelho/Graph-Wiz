@@ -22,7 +22,6 @@ function Viewport(props: any) {
         if(event.ctrlKey) {
           panzoom.zoomWithWheel(event);
           props.updateScale(panzoom.getScale());
-          console.log(props.scale); // why is this line giving me only '1' as output?
         }
       });
     }
@@ -65,4 +64,4 @@ const mapDispatchToProps = (dispatch: any) => {
 export default connect(
   mapStateToProps, 
   mapDispatchToProps
-)(Viewport);
+)(Viewport)

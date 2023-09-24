@@ -1,12 +1,10 @@
 import Theme from "../../Theme";
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import interact from 'interactjs'
+import { connect } from "react-redux";
+import { panzoomState } from '../../Types/Redux/panzoom';
 
-type NodeProps = {
-  label: string
-}
-
-function Node(props: NodeProps) {
+function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
 
   const styles: string = `
@@ -28,13 +26,13 @@ function Node(props: NodeProps) {
   `
   useEffect(()=> {
     if(node.current) {
-      interact(node.current).draggable({
+      const draggable = interact(node.current).draggable({
         listeners: {
           move: (event)=> {
             const target = event.target; 
   
-            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx / props.scale;
+            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy / props.scale;
 
             target.style.transform = `translate(${x}px, ${y}px)`;
   
@@ -42,9 +40,13 @@ function Node(props: NodeProps) {
             target.setAttribute('data-y', y);
           }
         }
-      })
+      });
+
+      return () => {
+        draggable.unset();
+      };
     }
-  }, []);
+  }, [props.scale]);
 
   return (
     <>
@@ -54,4 +56,12 @@ function Node(props: NodeProps) {
   )
 }
 
-export default Node;
+const mapStateToProps = (state: panzoomState) => {
+  return {
+    scale: state.scale
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Node)
