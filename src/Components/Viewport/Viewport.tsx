@@ -1,5 +1,5 @@
 import Panzoom from '@panzoom/panzoom'
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { updateScale } from '../../Redux/index.tsx';
 import { panzoomState } from '../../Types/Redux/panzoom';
@@ -7,7 +7,8 @@ import Theme from "../../Theme.tsx";
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
 
-function Viewport() {
+function Viewport(props: any) {
+  // const [scale, setScale] = useState(1);
   const viewport = useRef<HTMLDivElement>(null);
 
   useEffect(()=> {
@@ -21,7 +22,9 @@ function Viewport() {
       parent?.addEventListener('wheel', (event)=> {
         if(event.ctrlKey) {
           panzoom.zoomWithWheel(event);
-          console.log(panzoom.getScale()); // Use this scale to modify the translation in the nodes
+          // setScale(panzoom.getScale());
+          props.updateScale(panzoom.getScale());
+          console.log(props.scale);
         }
       });
     }
@@ -47,4 +50,19 @@ function Viewport() {
   );
 }
 
-export default Viewport;
+const mapStateToProps = (state: any) => {
+  return {
+    scale: state.scale
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateScale: (scale: any) => dispatch(updateScale(scale))
+  }
+}
+
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(Viewport);
