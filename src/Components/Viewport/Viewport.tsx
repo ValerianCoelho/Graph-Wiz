@@ -8,7 +8,6 @@ import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
 
 function Viewport(props: any) {
-  // const [scale, setScale] = useState(1);
   const viewport = useRef<HTMLDivElement>(null);
 
   useEffect(()=> {
@@ -22,9 +21,8 @@ function Viewport(props: any) {
       parent?.addEventListener('wheel', (event)=> {
         if(event.ctrlKey) {
           panzoom.zoomWithWheel(event);
-          // setScale(panzoom.getScale());
           props.updateScale(panzoom.getScale());
-          console.log(props.scale);
+          console.log(props.scale); // why is this line giving me only '1' as output?
         }
       });
     }
@@ -50,7 +48,7 @@ function Viewport(props: any) {
   );
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: panzoomState) => {
   return {
     scale: state.scale
   }
@@ -58,7 +56,9 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateScale: (scale: any) => dispatch(updateScale(scale))
+    updateScale: (scale: number) => {
+      dispatch(updateScale(scale))
+    }
   }
 }
 
