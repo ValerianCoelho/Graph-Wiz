@@ -1,5 +1,5 @@
 import Theme from '../../Theme.tsx'
-import DropDown from '../Drop Down/DropDown.tsx';
+import Dropdown from '../Dropdown/Dropdown.tsx';
 
 function TitleBar() {
   /*
@@ -22,19 +22,19 @@ function TitleBar() {
       <style> {styles} </style>
       <div className="title-bar__body">
         <div>Title Bar</div>
-        <DropDown
+        <Dropdown
         title="File" 
         options={["Something","something2","Something3","Something4"]}
         />
-        <DropDown
+        <Dropdown
         title="Edit"
         options={["something","something"]}
         />
-        <DropDown
+        <Dropdown
         title="View"
         options={["something","something"]}
         />
-        <DropDown
+        <Dropdown
         title="Help"
         options={["something","something"]}
         />

@@ -1,6 +1,6 @@
 import Theme from "../../Theme"
 
-export default function DropDownItem(props:any) {
+export default function DropdownItem(props:any) {
 
     /*
         each drop down item requires a itemName as a prop 

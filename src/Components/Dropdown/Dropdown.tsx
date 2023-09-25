@@ -1,9 +1,9 @@
 import {useState,useRef} from "react";
 import Theme from "../../Theme";
-import DropDownButton from "../../Drop Down Components/Drop Down Button/DropDownButton";
-import DropDownList from "../../Drop Down Components/Drop Down List/DropDownList";
+import DropdownButton from "../../Dropdown Components/Dropdown Button/DropDownButton";
+import DropdownList from "../../Dropdown Components/Dropdown List/DropDownList";
 
- function DropDown(props:any) {
+ function Dropdown(props:any) {
 
     /* 
         Each drop down component needs a title and options prop
@@ -29,11 +29,11 @@ import DropDownList from "../../Drop Down Components/Drop Down List/DropDownList
     <style>{style}</style>
     <div className="drop-down">
         
-        <DropDownButton 
+        <DropdownButton 
         title={props.title}
         />
 
-        <DropDownList 
+        <DropdownList 
         options={props.options}
         offset="30" 
         width="100"
@@ -45,4 +45,4 @@ import DropDownList from "../../Drop Down Components/Drop Down List/DropDownList
   )
 }
 
-export default DropDown;
+export default Dropdown;

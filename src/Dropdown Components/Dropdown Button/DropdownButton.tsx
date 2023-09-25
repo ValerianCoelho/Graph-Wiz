@@ -1,5 +1,5 @@
 
-export default function DropDownButton(props:any) {
+export default function DropdownButton(props:any) {
 
     const style:string =`
     .drop-down__btn{

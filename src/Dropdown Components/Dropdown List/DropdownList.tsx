@@ -1,7 +1,7 @@
 import Theme from "../../Theme";
-import DropDownItem from "../Drop Down Item/DropDownItem";
+import DropdownItem from "../Dropdown Item/DropDownItem";
 
-export default function DropDownList(props:any) {
+export default function DropdownList(props:any) {
 
 /*
     Each drop down list requires a title offset and options prop
@@ -23,7 +23,7 @@ export default function DropDownList(props:any) {
     `
 
     function iterOption(option:string){
-        return <DropDownItem itemName={option}/>
+        return <DropdownItem itemName={option}/>
     }
 
   return (
