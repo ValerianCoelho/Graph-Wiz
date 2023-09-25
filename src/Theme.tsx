@@ -9,6 +9,7 @@ type ThemeType = {
   nodeFgColor: string,
 
   pathStroke: string
+  toolHoverColor: string
 }
 
 const Theme: ThemeType = {
@@ -21,7 +22,8 @@ const Theme: ThemeType = {
   nodeBorderColor: '#6A6A9F',
   nodeFgColor: '#FFFFFF',
 
-  pathStroke: '#FFFFFF'
+  pathStroke: '#FFFFFF',
+  toolHoverColor: '#F8F8F8'
 }
 
 export default Theme;

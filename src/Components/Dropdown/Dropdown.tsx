@@ -1,7 +1,7 @@
 import {useState,useRef} from "react";
 import Theme from "../../Theme";
-import DropdownButton from "../../Dropdown Components/Dropdown Button/DropDownButton";
-import DropdownList from "../../Dropdown Components/Dropdown List/DropDownList";
+import DropdownButton from "../../Dropdown Components/Dropdown Button/DropdownButton";
+import DropdownList from "../../Dropdown Components/Dropdown List/DropdownList";
 
  function Dropdown(props:any) {
 

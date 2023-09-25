@@ -21,7 +21,6 @@ function TitleBar() {
     <>
       <style> {styles} </style>
       <div className="title-bar__body">
-        <div>Title Bar</div>
         <Dropdown
         title="File" 
         options={["Something","something2","Something3","Something4"]}
