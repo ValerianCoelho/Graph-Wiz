@@ -56,9 +56,9 @@ function Node(props: any) {
   )
 }
 
-const mapStateToProps = (state: panzoomState) => {
+const mapStateToProps = (state: any) => {
   return {
-    scale: state.scale
+    scale: state.panzoom.scale
   }
 }
 

@@ -1,0 +1,1 @@
+export const UPDATE_NODE_COORD: string = 'UPDATE_NODE_COORD'
