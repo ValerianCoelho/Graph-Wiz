@@ -2,7 +2,7 @@ import Theme from "../../Theme";
 import { useState, useEffect, useRef } from 'react'
 import interact from 'interactjs'
 import { connect } from "react-redux";
-import { panzoomState } from '../../Types/Redux/panzoom';
+import { updateNodeCoord } from "../../Redux";
 
 function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
@@ -38,6 +38,8 @@ function Node(props: any) {
   
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
+
+            props.updateNodeCoord([x, y]);
           }
         }
       });
@@ -47,6 +49,10 @@ function Node(props: any) {
       };
     }
   }, [props.scale]);
+
+  useEffect(()=>{
+    console.log(props.coord);
+  }, [props.coord])
 
   return (
     <>
@@ -58,10 +64,20 @@ function Node(props: any) {
 
 const mapStateToProps = (state: any) => {
   return {
-    scale: state.panzoom.scale
+    scale: state.panzoom.scale,
+    coord: state.node.coord
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateNodeCoord: (coord: Array<number>) => {
+      dispatch(updateNodeCoord(coord))
+    }
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Node)

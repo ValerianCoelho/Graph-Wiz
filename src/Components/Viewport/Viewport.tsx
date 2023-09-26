@@ -2,7 +2,6 @@ import Panzoom from '@panzoom/panzoom'
 import { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { updateScale } from '../../Redux/index.tsx';
-import { panzoomState } from '../../Types/Redux/panzoom';
 import Theme from "../../Theme.tsx";
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
