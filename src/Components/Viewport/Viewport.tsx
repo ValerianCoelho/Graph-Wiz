@@ -37,7 +37,6 @@ function Viewport(props: any) {
       <div className="viewport__body__wrapper">
         <div className="viewport__body" ref={viewport}>
           <Node label='A'/>
-          <Node label='B'/>
           <Path x1="10" y1="50" x2="500" y2="70"/>
         </div>
       </div>

@@ -1,17 +1,25 @@
-import { UPDATE_NODE_COORD } from "./nodeActions";
+import { UPDATE_NODE_COORD, ADD_NODE } from "./nodeActions";
 import { nodeState, nodeAction } from "../../Types/Redux/node";
 
 const initialNodeState = {
-  coord: [0, 0]
+  data: [
+    // node objects
+  ]
 }
 
-const nodeReducer = (state: nodeState = initialNodeState, action: nodeAction)=> {
+const nodeReducer = (state: any = initialNodeState, action: nodeAction)=> {
+  console.log(state);
   switch(action.type) {
-    case UPDATE_NODE_COORD:
+    // case UPDATE_NODE_COORD:
+    //   return {
+    //     ...state,
+    //     coord: action.payload,
+    //   };
+    case ADD_NODE:
       return {
         ...state,
-        coord: action.payload,
-      };
+        data: [...state.data, action.payload]
+      }
     default: return state;
   }
 }
