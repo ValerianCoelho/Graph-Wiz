@@ -26,6 +26,10 @@ function Viewport(props: any) {
     }
   }, [])
 
+  useEffect(()=> {
+    console.log(props.node[0]);
+  }, [props.scale])
+
   const styles: string = `
     .viewport__body__wrapper {
       background-color: ${Theme.bgColor};
@@ -36,7 +40,9 @@ function Viewport(props: any) {
     <>
       <div className="viewport__body__wrapper">
         <div className="viewport__body" ref={viewport}>
-          <Node label='A'/>
+          {props.node.map((nodeData: any, index: any) => (
+            <Node label={nodeData.label} key={index} />
+          ))}
           <Path x1="10" y1="50" x2="500" y2="70"/>
         </div>
       </div>
@@ -47,7 +53,8 @@ function Viewport(props: any) {
 
 const mapStateToProps = (state: any) => {
   return {
-    scale: state.panzoom.scale
+    scale: state.panzoom.scale,
+    node: state.node.data
   }
 }
 
