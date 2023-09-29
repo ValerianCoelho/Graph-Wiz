@@ -32,7 +32,9 @@ function Viewport(props: any) {
 
   const styles: string = `
     .viewport__body__wrapper {
-      background-color: ${Theme.bgColor};
+      background-color: ${Theme.viewportColor};
+      background-image: url('src/assets/images/Gridlines.png');
+      background-size: 2000px;
     }
   `;
 
