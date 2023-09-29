@@ -21,16 +21,13 @@ export default function DropdownList(props:any) {
 
         }
     `
-
-    function iterOption(option:string){
-        return <DropdownItem itemName={option}/>
-    }
-
   return (
     <>
     <style>{style}</style>
     <div className={`drop-down__list drop-down__${props.title}-list`}>
-        {props.options&&props.options.map(iterOption)}
+        {props.options&&props.options.map((option:any, index: any)=>(
+            <DropdownItem itemName={option} key={index}/>
+        ))}
     </div>
     </>
   )
