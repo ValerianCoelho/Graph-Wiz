@@ -24,7 +24,7 @@ function ToolBar(props: any) {
   const handleAddNode = ()=> {
     const input = window.prompt('Enter Node Name');
     if(input?.trim()) {
-      props.addNode({label: input}) //, coord: [0, 0]
+      props.addNode({label: input, coord: [0, 0]})
     }
   }
 

@@ -40,8 +40,8 @@ function Viewport(props: any) {
     <>
       <div className="viewport__body__wrapper">
         <div className="viewport__body" ref={viewport}>
-          {props.node.map((nodeData: any, index: any) => (
-            <Node label={nodeData.label} key={index} />
+          {props.node.map((nodeData: any, index: number) => (
+            <Node label={nodeData.label} key={index} id={index}/>
           ))}
           <Path x1="10" y1="50" x2="500" y2="70"/>
         </div>

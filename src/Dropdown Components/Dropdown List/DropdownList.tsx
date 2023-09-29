@@ -1,5 +1,5 @@
 import Theme from "../../Theme";
-import DropdownItem from "../Dropdown Item/DropDownItem";
+import DropdownItem from "../Dropdown Item/DropdownItem";
 
 export default function DropdownList(props:any) {
 

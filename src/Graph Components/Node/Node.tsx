@@ -38,8 +38,8 @@ function Node(props: any) {
   
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
-
-            props.updateNodeCoord([x, y]);
+            
+            props.updateNodeCoord(props.id, [x, y]);
           }
         }
       });
@@ -50,9 +50,9 @@ function Node(props: any) {
     }
   }, [props.scale]);
 
-  useEffect(()=>{
-    console.log(props.coord);
-  }, [props.coord])
+  // useEffect(()=>{
+  //   console.log(props.coord);
+  // }, [props.coord])
 
   return (
     <>
@@ -65,14 +65,14 @@ function Node(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
-    coord: state.node.coord
+    // coord: state.node.coord
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateNodeCoord: (coord: Array<number>) => {
-      dispatch(updateNodeCoord(coord))
+    updateNodeCoord: (id: number, coord: Array<number>) => {
+      dispatch(updateNodeCoord(id, coord))
     }
   }
 }

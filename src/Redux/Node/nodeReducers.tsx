@@ -7,14 +7,16 @@ const initialNodeState = {
   ]
 }
 
-const nodeReducer = (state: any = initialNodeState, action: nodeAction)=> {
-  console.log(state);
+const nodeReducer = (state: any = initialNodeState, action: any)=> {
+  console.log('Hello', state.data);
   switch(action.type) {
-    // case UPDATE_NODE_COORD:
-    //   return {
-    //     ...state,
-    //     coord: action.payload,
-    //   };
+    case UPDATE_NODE_COORD:
+      const updatedNode = {...state.data[action.payload.id], coord: action.payload.coord}
+      const updatedData = [...state.data]
+      updatedData[action.payload.id] = updatedNode;
+      return {
+        data: updatedData
+      };
     case ADD_NODE:
       return {
         ...state,

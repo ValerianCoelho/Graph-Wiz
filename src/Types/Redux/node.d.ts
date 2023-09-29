@@ -6,5 +6,5 @@ export type nodeState = {
 
 export type nodeAction = {
   type: typeof UPDATE_NODE_COORD;
-  payload: Array<number>;
+  payload: Array<Object>;
 };
