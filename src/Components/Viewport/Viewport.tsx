@@ -5,6 +5,7 @@ import { updateScale } from '../../Redux/index.tsx';
 import Theme from "../../Theme.tsx";
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
+import GraphPattern from '../Graph Pattern/GraphPattern.tsx';
 
 function Viewport(props: any) {
   const viewport = useRef<HTMLDivElement>(null);
@@ -63,7 +64,9 @@ function Viewport(props: any) {
   return (
     <>
       <div className="viewport__body__wrapper">
+        <GraphPattern/>
         <div className="viewport__body" ref={viewport}>
+          
           {props.node.map((nodeData: any, index: number) => (
             <Node label={nodeData.label} key={index} id={index}/>
           ))}
