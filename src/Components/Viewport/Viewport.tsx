@@ -9,22 +9,44 @@ import Path from "../../Graph Components/Path/Path.tsx";
 function Viewport(props: any) {
   const viewport = useRef<HTMLDivElement>(null);
 
-  useEffect(()=> {
-    if(viewport.current) {
-      const panzoom = Panzoom(viewport.current, { 
-        canvas: true, 
-        excludeClass: 'excluded-class', 
-        cursor: 'default' 
+  useEffect(() => {
+    if (viewport.current) {
+      const panzoom = Panzoom(viewport.current, {
+        canvas: true,
+        excludeClass: 'excluded-class',
+        cursor: 'default',
+        noBind: true
       });
+  
       const parent = viewport.current.parentElement;
-      parent?.addEventListener('wheel', (event)=> {
-        if(event.ctrlKey) {
+      let isPointerDown = false;
+  
+      parent?.addEventListener('wheel', (event) => {
+        if (event.ctrlKey) {
           panzoom.zoomWithWheel(event);
           props.updateScale(panzoom.getScale());
         }
       });
+  
+      parent?.addEventListener('pointerdown', (event) => {
+        isPointerDown = true;
+        panzoom.handleDown(event);
+      });
+  
+      document.addEventListener('pointermove', (event) => {
+        if (isPointerDown) {
+          console.log(panzoom.getPan()); // Store this in Redux Store
+          panzoom.handleMove(event);
+        }
+      });
+  
+      document.addEventListener('pointerup', (event) => {
+        isPointerDown = false;
+        panzoom.handleUp(event);
+      });
     }
-  }, [])
+  }, []);
+  
 
   useEffect(()=> {
     console.log(props.node[0]);
@@ -33,8 +55,8 @@ function Viewport(props: any) {
   const styles: string = `
     .viewport__body__wrapper {
       background-color: ${Theme.viewportColor};
-      background-image: url('src/assets/images/Gridlines.png');
-      background-size: 2000px;
+      // background-image: url('src/assets/images/Gridlines.png');
+      // background-size: 2000px;
     }
   `;
 

@@ -3,7 +3,7 @@ import Theme from '../../Theme.tsx'
 function Workspace() {
   const styles: string = `
     .workspace__body {
-      background-color: ${Theme.bgColor};
+      background-color: ${Theme.pannelColor};
     }
   `
   return (
