@@ -4,6 +4,7 @@ function Workspace() {
   const styles: string = `
     .workspace__body {
       background-color: ${Theme.pannelColor};
+      z-index:1;
     }
   `
   return (

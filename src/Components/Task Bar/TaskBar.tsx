@@ -5,6 +5,7 @@ function TaskBar() {
     .task-bar__body {
       background-color: ${Theme.bgColor};
       grid-column:  1 / span 3;
+      z-index:1;
     }
   `
   return (

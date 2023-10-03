@@ -1,5 +1,5 @@
 import Panzoom from '@panzoom/panzoom'
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { updateScale } from '../../Redux/index.tsx';
 import Theme from "../../Theme.tsx";
@@ -56,8 +56,7 @@ function Viewport(props: any) {
   const styles: string = `
     .viewport__body__wrapper {
       background-color: ${Theme.viewportColor};
-      // background-image: url('src/assets/images/Gridlines.png');
-      // background-size: 2000px;
+      position:relative;
     }
   `;
 
@@ -66,7 +65,6 @@ function Viewport(props: any) {
       <div className="viewport__body__wrapper">
         <GraphPattern/>
         <div className="viewport__body" ref={viewport}>
-          
           {props.node.map((nodeData: any, index: number) => (
             <Node label={nodeData.label} key={index} id={index}/>
           ))}
