@@ -1,8 +1,9 @@
-import { UPDATE_SCALE } from "./panzoomActions";
+import { UPDATE_PAN, UPDATE_SCALE } from "./panzoomActions";
 import { panzoomState, panzoomAction } from "../../Types/Redux/panzoom";
 
 const initialPanzoomState: panzoomState = {
-  scale: 1
+  scale: 1,
+  pan: { x: 0, y: 0}
 }
 
 const panzoomReducer = (state: panzoomState = initialPanzoomState, action: panzoomAction)=> {
@@ -12,6 +13,11 @@ const panzoomReducer = (state: panzoomState = initialPanzoomState, action: panzo
         ...state,
         scale: action.payload
       };
+    case UPDATE_PAN:
+      return {
+        ...state,
+        pan: action.payload
+      }
     default: return state;
   }
 }

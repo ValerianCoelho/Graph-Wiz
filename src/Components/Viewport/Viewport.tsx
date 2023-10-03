@@ -2,6 +2,7 @@ import Panzoom from '@panzoom/panzoom'
 import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { updateScale } from '../../Redux/index.tsx';
+import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
 import Theme from "../../Theme.tsx";
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
@@ -36,7 +37,7 @@ function Viewport(props: any) {
   
       document.addEventListener('pointermove', (event) => {
         if (isPointerDown) {
-          console.log(panzoom.getPan()); // Store this in Redux Store
+          props.updatePan(panzoom.getPan())
           panzoom.handleMove(event);
         }
       });
@@ -47,11 +48,6 @@ function Viewport(props: any) {
       });
     }
   }, []);
-  
-
-  useEffect(()=> {
-    console.log(props.node[0]);
-  }, [props.scale])
 
   const styles: string = `
     .viewport__body__wrapper {
@@ -87,6 +83,9 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     updateScale: (scale: number) => {
       dispatch(updateScale(scale))
+    },
+    updatePan: (pan: { x: number, y: number }) => {
+      dispatch(updatePan(pan))
     }
   }
 }
