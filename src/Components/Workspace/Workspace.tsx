@@ -1,19 +1,16 @@
 import Theme from '../../Theme.tsx'
+import styled from 'styled-components';
+
+const StyledWorkspace = styled.div`
+  background-color: ${Theme.pannelColor};
+  z-index:1;
+`
 
 function Workspace() {
-  const styles: string = `
-    .workspace__body {
-      background-color: ${Theme.pannelColor};
-      z-index:1;
-    }
-  `
   return (
-    <>
-      <style> {styles} </style>
-      <div className="workspace__body">
-        <div>Workspace</div>
-      </div>
-    </>
+    <StyledWorkspace >
+      <div>Workspace</div>
+    </StyledWorkspace>
   )
 }
   
