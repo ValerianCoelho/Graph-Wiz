@@ -1,6 +1,6 @@
 import { useState,useRef } from 'react';
 import Theme from '../../Theme.tsx'
-import Dropdown from '../Dropdown/Dropdown.tsx';
+import DropdownMenu from '../Dropdown Menu/DropdownMenu.tsx';
 import {titleBarContext} from './../../Contexts/titleBarContext.ts'
 
 function TitleBar() {
@@ -65,19 +65,19 @@ function TitleBar() {
     <titleBarContext.Provider value={{isActiveDropdown,setIsActiveDropdown}}>
       <style> {styles} </style>
       <div className="title-bar__body">
-        <Dropdown
+        <DropdownMenu
           title="File" 
           options={["Something","something2","Something3","Something4"]}
         />
-        <Dropdown
+        <DropdownMenu
           title="Edit"
           options={["something","something"]}
         />
-        <Dropdown
+        <DropdownMenu
           title="View"
           options={["something","something"]}
         />
-        <Dropdown
+        <DropdownMenu
           title="Help"
           options={["something","something"]}
         />
