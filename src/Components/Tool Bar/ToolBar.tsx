@@ -1,5 +1,5 @@
-import Theme from '../../Theme.tsx'
 import styled from 'styled-components';
+import Theme from '../../Theme.tsx'
 import { connect } from "react-redux";
 import { addNode } from '../../Redux/index.tsx';
 

@@ -1,29 +1,29 @@
-import Theme from "../../Theme";
-import { useState, useEffect, useRef } from 'react'
 import interact from 'interactjs'
+import styled from "styled-components";
+import Theme from "../../Theme";
 import { connect } from "react-redux";
 import { updateNodeCoord } from "../../Redux";
+import { useEffect, useRef } from 'react'
+
+const StyledNode = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  color: ${Theme.nodeFgColor};
+  background-color: ${Theme.nodeBgColor};
+  border: 1px solid ${Theme.nodeBorderColor};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-family: Open Sans;
+`
 
 function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
 
-  const styles: string = `
-    .node {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-
-      color: ${Theme.nodeFgColor};
-      background-color: ${Theme.nodeBgColor};
-      border: 1px solid ${Theme.nodeBorderColor};
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      font-family: Open Sans;
-    }
-  `
   useEffect(()=> {
     if(node.current) {
       const draggable = interact(node.current).draggable({
@@ -50,22 +50,14 @@ function Node(props: any) {
     }
   }, [props.scale]);
 
-  // useEffect(()=>{
-  //   console.log(props.coord);
-  // }, [props.coord])
-
   return (
-    <>
-      <style> {styles} </style>
-      <div className="node excluded-class" ref={node}>{props.label}</div>
-    </>
+    <StyledNode className="excluded-class" ref={node}>{props.label}</StyledNode>
   )
 }
 
 const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
-    // coord: state.node.coord
   }
 }
 
