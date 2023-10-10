@@ -11,7 +11,7 @@ function Workspace() {
   return (
     <StyledWorkspace >
       <div>Workspace</div>
-      <DropdownSelect optionList={["Valerian", "Conrad"]}/>
+      <DropdownSelect optionList={["Valerian", "Conrad", "Ethan", "Rayyan"]}/>
     </StyledWorkspace>
   )
 }
