@@ -1,0 +1,10 @@
+.option-list {
+    list-style-type: none;
+}
+.hide {
+    display: none;
+}
+.selected-option{
+    background-color: #191932;
+    border: 1px solid #6A6A9F;
+}

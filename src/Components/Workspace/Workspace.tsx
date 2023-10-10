@@ -1,6 +1,6 @@
 import Theme from '../../Theme.tsx'
 import styled from 'styled-components';
-import Dropdown from '../Dropdown/Dropdown.tsx';
+import DropdownSelect from '../Dropdown Select/DropdownSelect.tsx';
 
 const StyledWorkspace = styled.div`
   background-color: ${Theme.pannelColor};
@@ -11,7 +11,7 @@ function Workspace() {
   return (
     <StyledWorkspace >
       <div>Workspace</div>
-      <Dropdown/>
+      <DropdownSelect optionList={["Valerian", "Conrad"]}/>
     </StyledWorkspace>
   )
 }
