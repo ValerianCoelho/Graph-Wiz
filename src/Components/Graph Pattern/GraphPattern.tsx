@@ -1,37 +1,30 @@
 import Theme from '../../Theme.tsx'
 import {useState} from 'react'
 import { connect } from "react-redux";
+import styled from 'styled-components'
 
 
  function GraphPattern(props:any) {
 
-  const style:string = `
-  .graphpattern__wrapper{
+  const StyledGraphPatternWrapper = styled.div`
     height:100%;
     width:100%;
     position:absolute;
     z-index:0;
-  }
-
-  #pattern-svg {
-    height: 100%;
-    width:100%;
-    
-  }
-  
-  #pattern__bg {
-    background-color:transparent ;
-    position:absolute;
+  `
+  const StyledPatternSvg = styled.svg`
     height:100%;
-    width:100%
-    
-    
-  }
-  
-  .pattern__line {
-    position: absolute;
+    width:100%;
+  `
+  const StyledPatternBg = styled.div`
+    height:100%;
+    width:100%;
+    background-color:transparent;
+    position:absolute;
+  `
+  const StyledPatternLine = styled.line`
     stroke: ${Theme.fgColor};
-  }
+    position: absolute;
   `
 
   const threshold = 50; // seems to control how big the squares are
@@ -54,10 +47,9 @@ import { connect } from "react-redux";
   return (
     
     <>
-    <style>{style}</style>
-    <div className='graphpattern__wrapper'>
-      <div id="pattern__bg">
-	    <svg id="pattern-svg">
+    <StyledGraphPatternWrapper>
+      <StyledPatternBg>
+	    <StyledPatternSvg>
 		    <defs>
         	  <pattern 
                 id="grid" 
@@ -68,21 +60,21 @@ import { connect } from "react-redux";
                 patternUnits="userSpaceOnUse"
         	  >		
         	  {thinLines.map((line,index)=>{
-                    return <line key={index} className='pattern__line' strokeWidth={thinLineWidth} x1="0" y1={tileSize * line / subdivisions} x2={tileSize} y2={tileSize * line / subdivisions}/>
+                    return <StyledPatternLine key={index} className='pattern__line' strokeWidth={thinLineWidth} x1="0" y1={tileSize * line / subdivisions} x2={tileSize} y2={tileSize * line / subdivisions}/>
               })}
     
       		  {thinLines.map((line,index)=>{
-        			return <line key={index} className='pattern__line' strokeWidth={thinLineWidth} y1="0" x1={tileSize * line / subdivisions} y2={tileSize} x2={tileSize * line / subdivisions}/>
+        			return <StyledPatternLine key={index} className='pattern__line' strokeWidth={thinLineWidth} y1="0" x1={tileSize * line / subdivisions} y2={tileSize} x2={tileSize * line / subdivisions}/>
               })}
         					
-        	  <line className='pattern__line' strokeWidth={thickLineWidth} x1="0" y1={thickLineWidth / 2} x2={tileSize} y2={thickLineWidth / 2} />
-              <line className='pattern__line' strokeWidth={thickLineWidth} x1={thickLineWidth / 2} y1="0" x2={thickLineWidth / 2} y2={tileSize} />
+        	  <StyledPatternLine className='pattern__line' strokeWidth={thickLineWidth} x1="0" y1={thickLineWidth / 2} x2={tileSize} y2={thickLineWidth / 2} />
+              <StyledPatternLine className='pattern__line' strokeWidth={thickLineWidth} x1={thickLineWidth / 2} y1="0" x2={thickLineWidth / 2} y2={tileSize} />
 			  </pattern>
 		    </defs>
 		    <rect fill="url(#grid)" height="100%" width="100%"></rect>
-	    </svg>
-    </div>
-    </div>
+	    </StyledPatternSvg>
+    </StyledPatternBg>
+    </StyledGraphPatternWrapper>
     </>
   );
 }
