@@ -1,8 +1,9 @@
 import Theme from '../../Theme.tsx'
-import {useState,useEffect} from 'react'
+import {useState} from 'react'
+import { connect } from "react-redux";
 
 
-export default function GraphPattern() {
+ function GraphPattern(props:any) {
 
   const style:string = `
   .graphpattern__wrapper{
@@ -36,8 +37,7 @@ export default function GraphPattern() {
   const threshold = 50; // seems to control how big the squares are
   const subdivisions = 10; // thin line subdivisions
 
-  let [isCtrl,setIsCtrl] = useState(false);
-  let [scale,setScale]=useState(300);
+  let scale=props.scale*300;
 
   let [translation,setTranslation] = useState({
     x:0,
@@ -49,15 +49,6 @@ export default function GraphPattern() {
   let thinLineWidth:number = (scale / subdivisions) % threshold / (threshold);
   let thickLineWidth:number=Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
 
-
-
-
-  useEffect(()=>{
-    tileSize = (scale) % (subdivisions * threshold) + threshold;
-    thinLineWidth = (scale / subdivisions) % threshold / (threshold);
-    thickLineWidth = Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
-  },[scale])
-
   const thinLines = [...Array(subdivisions).keys()];
 
   return (
@@ -65,13 +56,6 @@ export default function GraphPattern() {
     <>
     <style>{style}</style>
     <div className='graphpattern__wrapper'>
-      {/* <div className='sliders'  style={{position:"absolute"}}>
-        <input type='range' value={scale} onChange={(e)=>{setScale(Number(e.target.value))}} min={100} max={1000}></input>
-        <br />
-        <input type='range' value={translation.x} onChange={(e)=>{setTranslation((prev)=>{return {...prev,x:Number(e.target.value)}})}}></input>
-        <br />
-        <input type='range' value={translation.y} onChange={(e)=>{setTranslation((prev)=>{return {...prev,y:Number(e.target.value)}})}}></input>
-      </div> */}
       <div id="pattern__bg">
 	    <svg id="pattern-svg">
 		    <defs>
@@ -103,3 +87,14 @@ export default function GraphPattern() {
   );
 }
 
+const mapStateToProps = (state: any) => {
+  return {
+    scale: state.panzoom.scale,
+    node: state.node.data
+  }
+}
+
+
+export default connect(
+  mapStateToProps
+)(GraphPattern)
