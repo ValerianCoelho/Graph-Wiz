@@ -32,15 +32,17 @@ import styled from 'styled-components'
 
   let scale=props.scale*300;
 
-  let [translation,setTranslation] = useState({
-    x:0,
-    y:0
-  });
+  let translation ={
+    x:props.pan.x*props.scale,
+    y:props.pan.y*props.scale
+  }
 
 
   let tileSize:number = (scale) % (subdivisions * threshold) + threshold;
   let thinLineWidth:number = (scale / subdivisions) % threshold / (threshold);
   let thickLineWidth:number=Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
+
+
 
   const thinLines = [...Array(subdivisions).keys()];
 
@@ -79,10 +81,11 @@ import styled from 'styled-components'
   );
 }
 
+
 const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
-    node: state.node.data
+    pan:state.panzoom.pan
   }
 }
 
