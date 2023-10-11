@@ -2,29 +2,30 @@ import Theme from '../../Theme.tsx'
 import { connect } from "react-redux";
 import styled from 'styled-components'
 
+  const StyledGraphPatternWrapper = styled.div`
+  height:100%;
+  width:100%;
+  position:absolute;
+  z-index:0;
+  `
+  const StyledPatternSvg = styled.svg`
+  height:100%;
+  width:100%;
+  `
+  const StyledPatternBg = styled.div`
+  height:100%;
+  width:100%;
+  background-color:transparent;
+  position:absolute;
+  `
+  const StyledPatternLine = styled.line`
+  stroke: ${Theme.fgColor};
+  position: absolute;
+  `
 
  function GraphPattern(props:any) {
 
-  const StyledGraphPatternWrapper = styled.div`
-    height:100%;
-    width:100%;
-    position:absolute;
-    z-index:0;
-  `
-  const StyledPatternSvg = styled.svg`
-    height:100%;
-    width:100%;
-  `
-  const StyledPatternBg = styled.div`
-    height:100%;
-    width:100%;
-    background-color:transparent;
-    position:absolute;
-  `
-  const StyledPatternLine = styled.line`
-    stroke: ${Theme.fgColor};
-    position: absolute;
-  `
+
 
   const threshold = 50; // seems to control how big the squares are
   const subdivisions = 10; // thin line subdivisions
