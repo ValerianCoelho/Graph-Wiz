@@ -19,7 +19,7 @@ import styled from 'styled-components'
   position:absolute;
   `
   const StyledPatternLine = styled.line`
-  stroke: ${Theme.fgColor};
+  stroke: #2A2A2F;
   position: absolute;
   `
 
