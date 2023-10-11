@@ -15,12 +15,11 @@ const StyledWorkspace = styled.div`
 function Workspace() {
   return (
     <StyledWorkspace >
-      <div>Workspace</div>
-      <DropdownSelect optionList={["Valerian", "Conrad", "Ethan", "Rayyan"]}/>
-      <PropertyLabel property={'Density'} value={'5/8'}/>
-      <InputField handleInputChange={(e: any)=>{console.log(e.target.value)}} placeholderText="Enter Something"/>
-      <Button handleClick={()=>{console.log('hello')}}/>
-      <TextField text="Graph Type"/>
+      <DropdownSelect optionList={["Dropdown 1", "Dropdown 2", "Dropdown 3", "Dropdown 4"]}/>
+      <PropertyLabel property={'Property'} value={'Value'}/>
+      <InputField handleInputChange={(e: any)=>{console.log(e.target.value)}} placeholderText="Input Field"/>
+      <Button text="Button" handleClick={()=>{console.log('hello')}}/>
+      <TextField text="Text Field"/>
     </StyledWorkspace>
   )
 }
