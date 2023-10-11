@@ -2,6 +2,7 @@ import Theme from '../../Theme.tsx'
 import styled from 'styled-components';
 import DropdownSelect from '../Dropdown Select/DropdownSelect.tsx';
 import PropertyLabel from '../Property Label/PropertyDisplay.tsx';
+import InputField from '../Input Field/InputField.tsx';
 
 const StyledWorkspace = styled.div`
   background-color: ${Theme.pannelColor};
@@ -15,6 +16,7 @@ function Workspace() {
       <div>Workspace</div>
       <DropdownSelect optionList={["Valerian", "Conrad", "Ethan", "Rayyan"]}/>
       <PropertyLabel property={'Density'} value={'5/8'}/>
+      <InputField handleInputChange={(e: any)=>{console.log(e.target.value)}} placeholderText="Enter Something"/>
     </StyledWorkspace>
   )
 }
