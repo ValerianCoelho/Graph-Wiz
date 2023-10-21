@@ -1,0 +1,36 @@
+.panel {
+    border-bottom: 1px solid #6A6A9F;
+    padding: 10px;
+    padding-bottom: 20px;
+    
+}
+
+.graph-type {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.graph-properties {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-node {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-node-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link-type {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
