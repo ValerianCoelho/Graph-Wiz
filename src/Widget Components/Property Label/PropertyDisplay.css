@@ -1,6 +1,5 @@
 .property-label {
     display: flex;
-    flex-grow: 1;
     text-align: center;
     border: 1px solid #6A6A9F;
     border-radius: 5px;
@@ -10,7 +9,7 @@
 .property {
     background-color: #191932;
     border-right: 1px solid #6A6A9F;
-    flex-grow: 1;
+    width: 70%;
 }
 .value {
     flex-grow: 1;
