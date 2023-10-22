@@ -1,22 +1,13 @@
+// import { connect } from "react-redux";
+// import { addNode } from '../../Redux/index.tsx';
 import styled from 'styled-components';
 import Theme from '../../Theme.tsx'
-import { connect } from "react-redux";
-import { addNode } from '../../Redux/index.tsx';
 import DropdownSelect from '../../Widget Components/Dropdown Select/DropdownSelect.tsx';
 import TextField from '../../Widget Components/Text Field/TextField.tsx';
 import InputField from '../../Widget Components/Input Field/InputField.tsx';
 import Button from '../../Widget Components/Button/Button.tsx';
 import './Editor.css'
 
-const StyledToolbar = styled.div`
-  background-color: ${Theme.bgColor};
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding-top: 10px;
-`
 
 const StyledSvg = styled.svg`
   &:hover path {

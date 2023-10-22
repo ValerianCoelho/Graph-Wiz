@@ -1,17 +1,14 @@
-import { useState,useRef } from 'react';
+// import { useState } from 'react';
 import Theme from '../../Theme.tsx'
 import DropdownMenu from '../Dropdown Menu/DropdownMenu.tsx';
 
 function TitleBar() {
-
-  
-
-  const [isActiveDropdown,setIsActiveDropdown] = useState({
-    "File":false,
-    "Edit":false,
-    "View":false,
-    "Help":false
-  })
+  // const [isActiveDropdown, setIsActiveDropdown] = useState({
+  //   "File":false,
+  //   "Edit":false,
+  //   "View":false,
+  //   "Help":false
+  // })
 
 
  

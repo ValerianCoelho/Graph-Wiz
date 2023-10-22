@@ -1,4 +1,3 @@
-import Theme from "../../Theme"
 
 export default function DropdownItem(props:any) {
 

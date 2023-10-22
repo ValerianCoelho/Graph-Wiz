@@ -1,8 +1,5 @@
-import Button from '../../Widget Components/Button/Button.tsx';
-import DropdownSelect from '../../Widget Components/Dropdown Select/DropdownSelect.tsx';
 import PropertyLabel from '../../Widget Components/Property Label/PropertyDisplay.tsx';
 import TextField from '../../Widget Components/Text Field/TextField.tsx';
-import InputField from '../../Widget Components/Input Field/InputField.tsx';
 import './Analysis.css'
 import DropdownOption from '../../Widget Components/Dropdown Option/DropdownOption.tsx';
 
