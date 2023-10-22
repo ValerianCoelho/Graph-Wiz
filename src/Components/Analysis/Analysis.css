@@ -11,11 +11,6 @@
     
 }
 
-.graph-type {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
 
 .graph-properties {
     display: flex;
@@ -23,20 +18,5 @@
     gap: 10px;
 }
 
-.add-node {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
-.add-node-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.link-type {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}

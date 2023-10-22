@@ -14,23 +14,9 @@ function Analysis() {
       <InputField handleInputChange={(e: any)=>{console.log(e.target.value)}} placeholderText="Input Field"/>
       <Button className="Hello" text="Button" handleClick={()=>{console.log('hello')}}/>
       <TextField text="Text Field"/> */}
-      {/* <div className="graph-type panel">
-        <TextField text="Graph Type"/>
-        <DropdownSelect optionList={["Undirected", "Directed"]}/>
-        <DropdownSelect optionList={["Non Weighted", "Weighted"]}/>
-      </div>
-      <div className="add-node panel">
-        <div className="add-node-line">
-          <TextField text="Node Label"/>
-          <Button text="ADD" handleClick={()=>{}}/>
-        </div>
-        <InputField placeholderText="Node Label"/>
-        <DropdownSelect optionList={["Alphabetical", "Numerical", "Roman Numeral"]}/>
-      </div>
-      <div className="link-type panel">
-        <TextField text="Link Type"/>
-        <InputField placeholderText="Weight"/>
-      </div>
+      
+      
+      
       <div className="graph-properties panel">
         <TextField text="Graph Properties"/>
         <PropertyLabel property="Density" value="5/8"/>
@@ -40,7 +26,7 @@ function Analysis() {
         <PropertyLabel property="Planar" value="True"/>
         <PropertyLabel property="Eulerian" value="False"/>
         <PropertyLabel property="Hamiltonian" value="True"/>
-      </div> */}
+      </div>
     </div>
   )
 }

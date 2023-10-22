@@ -1,3 +1,39 @@
 .editor {
     background-color: #0E0E1C;
 }
+
+.panel {
+    border-bottom: 1px solid #6A6A9F;
+    padding: 10px;
+    padding-bottom: 20px;
+    
+}
+
+.graph-type {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-node {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-node-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-node-line-2 {
+    display: flex;
+    gap: 10px;
+}
+
+.link-type {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
