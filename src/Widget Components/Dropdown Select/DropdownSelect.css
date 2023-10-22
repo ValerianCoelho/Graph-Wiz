@@ -1,6 +1,9 @@
 .hide {
     display: none;
 }
+.dropdown-select {
+    user-select: none;
+}
 .selected-option{
     background-color: #191932;
     border: 1px solid #6A6A9F;

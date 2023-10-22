@@ -4,6 +4,7 @@ import PropertyLabel from '../../Widget Components/Property Label/PropertyDispla
 import TextField from '../../Widget Components/Text Field/TextField.tsx';
 import InputField from '../../Widget Components/Input Field/InputField.tsx';
 import './Analysis.css'
+import DropdownOption from '../../Widget Components/Dropdown Option/DropdownOption.tsx';
 
 
 function Analysis() {
@@ -27,6 +28,7 @@ function Analysis() {
         <PropertyLabel property="Eulerian" value="False"/>
         <PropertyLabel property="Hamiltonian" value="True"/>
       </div>
+      <DropdownOption title="Shortest Path Algorithm" optionList={["Dropdown 1", "Dropdown 2", "Dropdown 3", "Dropdown 4"]}/>
     </div>
   )
 }
