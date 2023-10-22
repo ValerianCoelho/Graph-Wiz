@@ -1,5 +1,3 @@
-import Theme from '../../Theme.tsx'
-import styled from 'styled-components';
 import Button from '../../Widget Components/Button/Button.tsx';
 import DropdownSelect from '../../Widget Components/Dropdown Select/DropdownSelect.tsx';
 import PropertyLabel from '../../Widget Components/Property Label/PropertyDisplay.tsx';
@@ -7,14 +5,10 @@ import TextField from '../../Widget Components/Text Field/TextField.tsx';
 import InputField from '../../Widget Components/Input Field/InputField.tsx';
 import './Workspace.css'
 
-const StyledWorkspace = styled.div`
-  background-color: ${Theme.pannelColor};
-  z-index:1;
-`
 
 function Workspace() {
   return (
-    <StyledWorkspace >
+    <div className="workspace" >
       {/* <DropdownSelect optionList={["Dropdown 1", "Dropdown 2", "Dropdown 3", "Dropdown 4"]}/>
       <PropertyLabel property={'Property'} value={'Value'}/>
       <InputField handleInputChange={(e: any)=>{console.log(e.target.value)}} placeholderText="Input Field"/>
@@ -47,7 +41,7 @@ function Workspace() {
         <PropertyLabel property="Eulerian" value="False"/>
         <PropertyLabel property="Hamiltonian" value="True"/>
       </div>
-    </StyledWorkspace>
+    </div>
   )
 }
   
