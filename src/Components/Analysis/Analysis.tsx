@@ -3,10 +3,10 @@ import DropdownSelect from '../../Widget Components/Dropdown Select/DropdownSele
 import PropertyLabel from '../../Widget Components/Property Label/PropertyDisplay.tsx';
 import TextField from '../../Widget Components/Text Field/TextField.tsx';
 import InputField from '../../Widget Components/Input Field/InputField.tsx';
-import './Workspace.css'
+import './Analysis.css'
 
 
-function Workspace() {
+function Analysis() {
   return (
     <div className="workspace" >
       {/* <DropdownSelect optionList={["Dropdown 1", "Dropdown 2", "Dropdown 3", "Dropdown 4"]}/>
@@ -14,7 +14,7 @@ function Workspace() {
       <InputField handleInputChange={(e: any)=>{console.log(e.target.value)}} placeholderText="Input Field"/>
       <Button className="Hello" text="Button" handleClick={()=>{console.log('hello')}}/>
       <TextField text="Text Field"/> */}
-      <div className="graph-type panel">
+      {/* <div className="graph-type panel">
         <TextField text="Graph Type"/>
         <DropdownSelect optionList={["Undirected", "Directed"]}/>
         <DropdownSelect optionList={["Non Weighted", "Weighted"]}/>
@@ -40,9 +40,9 @@ function Workspace() {
         <PropertyLabel property="Planar" value="True"/>
         <PropertyLabel property="Eulerian" value="False"/>
         <PropertyLabel property="Hamiltonian" value="True"/>
-      </div>
+      </div> */}
     </div>
   )
 }
   
-export default Workspace;
+export default Analysis;
