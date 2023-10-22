@@ -28,7 +28,10 @@ function Analysis() {
         <PropertyLabel property="Eulerian" value="False"/>
         <PropertyLabel property="Hamiltonian" value="True"/>
       </div>
-      <DropdownOption title="Shortest Path Algorithm" optionList={["Dropdown 1", "Dropdown 2", "Dropdown 3", "Dropdown 4"]}/>
+      <DropdownOption title="Shortest Path Algorithm" optionList={["Dijkstra's Algorithm", "Bellman-Ford Algorithm", "Floyd-Warshall Algorithm", "Johnson's Algorithm", "Bidirectional Search"]}/>
+      <DropdownOption title="Graph Traversal" optionList={["Breadth-First Search", "Depth-First Search", "Topological Sort", "Kosaraju's Algorithm", "Tarjan's Algorithm"]}/>
+      <DropdownOption title="Minimum Spanning Tree" optionList={["Prim's Algorithm", "Kruskal's Algorithm", "Boruvka's Algorithm", "Reverse-Delete Algorithm"]}/>
+      <DropdownOption title="Graph Coloring" optionList={["Greedy Coloring", "Backtracking Coloring", "Welsh-Powell Algorithm", "Brooks' Theorem"]}/>
     </div>
   )
 }

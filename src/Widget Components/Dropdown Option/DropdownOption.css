@@ -24,3 +24,7 @@
     padding: 5px 0;
     padding-left: 20px;
 }
+.dropdown-option:hover {
+    background-color: #0E0E1C;
+    outline: 1px solid #6A6A9F;
+}
