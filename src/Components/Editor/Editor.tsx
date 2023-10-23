@@ -1,5 +1,5 @@
-// import { connect } from "react-redux";
-// import { addNode } from '../../Redux/index.tsx';
+import { connect } from "react-redux";
+import { addNode } from '../../Redux/index.tsx';
 import styled from 'styled-components';
 import Theme from '../../Theme.tsx'
 import DropdownSelect from '../../Widget Components/Dropdown Select/DropdownSelect.tsx';
@@ -7,6 +7,7 @@ import TextField from '../../Widget Components/Text Field/TextField.tsx';
 import InputField from '../../Widget Components/Input Field/InputField.tsx';
 import Button from '../../Widget Components/Button/Button.tsx';
 import './Editor.css'
+import { useRef, useState } from "react";
 
 
 const StyledSvg = styled.svg`
@@ -17,8 +18,10 @@ const StyledSvg = styled.svg`
 `
 
 function Editor(props: any) {
+  const [nodeLabel, setNodeLabel] = useState('A');
+
   const handleAddNode = ()=> {
-    const input = window.prompt('Enter Node Name');
+    const input = nodeLabel;
     if(input?.trim()) {
       props.addNode({label: input, coord: [0, 0]})
     }
@@ -42,8 +45,8 @@ function Editor(props: any) {
           <TextField text="Node Label"/>
         </div>
         <div className="add-node-line-2">
-          <InputField placeholderText="Node Label"/>
-          <Button text="ADD" handleClick={()=>{}}/>
+          <InputField onChange={setNodeLabel} placeholderText="Node Label"/>
+          <Button text="ADD" handleClick={handleAddNode}/>
         </div>
         <DropdownSelect optionList={["Alphabetical", "Numerical", "Roman Numeral"]}/>
       </div>
@@ -55,17 +58,15 @@ function Editor(props: any) {
   )
 }
 
-// const mapDispatchToProps = (dispatch: any) => {
-//   return {
-//     addNode: (data: object) => {
-//       dispatch(addNode(data))
-//     }
-//   }
-// }
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addNode: (data: object) => {
+      dispatch(addNode(data))
+    }
+  }
+}
 
-// export default connect(
-//   null,
-//   mapDispatchToProps
-// )(Editor);
-
-export default Editor;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Editor);
