@@ -39,9 +39,11 @@ function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
   const addEdgeBtn = useRef<HTMLDivElement>(null);
 
-  const createEdge = ()=> {
-    console.log('Hello')
-  }
+  useEffect(()=> {
+    addEdgeBtn.current?.addEventListener('click', ()=>{
+      console.log('Hello')
+    })
+  }, [props.addEdge])
 
   useEffect(()=> {
     if(node.current) {
@@ -72,7 +74,7 @@ function Node(props: any) {
 
   return (
     <StyledNode className='excluded-class' ref={node}>
-      { props.addEdge ? <AddEdgeBtn className='ignore-interact' ref={addEdgeBtn} onPointerDown={createEdge}>
+      { props.addEdge ? <AddEdgeBtn className='ignore-interact' ref={addEdgeBtn}>
                           <Label>{props.label}</Label>
                         </AddEdgeBtn>
                       : <Label>{props.label}</Label>

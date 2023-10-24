@@ -1,4 +1,3 @@
-import { addEdge } from "./edgeActionCreaters";
 import { ADD_EDGE } from "./edgeActions";
 
 const initialEdgeState = {
@@ -17,10 +16,12 @@ const edgeReducer = (state: any = initialEdgeState, action: any)=> {
           [action.payload.edgeID]: {
             fromNodeID: action.payload.fromNodeID,
             toNodeID: action.payload.toNodeID,
-            pathFromCoord: action.payload.pathFromCoord,
-            pathToCoord: action.payload.pathToCoord
+            edgeFromCoord: action.payload.edgeFromCoord,
+            edgeToCoord: action.payload.edgeToCoord
           }
         }
       }
   }
 }
+
+export default edgeReducer;
