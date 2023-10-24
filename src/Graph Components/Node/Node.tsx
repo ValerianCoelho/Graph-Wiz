@@ -78,7 +78,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateNodeCoord: (id: number, coord: Array<number>) => {
+    updateNodeCoord: (id: string, coord: Array<number>) => {
       dispatch(updateNodeCoord(id, coord))
     }
   }

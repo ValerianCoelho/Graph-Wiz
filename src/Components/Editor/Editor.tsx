@@ -23,7 +23,7 @@ function Editor(props: any) {
   const handleAddNode = ()=> {
     const input = nodeLabel;
     if(input?.trim()) {
-      props.addNode({nodeID: crypto.randomUUID(), label: input, coord: [0, 0]})
+      props.addNode(crypto.randomUUID(), {label: input, coord: [0, 0]})
     }
   }
 
@@ -60,8 +60,8 @@ function Editor(props: any) {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    addNode: (data: object) => {
-      dispatch(addNode(data))
+    addNode: (nodeID:string, data: object) => {
+      dispatch(addNode(nodeID, data))
     }
   }
 }

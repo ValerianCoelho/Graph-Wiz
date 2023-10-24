@@ -15,20 +15,18 @@ const nodeReducer = (state: any = initialNodeState, action: any)=> {
         ...state,
         data: {
           ...state.data,
-          [action.payload.id]: {
-            ...state.data[action.payload.id], 
+          [action.payload.nodeID]: {
+            ...state.data[action.payload.nodeID], 
             coord: action.payload.coord
           }
         }
       };
     case ADD_NODE:
-      const { nodeID, ...newNodeData } = action.payload;
-      console.log(nodeID);
       return {
         ...state,
         data: {
           ...state.data,
-          [nodeID]: newNodeData
+          [action.payload.nodeID]: action.payload.data
         }
       }
     default: return state;
