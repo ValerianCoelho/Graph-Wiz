@@ -12,6 +12,8 @@
     display: none;
     width:200px;
     top:30px;
+    border-radius:5px;
+    overflow: hidden;
   }
   .drop-down{
     display:flex;
