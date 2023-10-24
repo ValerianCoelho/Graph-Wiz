@@ -32,14 +32,12 @@ function DropdownOption(props: any) {
   const [isOpen, setIsOpen] = useState(false);
 
 
-
-
   return (
-    <StyledDropdownOptions className="dropdown-options">
-        <StyledDropdownTitle className="dropdown-title" onClick={()=>{setIsOpen(!isOpen)}}>{props.title}</StyledDropdownTitle>
+    <StyledDropdownOptions>
+        <StyledDropdownTitle onClick={()=>{setIsOpen(!isOpen)}}>{props.title}</StyledDropdownTitle>
         <StyledDropdownList $isOpen={isOpen}>
             {props.optionList.map((option: any)=>(
-            <StyledDropdownOption className="dropdown-option" key={option} onClick={()=>{console.log(option)}}> {option} </StyledDropdownOption>
+            <StyledDropdownOption key={option} onClick={()=>{console.log(option)}}> {option} </StyledDropdownOption>
             ))}
         </StyledDropdownList>
     </StyledDropdownOptions>
