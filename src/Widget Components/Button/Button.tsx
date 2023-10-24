@@ -17,7 +17,7 @@ const StyledButton = styled.div`
 function Button(props: any) {
   return (
     <>
-      <StyledButton className='button' onClick={props.handleClick}>{props.text}</StyledButton>
+      <StyledButton onClick={props.handleClick}>{props.text}</StyledButton>
     </>
   )
 }

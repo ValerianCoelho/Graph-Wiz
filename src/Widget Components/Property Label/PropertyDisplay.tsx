@@ -1,11 +1,28 @@
-import './PropertyDisplay.css'
+import styled from 'styled-components';
+
+const StyledPropertyLabel = styled.div`
+    display: flex;
+    text-align: center;
+    border: 1px solid #6A6A9F;
+    border-radius: 5px;
+    overflow: hidden;
+    font-family: 'Open Sans', 'Arial';
+`
+const StyledProperty = styled.div`
+    background-color: #191932;
+    border-right: 1px solid #6A6A9F;
+    width: 70%;
+`
+const StyledValue = styled.div`
+    flex-grow: 1;
+`
 
 function PropertyLabel(props: any) {
   return (
-    <div className="property-label">
-      <div className="property"> {props.property} </div>
-      <div className="value"> {props.value} </div>
-    </div>
+    <StyledPropertyLabel>
+      <StyledProperty> {props.property} </StyledProperty>
+      <StyledValue> {props.value} </StyledValue>
+    </StyledPropertyLabel>
   )
 }
 

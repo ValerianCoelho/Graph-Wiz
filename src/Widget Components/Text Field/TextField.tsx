@@ -1,8 +1,15 @@
-import './TextField.css'
+import styled from 'styled-components';
+
+
+const StyledTextField = styled.div`
+    color: #6A6A9F;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    display: inline-block;
+`
 
 function TextField(props: any) {
   return (
-    <div className='text-field'>{props.text}</div>
+    <StyledTextField>{props.text}</StyledTextField>
   )
 }
 export default TextField;
