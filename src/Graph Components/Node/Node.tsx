@@ -18,7 +18,7 @@ const StyledNode = styled.div`
   justify-content: center;
   align-items: center;
   
-  font-family: Open Sans;
+  font-family: 'Open Sans';
 `
 const AddEdgeBtn = styled.div`
   background-color: #05050F;
@@ -38,6 +38,7 @@ function Node(props: any) {
   useEffect(()=> {
     if(node.current) {
       const draggable = interact(node.current).draggable({
+        ignoreFrom: '.ignore-interact',
         listeners: {
           move: (event)=> {
             const target = event.target; 
@@ -62,9 +63,9 @@ function Node(props: any) {
   }, [props.scale]);
 
   return (
-    <StyledNode className="excluded-class" ref={node}>
-      <Label>{props.label}</Label>
-      {props.addEdge? <AddEdgeBtn></AddEdgeBtn> : < ></>}
+    <StyledNode className='excluded-class' ref={node}>
+      <Label className={props.addEdge ? 'ignore-interact': ''}>{props.label}</Label>
+      {props.addEdge? <AddEdgeBtn className='ignore-interact'></AddEdgeBtn> : <></>}
     </StyledNode>
   )
 }
