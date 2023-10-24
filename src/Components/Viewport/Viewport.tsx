@@ -20,8 +20,19 @@ const StyledViewportWrapper = styled.div`
 `
 
 function Viewport(props: any) {
+  const [x2, setX2] = useState(0);
+  const [y2, setY2] = useState(0);
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    viewport.current?.addEventListener('mousemove', (e) => {
+      const rect = viewport.current?.getBoundingClientRect();
+      setX2(e.clientX - (rect?.left || 0)); // Use optional chaining and fallback value
+      setY2(e.clientY - (rect?.top || 0));  // Use optional chaining and fallback value
+    });
+  }, []);
+  
 
   useEffect(() => {
     if (viewport.current) {
@@ -73,7 +84,7 @@ function Viewport(props: any) {
             <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked}/>
           ))}
 
-          { props.creatingPath && <PseudoPath/>}
+          { props.creatingPath && <PseudoPath x2={x2} y2={y2}/>}
         </div>
       </StyledViewportWrapper>
     </>
