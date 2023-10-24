@@ -3,8 +3,8 @@ onPointerDown on Node:
 
     create a path (add foll info to redux store)
     set pathId = {pathId} 
-    set fromNode = {fromNode}
-    set toNode = {undefined} 
+    set fromNodeID = {fromNodeID}
+    set toNodeID = {undefined} 
     set pathFromCoord = {nodeX, nodeY}
     set pathToCoord = {pointerX, pointerY}
 

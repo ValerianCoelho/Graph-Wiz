@@ -10,12 +10,12 @@ export const updateNodeCoord = (nodeID: string, coord: Array<number>)=> {
   }
 }
 
-export const addNode = (nodeID: string, data: object)=> {
+export const addNode = (nodeID: string, nodeData: object)=> {
   return {
     type: ADD_NODE,
     payload: {
       nodeID: nodeID,
-      data: data
+      nodeData: nodeData
     }
   }
 }
