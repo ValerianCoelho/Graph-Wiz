@@ -64,7 +64,7 @@ function Viewport(props: any) {
         <GraphPattern/>
         <div className="viewport__body" ref={viewport}>
           {props.node.map((nodeData: any, index: number) => (
-            <Node label={nodeData.label} key={index} id={index}/>
+            <Node label={nodeData.label} key={index} id={index} addEdge={isAddEdgeBtnClicked}/>
           ))}
           <Path x1="10" y1="50" x2="500" y2="70"/>
         </div>

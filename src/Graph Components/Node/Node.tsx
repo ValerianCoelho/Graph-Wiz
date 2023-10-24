@@ -20,6 +20,17 @@ const StyledNode = styled.div`
   
   font-family: Open Sans;
 `
+const AddEdgeBtn = styled.div`
+  background-color: #05050F;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+`
+const Label = styled.div`
+  z-index: 3;
+
+`
 
 function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
@@ -51,7 +62,10 @@ function Node(props: any) {
   }, [props.scale]);
 
   return (
-    <StyledNode className="excluded-class" ref={node}>{props.label}</StyledNode>
+    <StyledNode className="excluded-class" ref={node}>
+      <Label>{props.label}</Label>
+      {props.addEdge? <AddEdgeBtn></AddEdgeBtn> : < ></>}
+    </StyledNode>
   )
 }
 
