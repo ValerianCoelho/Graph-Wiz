@@ -1,5 +1,6 @@
 import { useState,useRef, useEffect } from "react";
 import styled from "styled-components";
+import keyframes from "styled-components";
 
 const StyledDropdownSelect = styled.div`
     user-select: none;
@@ -25,6 +26,7 @@ const StyledOptionList = styled.div<{$isOpen:boolean}>`
     width: 100%;
     top: 20px;
     z-index: 10;
+
 `
 const StyledOption = styled.div`
     background-color: #27274F;

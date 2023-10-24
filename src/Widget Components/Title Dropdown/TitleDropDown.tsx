@@ -47,10 +47,6 @@ const StyledDropdownListItem = styled.div`
 
 function TitleDropDown(props:any) {
 
-    /* 
-        Each drop down component needs a title and options prop
-    */
-
   
   return (
     <>
