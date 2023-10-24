@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState,useRef, useEffect } from "react";
 import styled from "styled-components";
 
 const StyledDropdownSelect = styled.div`
     user-select: none;
+    position: relative;
 `
 const StyledSelectedOption = styled.div`
     background-color: #191932;
@@ -20,6 +21,10 @@ const StyledOptionList = styled.div<{$isOpen:boolean}>`
     border-radius: 5px;
     margin-top: 5px;
     display:${props=>props.$isOpen?"block":"none"};
+    position: absolute;
+    width: 100%;
+    top: 20px;
+    z-index: 10;
 `
 const StyledOption = styled.div`
     background-color: #27274F;
@@ -36,10 +41,23 @@ function DropdownSelect(props: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(props.optionList[0]);
 
+  const dropDownRef:any = useRef(null);
 
+  function handleOutside(e:any){
+    if(!dropDownRef.current.contains(e.target)){
+      setIsOpen(false);
+    }
+    document.removeEventListener("click",handleOutside);
+  }
+
+
+  useEffect(()=>{
+    document.addEventListener("click",handleOutside,true);
+
+  },[dropDownRef])
 
   return (
-    <StyledDropdownSelect>
+    <StyledDropdownSelect ref={dropDownRef}>
       <StyledSelectedOption  onClick={()=>{setIsOpen(!isOpen)}}> {selectedOption} </StyledSelectedOption>
       <StyledOptionList $isOpen={isOpen} >
         {props.optionList.map((option: any)=>(
