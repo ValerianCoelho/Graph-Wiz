@@ -1,9 +1,15 @@
 import Path from "../Path/Path";
 import { useState, useEffect } from 'react'
+import { connect } from "react-redux";
 
 function PseudoPath(props: any) {
   const [x1, setX1] = useState(10);
   const [y1, setY1] = useState(20);
+
+  useEffect(()=>{
+    setX1(props.coords.x)
+    setY1(props.coords.y)
+  }, [props.coords])
 
   return (
     <>
@@ -17,4 +23,12 @@ function PseudoPath(props: any) {
   )
 }
 
-export default PseudoPath;
+const mapStateToProps = (state: any) => {
+  return {
+    coords: state.globalFlags.pseudoPathStartCoords,
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(PseudoPath)

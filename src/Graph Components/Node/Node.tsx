@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Theme from "../../Theme";
 import { connect } from "react-redux";
 import { updateNodeCoord } from "../../Redux";
+import { updatePseudoPathStartCoords } from '../../Redux';
 import { toggleCreatingPath } from '../../Redux';
 import { useEffect, useRef } from 'react'
 
@@ -46,7 +47,13 @@ function Node(props: any) {
 
   useEffect(() => {
     const handleClick = () => {
-      console.log(props.creatingPath);
+      const rect = node.current?.getBoundingClientRect();
+      const width = rect?.width || 0; // node elements width
+      const height = rect?.height || 0; // node elements height
+
+      const nodeCoords = props.node[props.id].coord; // from redux store
+
+      props.updatePseudoPathStartCoords({x: nodeCoords[0] + (width/2), y: nodeCoords[1] + (height/2)})
       props.toggleCreatingPath(props.creatingPath);
     };
   
@@ -99,6 +106,7 @@ function Node(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
+    node: state.node.data,
     creatingPath: state.globalFlags.creatingPath
   }
 }
@@ -110,6 +118,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     toggleCreatingPath: (creatingPath: boolean)=> {
       dispatch(toggleCreatingPath(creatingPath))
+    },
+    updatePseudoPathStartCoords: (coords: {x: number, y: number})=> {
+      dispatch(updatePseudoPathStartCoords(coords))
     }
   }
 }

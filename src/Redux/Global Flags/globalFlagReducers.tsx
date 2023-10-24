@@ -1,7 +1,11 @@
-import { TOGGLE_CREATING_PATH } from "./globalFlagActions";
+import { TOGGLE_CREATING_PATH, UPDATE_PSEUDO_PATH_START_COORDS } from "./globalFlagActions";
 
 const initialGlobalFlagState = {
-  creatingPath: false
+  creatingPath: false,
+  pseudoPathStartCoords: {
+    x: 0,
+    y: 0
+  }
 }
 
 const globalFlagReducer = (state: any = initialGlobalFlagState, action: any)=> {
@@ -12,6 +16,12 @@ const globalFlagReducer = (state: any = initialGlobalFlagState, action: any)=> {
       return {
         ...state,
         creatingPath: !action.payload
+      }
+    case UPDATE_PSEUDO_PATH_START_COORDS:
+      console.log(state)
+      return {
+        ...state,
+        pseudoPathStartCoords: action.payload
       }
     default: return state;
   }
