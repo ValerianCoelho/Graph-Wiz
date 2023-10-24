@@ -9,7 +9,7 @@ import styled from 'styled-components'
 const StyledApp = styled.div`
   height: 100vh;
   display: grid;
-  grid-template-columns: 15% auto 15%;
+  grid-template-columns: minmax(150px,15%) auto minmax(150px,15%);
   grid-template-rows: 5% auto 5%;
   gap: 1px;
   background-color: ${Theme.fgColor};
