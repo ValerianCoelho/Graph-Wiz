@@ -19,19 +19,28 @@ const StyledDropdownBtn = styled.button`
     width: 50px;
     height: 20px;
 `
-const StyledDropdownList = styled.div<{$activeBtn:string,$title:string}>`
+const StyledDropdownList = styled.div`
     flex-direction:column;
     position:absolute;
     border:solid #6A6A9F 1px;
-    z-index: 10;
-    display: ${props=>props.$activeBtn==props.$title?"block":"none"};
+    z-index: -1;
+    display: block;
     width:200px;
     top:30px;
     border-radius:5px;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.2s ease-out;
+    &.reveal{
+        transform: translateY(0);
+        opacity: 1;
+        z-index: 10;
+    }
 `
 const StyledDropdownListItem = styled.div`
     display:flex;
+    cursor: pointer;
     flex-direction:row;
     justify-content:start;
     padding-inline-start: 20px;
@@ -43,20 +52,24 @@ const StyledDropdownListItem = styled.div`
     height:40px;
     text-transform:lowercase;
     z-index:20;
+    &:hover{
+        background-color: #0e0e1c;
+    }
 `
 
 function TitleDropDown(props:any) {
 
+ const isSelected :boolean=(props.activeBtn==props.title)?true:false;
   
   return (
     <>
     <StyledDropdown>
 
-         <StyledDropdownBtn onClick={()=>{(props.activeBtn==props.title)?props.selectBtn(""):props.selectBtn(props.title)}}>
+         <StyledDropdownBtn onClick={()=>{isSelected?props.selectBtn(""):props.selectBtn(props.title)}}>
          {props.title}
          </StyledDropdownBtn>
 
-        <StyledDropdownList $activeBtn={props.activeBtn} $title={props.title} >
+        <StyledDropdownList className={isSelected?"reveal":""} >
         {
         props.options&&props.options.map((option:any,index:number)=>(
              <StyledDropdownListItem key={index}>
