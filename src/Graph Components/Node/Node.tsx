@@ -26,6 +26,9 @@ const AddEdgeBtn = styled.div`
   height: 20px;
   border-radius: 50%;
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 const Label = styled.div`
   z-index: 3;
@@ -34,6 +37,13 @@ const Label = styled.div`
 
 function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
+  const addEdgeBtn = useRef<HTMLDivElement>(null);
+
+  useEffect(()=> {
+    addEdgeBtn.current?.addEventListener('click', ()=>{
+      console.log('Hello')
+    })
+  }, [props.addEdge])
 
   useEffect(()=> {
     if(node.current) {
@@ -64,8 +74,11 @@ function Node(props: any) {
 
   return (
     <StyledNode className='excluded-class' ref={node}>
-      <Label className={props.addEdge ? 'ignore-interact': ''}>{props.label}</Label>
-      {props.addEdge? <AddEdgeBtn className='ignore-interact'></AddEdgeBtn> : <></>}
+      { props.addEdge ? <AddEdgeBtn className='ignore-interact' ref={addEdgeBtn}>
+                          <Label>{props.label}</Label>
+                        </AddEdgeBtn>
+                      : <Label>{props.label}</Label>
+      }
     </StyledNode>
   )
 }
