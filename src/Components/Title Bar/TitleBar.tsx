@@ -15,7 +15,7 @@ align-items:center;
 
 function TitleBar() { 
 
-const [activeBtn,setActiveBtn] = useState("Edit");
+const [activeBtn,setActiveBtn] = useState("");
 
 const selectBtn=(title:string)=>{
   setActiveBtn(title);
