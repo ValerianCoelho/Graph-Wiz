@@ -62,8 +62,7 @@ function Node(props: any) {
     return () => {
       addEdgeBtn.current?.removeEventListener('pointerdown', handleClick);
     };
-  }, [props.addEdge, props.creatingPath]);
-  
+  }, [props.addEdge, props.creatingPath]);  
 
   useEffect(()=> {
     if(node.current) {

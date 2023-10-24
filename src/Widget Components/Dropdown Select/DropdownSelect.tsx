@@ -60,7 +60,7 @@ function DropdownSelect(props: any) {
   }
 
   useEffect(()=>{
-    document.addEventListener("click", handleOutside);
+    document.addEventListener("click", handleOutside, true);
   },[])
 
   return (

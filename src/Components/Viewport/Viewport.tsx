@@ -24,9 +24,24 @@ function Viewport(props: any) {
   const [y2, setY2] = useState(0);
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
+  const nodesWrapper = useRef<HTMLDivElement>(null);
+ 
+  useEffect(() => {
+    const handlePointerUp = (e:any) => {
+      if (!nodesWrapper.current?.contains(e.target)) {
+        props.toggleCreatingPath(props.creatingPath);
+      }
+    };
+    viewport.current?.addEventListener('pointerup', handlePointerUp);
+  
+    return () => {
+      viewport.current?.removeEventListener('pointerup', handlePointerUp);
+    };
+  }, [props.creatingPath]);
+  
 
   useEffect(() => {
-    viewport.current?.addEventListener('mousemove', (e) => {
+    viewport.current?.addEventListener('pointermove', (e) => {
       const rect = viewport.current?.getBoundingClientRect();
       setX2(e.clientX - (rect?.left || 0)); // Use optional chaining and fallback value
       setY2(e.clientY - (rect?.top || 0));  // Use optional chaining and fallback value
@@ -80,9 +95,11 @@ function Viewport(props: any) {
         <GraphPattern/>
 
         <div className="viewport__body" ref={viewport}>
-          {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>(
-            <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked}/>
-          ))}
+          <div className="nodes-wrapper" ref={nodesWrapper}>
+            {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>(
+              <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked}/>
+            ))}
+          </div>
 
           { props.creatingPath && <PseudoPath x2={x2} y2={y2}/>}
         </div>
@@ -106,7 +123,10 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     updatePan: (pan: { x: number, y: number }) => {
       dispatch(updatePan(pan))
-    }
+    },
+    toggleCreatingPath: (creatingPath: boolean)=> {
+      dispatch(toggleCreatingPath(creatingPath))
+    },
   }
 }
 
