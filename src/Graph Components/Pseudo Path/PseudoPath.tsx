@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react'
 import { connect } from "react-redux";
 
 function PseudoPath(props: any) {
-  const [x1, setX1] = useState(10);
-  const [y1, setY1] = useState(20);
+  const [x1, setX1] = useState(props.coords.x);
+  const [y1, setY1] = useState(props.coords.y);
 
   useEffect(()=>{
     setX1(props.coords.x)

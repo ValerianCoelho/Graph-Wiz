@@ -57,10 +57,10 @@ function Node(props: any) {
       props.toggleCreatingPath(props.creatingPath);
     };
   
-    addEdgeBtn.current?.addEventListener('click', handleClick);
+    addEdgeBtn.current?.addEventListener('pointerdown', handleClick);
   
     return () => {
-      addEdgeBtn.current?.removeEventListener('click', handleClick);
+      addEdgeBtn.current?.removeEventListener('pointerdown', handleClick);
     };
   }, [props.addEdge, props.creatingPath]);
   
