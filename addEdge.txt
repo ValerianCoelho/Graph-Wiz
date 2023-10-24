@@ -1,0 +1,21 @@
+onPointerDown on Node:
+    set creatingPath = {true}
+
+    create a path (add foll info to redux store)
+    set pathId = {pathId} 
+    set fromNode = {fromNode}
+    set toNode = {undefined} 
+    set pathFromCoord = {nodeX, nodeY}
+    set pathToCoord = {pointerX, pointerY}
+
+onPointerMove && creatingPath==true:
+    update pathToCoord based on current pointer position
+
+onPointerUp:
+    is pointer on node?
+        yes: is from node == to node?
+            yes: destroy path
+            no: set toNode = {toNode}
+                update pathToCoord
+        no: destroy path
+    set creatingPath = {false}
