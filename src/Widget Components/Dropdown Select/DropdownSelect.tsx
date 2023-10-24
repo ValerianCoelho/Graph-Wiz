@@ -49,14 +49,12 @@ function DropdownSelect(props: any) {
     if(!dropDownRef.current.contains(e.target)){
       setIsOpen(false);
     }
-    document.removeEventListener("click",handleOutside);
+    document.removeEventListener("click", handleOutside);
   }
 
-
   useEffect(()=>{
-    document.addEventListener("click",handleOutside,true);
-
-  },[dropDownRef])
+    document.addEventListener("click", handleOutside);
+  },[])
 
   return (
     <StyledDropdownSelect ref={dropDownRef}>
