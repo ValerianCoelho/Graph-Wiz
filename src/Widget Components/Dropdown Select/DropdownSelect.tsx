@@ -1,6 +1,5 @@
 import { useState,useRef, useEffect } from "react";
 import styled from "styled-components";
-import keyframes from "styled-components";
 
 const StyledDropdownSelect = styled.div`
     user-select: none;
@@ -14,18 +13,26 @@ const StyledSelectedOption = styled.div`
     font-family: 'Open Sans', arial;
     padding-left: 8px;
 `
-const StyledOptionList = styled.div<{$isOpen:boolean}>`
+const StyledOptionList = styled.div`
     cursor: default;
     list-style-type: none;
     background-color: #191932;
     border: 1px solid #6A6A9F;
     border-radius: 5px;
     margin-top: 5px;
-    display:${props=>props.$isOpen?"block":"none"};
+    display:block;
     position: absolute;
     width: 100%;
-    top: 20px;
-    z-index: 10;
+    /* top: 20px; */
+    z-index: -5;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.2s ease-out;
+    &.reveal{
+      transform: translateY(0px);
+      opacity: 1;
+      z-index: 10;
+    }
 
 `
 const StyledOption = styled.div`
@@ -35,7 +42,7 @@ const StyledOption = styled.div`
     padding-left: 5px;
     font-family: 'Open Sans', arial;
     &:hover{
-    background-color: #0E0E1C;
+      background-color: #0E0E1C;
     }
 `
 
@@ -59,7 +66,7 @@ function DropdownSelect(props: any) {
   return (
     <StyledDropdownSelect ref={dropDownRef}>
       <StyledSelectedOption  onClick={()=>{setIsOpen(!isOpen)}}> {selectedOption} </StyledSelectedOption>
-      <StyledOptionList $isOpen={isOpen} >
+      <StyledOptionList className={isOpen?"reveal":""} >
         {props.optionList.map((option: any)=>(
           <StyledOption key={option} onClick={()=>{
             setSelectedOption(option);
