@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Theme from "../../Theme";
 import { connect } from "react-redux";
 import { updateNodeCoord } from "../../Redux";
+import { toggleCreatingPath } from '../../Redux';
 import { useEffect, useRef } from 'react'
 
 const StyledNode = styled.div`
@@ -39,11 +40,19 @@ function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
   const addEdgeBtn = useRef<HTMLDivElement>(null);
 
-  useEffect(()=> {
-    addEdgeBtn.current?.addEventListener('click', ()=>{
-      console.log('Hello')
-    })
-  }, [props.addEdge])
+  useEffect(() => {
+    const handleClick = () => {
+      console.log(props.creatingPath);
+      props.toggleCreatingPath(props.creatingPath);
+    };
+  
+    addEdgeBtn.current?.addEventListener('click', handleClick);
+  
+    return () => {
+      addEdgeBtn.current?.removeEventListener('click', handleClick);
+    };
+  }, [props.addEdge, props.creatingPath]);
+  
 
   useEffect(()=> {
     if(node.current) {
@@ -86,6 +95,7 @@ function Node(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
+    creatingPath: state.globalFlags.creatingPath
   }
 }
 
@@ -93,6 +103,9 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     updateNodeCoord: (id: string, coord: Array<number>) => {
       dispatch(updateNodeCoord(id, coord))
+    },
+    toggleCreatingPath: (creatingPath: boolean)=> {
+      dispatch(toggleCreatingPath(creatingPath))
     }
   }
 }
