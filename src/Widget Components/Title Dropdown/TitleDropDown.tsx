@@ -10,14 +10,14 @@ function TitleDropDown(props:any) {
     <>
     <div className="drop-down" style={{width:`${props.width===undefined?"50px":props.width+"px"}`}}>
 
-         <button className="drop-down__btn"  style={{width:"50px",height:"20px"}}>
+         <button className="drop-down__btn"  style={{width:"50px",height:"20px"}} onClick={props.selectBtn(props.title)}>
          {props.title}
          </button>
 
-        <div className={`drop-down__list`} style={{width:`100px`,top:`30px`,display:`none`}}>
+        <div className={`drop-down__list`}>
         {
-        props.options&&props.options.map((option:any)=>(
-             <div className="drop-down__list__item">
+        props.options&&props.options.map((option:any,index:number)=>(
+             <div key={index} className="drop-down__list__item">
              {option}
              </div>
          ))

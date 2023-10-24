@@ -8,6 +8,10 @@
     flex-direction:column;
     position:absolute;
     border:solid #6A6A9F 1px;
+    z-index: 10;
+    display: none;
+    width:200px;
+    top:30px;
   }
   .drop-down{
     display:flex;
@@ -21,7 +25,8 @@
   .drop-down__list__item{
     display:flex;
     flex-direction:row;
-    justify-content:center;
+    justify-content:start;
+    padding-inline-start: 20px;
     align-items:center;
     border-style:none;
     background-color:#191932;
