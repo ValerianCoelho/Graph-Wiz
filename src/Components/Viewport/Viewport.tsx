@@ -1,5 +1,5 @@
 import Panzoom from '@panzoom/panzoom'
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { updateScale } from '../../Redux/index.tsx';
 import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
@@ -15,8 +15,8 @@ const StyledViewportWrapper = styled.div`
   position:relative;
 `
 
-
 function Viewport(props: any) {
+  const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function Viewport(props: any) {
   return (
     <>
       <StyledViewportWrapper>
-        <div onClick={()=>{console.log('Hello')}}><NavigationButton/></div>
+        <div onClick={()=>{setIsAddBtnClicked(!isAddEdgeBtnClicked)}}><NavigationButton color={isAddEdgeBtnClicked ? '#FFFFFF' : '#6A6A9F'}/></div>
         <GraphPattern/>
         <div className="viewport__body" ref={viewport}>
           {props.node.map((nodeData: any, index: number) => (
