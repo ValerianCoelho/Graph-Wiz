@@ -18,12 +18,12 @@ const StyledSvg = styled.svg`
 `
 
 function Editor(props: any) {
-  const [nodeLabel, setNodeLabel] = useState('A');
+  const [nodeLabel, setNodeLabel] = useState('');
 
   const handleAddNode = ()=> {
     const input = nodeLabel;
     if(input?.trim()) {
-      props.addNode({label: input, coord: [0, 0]})
+      props.addNode({nodeID: crypto.randomUUID(), label: input, coord: [0, 0]})
     }
   }
 
