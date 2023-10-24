@@ -1,0 +1,14 @@
+.navigation-btn {
+    background-color: #191932;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #6A6A9F;
+    position: absolute;
+    z-index: 100;   
+    right: 10px; 
+    top: 10px;
+}

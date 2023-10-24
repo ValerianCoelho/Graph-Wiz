@@ -8,6 +8,7 @@ import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
 import GraphPattern from '../Graph Pattern/GraphPattern.tsx';
 import styled from 'styled-components';
+import NavigationButton from '../../Widget Components/Navigation Button/NavigationButton.tsx';
 
 const StyledViewportWrapper = styled.div`
   background-color: ${Theme.viewportColor};
@@ -59,6 +60,7 @@ function Viewport(props: any) {
   return (
     <>
       <StyledViewportWrapper>
+        <div onClick={()=>{console.log('Hello')}}><NavigationButton/></div>
         <GraphPattern/>
         <div className="viewport__body" ref={viewport}>
           {props.node.map((nodeData: any, index: number) => (
