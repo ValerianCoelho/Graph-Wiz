@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useRef, useEffect } from 'react';
 import Theme from '../../Theme.tsx'
 import TitleDropDown from '../../Widget Components/Title Dropdown/TitleDropDown.tsx';
 import styled from 'styled-components';
@@ -15,18 +15,34 @@ align-items:center;
 
 function TitleBar() { 
 
+const titleBarRef:any=useRef(null);
+
 const [activeBtn,setActiveBtn] = useState("");
 
 const selectBtn=(title:string)=>{
   setActiveBtn(title);
 }
-const unSelectBtn=(title:string)=>{
+const unSelectBtn=()=>{
   setActiveBtn("None");
 }
 
+function handleClickCheck(e:any){
+
+  if(!titleBarRef.current.contains(e.target)){
+    unSelectBtn();
+  }
+  document.removeEventListener("click",handleClickCheck);
+}
+
+useEffect(()=>{
+  document.addEventListener("click",handleClickCheck,true)
+
+},[titleBarRef])
+
+
   return (
     <>
-      <StyledTitleBar className="title-bar__body">
+      <StyledTitleBar className="title-bar__body" ref={titleBarRef}>
         <TitleDropDown
           title="File" 
           options={["Something","something2","Something3","Something4"]}
