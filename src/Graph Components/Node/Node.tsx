@@ -20,6 +20,10 @@ const StyledNode = styled.div`
   align-items: center;
   
   font-family: 'Open Sans';
+
+  position: absolute;
+  top: 0;
+  left: 0;
 `
 const AddEdgeBtn = styled.div`
   background-color: #05050F;
