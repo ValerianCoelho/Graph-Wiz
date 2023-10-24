@@ -1,13 +1,17 @@
 import Panzoom from '@panzoom/panzoom'
-import { useState, useEffect, useRef } from "react";
+import styled from 'styled-components';
 import { connect } from "react-redux";
-import { updateScale } from '../../Redux/index.tsx';
-import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
+import { useState, useEffect, useRef } from "react";
+
 import Theme from "../../Theme.tsx";
+
+import { toggleCreatingPath, updateScale } from '../../Redux/index.tsx';
+import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
+
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
 import GraphPattern from '../Graph Pattern/GraphPattern.tsx';
-import styled from 'styled-components';
+import PseudoPath from '../../Graph Components/Pseudo Path/PseudoPath.tsx';
 import NavigationButton from '../../Widget Components/Navigation Button/NavigationButton.tsx';
 
 const StyledViewportWrapper = styled.div`
@@ -61,12 +65,15 @@ function Viewport(props: any) {
     <>
       <StyledViewportWrapper>
         <div onClick={()=>{setIsAddBtnClicked(!isAddEdgeBtnClicked)}}><NavigationButton color={isAddEdgeBtnClicked ? '#FFFFFF' : '#6A6A9F'}/></div>
+
         <GraphPattern/>
+
         <div className="viewport__body" ref={viewport}>
           {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>(
             <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked}/>
           ))}
-          <Path x1="10" y1="50" x2="500" y2="70"/>
+
+          { props.creatingPath && <PseudoPath/>}
         </div>
       </StyledViewportWrapper>
     </>
@@ -76,7 +83,8 @@ function Viewport(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
-    node: state.node.data
+    node: state.node.data,
+    creatingPath: state.globalFlags.creatingPath
   }
 }
 

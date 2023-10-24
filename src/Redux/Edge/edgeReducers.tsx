@@ -1,4 +1,4 @@
-import { ADD_EDGE } from "./edgeActions";
+import { ADD_EDGE, UPDATE_EDGE_COORD } from "./edgeActions";
 
 const initialEdgeState = {
   edgeData: {
@@ -21,6 +21,10 @@ const edgeReducer = (state: any = initialEdgeState, action: any)=> {
           }
         }
       }
+    // case UPDATE_EDGE_COORD:
+    //   return {
+
+    //   }
   }
 }
 

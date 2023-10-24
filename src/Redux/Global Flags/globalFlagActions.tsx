@@ -1,0 +1,1 @@
+export const TOGGLE_CREATING_PATH: string = 'TOGGLE_CREATING_PATH';

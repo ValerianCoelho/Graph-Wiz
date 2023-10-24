@@ -1,4 +1,4 @@
-import { ADD_EDGE } from "./edgeActions";
+import { ADD_EDGE, UPDATE_EDGE_COORD } from "./edgeActions";
 
 export const addEdge = (edgeID:string, fromNodeID: string, toNodeID:string, edgeFromCoord: {x: number, y: number}, edgeToCoord: {x: number, y: number})=> {
   return {
@@ -12,3 +12,7 @@ export const addEdge = (edgeID:string, fromNodeID: string, toNodeID:string, edge
     }
   }
 }
+
+// export const updateEdgeCoord = (edgeID: string, edgeToCoord: {x: number, y: number}) => {
+
+// }
