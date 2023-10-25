@@ -111,7 +111,18 @@ function Viewport(props: any) {
             ))}
           </div>
           <div className="paths-wrapper">
-            
+            {Object.entries(props.path).map(([pathID, pathData]: [string, any])=>{
+              const fromNodeCoord = props.node[pathData.fromNodeID].coord;
+              const toNodeCoord = props.node[pathData.toNodeID].coord;
+              return (
+                <Path 
+                key={pathID} 
+                x1={fromNodeCoord[0]} 
+                y1={fromNodeCoord[1]} 
+                x2={toNodeCoord[0]} 
+                y2={toNodeCoord[1]}/>
+              )
+            })}
           </div>
 
           { props.creatingPath && <PseudoPath x2={x2} y2={y2}/>}
