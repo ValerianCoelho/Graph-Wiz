@@ -165,7 +165,7 @@ function Viewport(props: any) {
         <div onClick={()=>{setIsAddBtnClicked(!isAddEdgeBtnClicked)}}><NavigationButton color={isAddEdgeBtnClicked ? '#FFFFFF' : '#6A6A9F'}/></div>
 
         <StyledGraphPatternWrapper>
-              <StyledPatternBg>
+            <StyledPatternBg>
               <StyledPatternSvg>
                 <defs>
                     <pattern 
@@ -176,51 +176,56 @@ function Viewport(props: any) {
                         height={tileSize}
                         patternUnits="userSpaceOnUse"
                     >		
-                    {thinLines.map((line,index)=>{
+                       {thinLines.map((line,index)=>{
                             return <StyledPatternLine key={index} className='pattern__line' strokeWidth={thinLineWidth} x1="0" y1={tileSize * line / subdivisions} x2={tileSize} y2={tileSize * line / subdivisions}/>
-                      })}
+                       })}
             
-                    {thinLines.map((line,index)=>{
-                      return <StyledPatternLine key={index} className='pattern__line' strokeWidth={thinLineWidth} y1="0" x1={tileSize * line / subdivisions} y2={tileSize} x2={tileSize * line / subdivisions}/>
-                      })}
+                       {thinLines.map((line,index)=>{
+                           return <StyledPatternLine key={index} className='pattern__line' strokeWidth={thinLineWidth} y1="0" x1={tileSize * line / subdivisions} y2={tileSize} x2={tileSize * line / subdivisions}/>
+                       })}
                           
-                    <StyledPatternLine className='pattern__line' strokeWidth={thickLineWidth} x1="0" y1={thickLineWidth / 2} x2={tileSize} y2={thickLineWidth / 2} />
+                      <StyledPatternLine className='pattern__line' strokeWidth={thickLineWidth} x1="0" y1={thickLineWidth / 2} x2={tileSize} y2={thickLineWidth / 2} />
                       <StyledPatternLine className='pattern__line' strokeWidth={thickLineWidth} x1={thickLineWidth / 2} y1="0" x2={thickLineWidth / 2} y2={tileSize} />
-                </pattern>
+                    </pattern>
                 </defs>
                 <rect fill="url(#grid)" height="100%" width="100%"></rect>
               </StyledPatternSvg>
             </StyledPatternBg>
-            </StyledGraphPatternWrapper>
+        </StyledGraphPatternWrapper>
 
-        <div className="viewport__body" ref={viewport}>
-          <div className="nodes-wrapper" ref={nodesWrapper}>
-            {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>(
-              <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked} onClick={setFromNodeID}/>
-            ))}
-          </div>
-          <div className="paths-wrapper">
-            {Object.entries(props.path).map(([pathID, pathData]: [string, any])=>{
-              if(props.node[pathData.toNodeID]==undefined){return null}
-              const fromNodeCoord = props.node[pathData.fromNodeID].coord;
-              const toNodeCoord = props.node[pathData.toNodeID].coord;
-              return (
-                <Path 
-                key={pathID} 
-                x1={fromNodeCoord[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-                y1={fromNodeCoord[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-                x2={toNodeCoord[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-                y2={toNodeCoord[1]+15}/> // size of node = 30, therefore offset = 30/2 = 15. change this later
-              )
-            })}
-          </div>
+            <div className="viewport__body" ref={viewport}>
+              <div className="nodes-wrapper" ref={nodesWrapper}>
+                {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>(
+                  <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked} onClick={setFromNodeID}/>
+                ))}
+              </div>
+              <div className="paths-wrapper">
+                {Object.entries(props.path).map(([pathID, pathData]: [string, any])=>{
+                  if(props.node[pathData.toNodeID]==undefined){return null}
+                  const fromNodeCoord = props.node[pathData.fromNodeID].coord;
+                  const toNodeCoord = props.node[pathData.toNodeID].coord;
+                  return (
+                    <Path 
+                    key={pathID} 
+                    x1={fromNodeCoord[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
+                    y1={fromNodeCoord[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
+                    x2={toNodeCoord[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
+                    y2={toNodeCoord[1]+15}/> // size of node = 30, therefore offset = 30/2 = 15. change this later
+                  )
+                })}
+              </div>
 
-          { props.creatingPath && <PseudoPath x2={x2} y2={y2}/>}
-        </div>
+              { props.creatingPath && <PseudoPath x2={x2} y2={y2}/>}
+            </div>
       </StyledViewportWrapper>
     </>
   );
 }
+
+
+
+
+
 
 const mapStateToProps = (state: any) => {
   return {
