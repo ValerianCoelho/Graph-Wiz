@@ -11,7 +11,6 @@ import { addPath } from '../../Redux/index.tsx';
 
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
-import GraphPattern from '../Graph Pattern/GraphPattern.tsx';
 import PseudoPath from '../../Graph Components/Pseudo Path/PseudoPath.tsx';
 import NavigationButton from '../../Widget Components/Navigation Button/NavigationButton.tsx';
 
@@ -19,6 +18,28 @@ const StyledViewportWrapper = styled.div`
   background-color: ${Theme.viewportColor};
   position:relative;
 `
+const StyledGraphPatternWrapper = styled.div`
+height:100%;
+width:100%;
+position:absolute;
+z-index:0;
+`
+const StyledPatternSvg = styled.svg`
+height:100%;
+width:100%;
+`
+const StyledPatternBg = styled.div`
+height:100%;
+width:100%;
+background-color:transparent;
+position:absolute;
+`
+const StyledPatternLine = styled.line`
+stroke: #2A2A2F;
+position: absolute;
+`
+
+
 
 function Viewport(props: any) {
   const [x2, setX2] = useState(0);
@@ -27,6 +48,21 @@ function Viewport(props: any) {
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
   const nodesWrapper = useRef<HTMLDivElement>(null);
+
+  const threshold = 50; // seems to control how big the squares are
+  const subdivisions = 10; // thin line subdivisions
+  let scale=props.scale*300;
+  let translation ={
+    x:props.pan.x*props.scale,
+    y:props.pan.y*props.scale
+  }
+  let tileSize:number = (scale) % (subdivisions * threshold) + threshold;
+  let thinLineWidth:number = (scale / subdivisions) % threshold / (threshold);
+  let thickLineWidth:number=Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
+  const thinLines = [...Array(subdivisions).keys()];
+
+
+
  
   useEffect(() => {
     const handlePointerUp = (e:any) => {
@@ -113,12 +149,43 @@ function Viewport(props: any) {
     }
   }, []);
 
+
+
+
+
   return (
     <>
       <StyledViewportWrapper>
         <div onClick={()=>{setIsAddBtnClicked(!isAddEdgeBtnClicked)}}><NavigationButton color={isAddEdgeBtnClicked ? '#FFFFFF' : '#6A6A9F'}/></div>
 
-        <GraphPattern/>
+        <StyledGraphPatternWrapper>
+              <StyledPatternBg>
+              <StyledPatternSvg>
+                <defs>
+                    <pattern 
+                        id="grid" 
+                        x={translation.x} 
+                        y={translation.y}
+                        width={tileSize}
+                        height={tileSize}
+                        patternUnits="userSpaceOnUse"
+                    >		
+                    {thinLines.map((line,index)=>{
+                            return <StyledPatternLine key={index} className='pattern__line' strokeWidth={thinLineWidth} x1="0" y1={tileSize * line / subdivisions} x2={tileSize} y2={tileSize * line / subdivisions}/>
+                      })}
+            
+                    {thinLines.map((line,index)=>{
+                      return <StyledPatternLine key={index} className='pattern__line' strokeWidth={thinLineWidth} y1="0" x1={tileSize * line / subdivisions} y2={tileSize} x2={tileSize * line / subdivisions}/>
+                      })}
+                          
+                    <StyledPatternLine className='pattern__line' strokeWidth={thickLineWidth} x1="0" y1={thickLineWidth / 2} x2={tileSize} y2={thickLineWidth / 2} />
+                      <StyledPatternLine className='pattern__line' strokeWidth={thickLineWidth} x1={thickLineWidth / 2} y1="0" x2={thickLineWidth / 2} y2={tileSize} />
+                </pattern>
+                </defs>
+                <rect fill="url(#grid)" height="100%" width="100%"></rect>
+              </StyledPatternSvg>
+            </StyledPatternBg>
+            </StyledGraphPatternWrapper>
 
         <div className="viewport__body" ref={viewport}>
           <div className="nodes-wrapper" ref={nodesWrapper}>
@@ -153,7 +220,8 @@ const mapStateToProps = (state: any) => {
     scale: state.panzoom.scale,
     node: state.node.data,
     creatingPath: state.globalFlags.creatingPath,
-    path: state.path.pathData
+    path: state.path.pathData,
+    pan:state.panzoom.pan
   }
 }
 
