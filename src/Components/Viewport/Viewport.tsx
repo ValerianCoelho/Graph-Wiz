@@ -22,6 +22,7 @@ const StyledViewportWrapper = styled.div`
 function Viewport(props: any) {
   const [x2, setX2] = useState(0);
   const [y2, setY2] = useState(0);
+  const [fromNodeID, setFromNodeID] = useState(null);
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
   const nodesWrapper = useRef<HTMLDivElement>(null);
@@ -30,6 +31,10 @@ function Viewport(props: any) {
     const handlePointerUp = (e:any) => {
       if (!nodesWrapper.current?.contains(e.target)) {
         props.toggleCreatingPath(props.creatingPath);
+      }
+      else {
+        const toNodeID = e.target.getAttribute('data-node-id');
+        console.log(fromNodeID, toNodeID);
       }
     };
     viewport.current?.addEventListener('pointerup', handlePointerUp);
@@ -97,7 +102,7 @@ function Viewport(props: any) {
         <div className="viewport__body" ref={viewport}>
           <div className="nodes-wrapper" ref={nodesWrapper}>
             {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>(
-              <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked}/>
+              <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked} onClick={setFromNodeID}/>
             ))}
           </div>
 
