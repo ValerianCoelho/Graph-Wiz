@@ -7,6 +7,7 @@ import Theme from "../../Theme.tsx";
 
 import { toggleCreatingPath, updateScale } from '../../Redux/index.tsx';
 import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
+import { addPath } from '../../Redux/index.tsx';
 
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
@@ -29,12 +30,16 @@ function Viewport(props: any) {
  
   useEffect(() => {
     const handlePointerUp = (e:any) => {
-      if (!nodesWrapper.current?.contains(e.target)) {
-        props.toggleCreatingPath(props.creatingPath);
-      }
-      else {
-        const toNodeID = e.target.getAttribute('data-node-id');
-        console.log(fromNodeID, toNodeID);
+      if(props.creatingPath){
+        if (!nodesWrapper.current?.contains(e.target)) {
+          props.toggleCreatingPath(props.creatingPath);
+        }
+        else {
+          const toNodeID = e.target.getAttribute('data-node-id');
+          console.log(fromNodeID, toNodeID);
+          props.addPath(crypto.randomUUID(), fromNodeID, toNodeID)
+          props.toggleCreatingPath(true);
+        }
       }
     };
     viewport.current?.addEventListener('pointerup', handlePointerUp);
@@ -105,6 +110,9 @@ function Viewport(props: any) {
               <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked} onClick={setFromNodeID}/>
             ))}
           </div>
+          <div className="paths-wrapper">
+            
+          </div>
 
           { props.creatingPath && <PseudoPath x2={x2} y2={y2}/>}
         </div>
@@ -117,7 +125,8 @@ const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
     node: state.node.data,
-    creatingPath: state.globalFlags.creatingPath
+    creatingPath: state.globalFlags.creatingPath,
+    path: state.path.pathData
   }
 }
 
@@ -132,6 +141,9 @@ const mapDispatchToProps = (dispatch: any) => {
     toggleCreatingPath: (creatingPath: boolean)=> {
       dispatch(toggleCreatingPath(creatingPath))
     },
+    addPath: (pathID: string, fromNodeID: string, toNodeID: string)=>{
+      dispatch(addPath(pathID, fromNodeID, toNodeID))
+    }
   }
 }
 
