@@ -51,12 +51,28 @@ function Viewport(props: any) {
   
 
   useEffect(() => {
-    viewport.current?.parentElement?.addEventListener('pointermove', (e) => {
-      const rect = viewport.current?.getBoundingClientRect();
-      setX2((e.clientX - (rect?.left || 0))/props.scale); // Use optional chaining and fallback value
-      setY2((e.clientY - (rect?.top || 0))/props.scale);  // Use optional chaining and fallback value
+    viewport.current?.parentElement?.addEventListener("pointermove", (e) => {
+        const defaultCoords = { left: 0, top: 0 };
+        // parent is static graph viewport
+        const { left: parentLeft, top: parentTop } =
+            viewport.current?.parentElement?.getBoundingClientRect() || defaultCoords;
+
+        // child is the graph viewport that pans
+        let { left: childLeft, top: childTop } =
+            viewport.current?.getBoundingClientRect() || defaultCoords;
+
+        // update child coords wrt. parent as origin, not window
+        childLeft -= parentLeft;
+        childTop -= parentTop;
+
+        // these are coordinates from the perspective of the graph viewport, not browser window
+        const mouseLeftInParentCoords = e.clientX - parentLeft;
+        const mouseTopInParentCoords = e.clientY - parentTop;
+
+        setX2((mouseLeftInParentCoords - childLeft) / props.scale);
+        setY2((mouseTopInParentCoords - childTop) / props.scale);
     });
-  }, []);
+}, [props.scale]);
   
 
   useEffect(() => {
