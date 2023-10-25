@@ -41,7 +41,7 @@ function Viewport(props: any) {
   
 
   useEffect(() => {
-    viewport.current?.addEventListener('pointermove', (e) => {
+    viewport.current?.parentElement?.addEventListener('pointermove', (e) => {
       const rect = viewport.current?.getBoundingClientRect();
       setX2(e.clientX - (rect?.left || 0)); // Use optional chaining and fallback value
       setY2(e.clientY - (rect?.top || 0));  // Use optional chaining and fallback value
