@@ -45,28 +45,28 @@ useEffect(()=>{
       <StyledTitleBar className="title-bar__body" ref={titleBarRef}>
         <TitleDropDown
           title="File" 
-          options={["Something","something2","Something3","Something4"]}
+          options={["Save","Save As","Export","Share"]}
           activeBtn={activeBtn}
           selectBtn={selectBtn}
           unSelectBtn={unSelectBtn}
         />
         <TitleDropDown
           title="Edit"
-          options={["something","something"]}
+          options={["preferences","theme","settings"]}
           activeBtn={activeBtn}
           selectBtn={selectBtn}
           unSelectBtn={unSelectBtn}
         />
         <TitleDropDown
           title="View"
-          options={["something","something"]}
+          options={["node addition","move","path trace","animation"]}
           activeBtn={activeBtn}
           selectBtn={selectBtn}
           unSelectBtn={unSelectBtn}
         />
         <TitleDropDown
           title="Help"
-          options={["something","something"]}
+          options={["docs","references","tutorials"]}
           activeBtn={activeBtn}
           selectBtn={selectBtn}
           unSelectBtn={unSelectBtn}

@@ -86,6 +86,9 @@ function Viewport(props: any) {
   }, [props.creatingPath]);
   
 
+
+
+
   useEffect(() => {
     viewport.current?.parentElement?.addEventListener("pointermove", (e) => {
         const defaultCoords = { left: 0, top: 0 };
@@ -110,6 +113,9 @@ function Viewport(props: any) {
     });
 }, [props.scale]);
   
+
+
+
 
   useEffect(() => {
     if (viewport.current) {

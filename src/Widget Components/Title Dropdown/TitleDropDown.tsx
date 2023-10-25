@@ -41,6 +41,7 @@ const StyledDropdownList = styled.div`
 const StyledDropdownListItem = styled.div`
     display:flex;
     cursor: pointer;
+    font-family: sans-serif;
     flex-direction:row;
     justify-content:start;
     padding-inline-start: 20px;
