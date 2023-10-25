@@ -50,6 +50,7 @@ function Node(props: any) {
       const rect = node.current?.getBoundingClientRect();
       const width = rect?.width || 0; // node elements width
       const height = rect?.height || 0; // node elements height
+      console.log('kndsfkndnfkd', width)
 
       const nodeCoords = props.node[props.id].coord; // from redux store
 
