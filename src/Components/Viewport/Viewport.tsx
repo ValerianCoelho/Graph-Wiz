@@ -201,6 +201,7 @@ function Viewport(props: any) {
           </div>
           <div className="paths-wrapper">
             {Object.entries(props.path).map(([pathID, pathData]: [string, any])=>{
+              if(props.node[pathData.toNodeID]==undefined){return null}
               const fromNodeCoord = props.node[pathData.fromNodeID].coord;
               const toNodeCoord = props.node[pathData.toNodeID].coord;
               return (
