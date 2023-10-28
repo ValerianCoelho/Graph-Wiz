@@ -24,6 +24,7 @@ function Editor(props: any) {
     const input = nodeLabel;
     if(input?.trim()) {
       props.addNode(crypto.randomUUID(), {label: input, coord: [0, 0]})
+      setNodeLabel('');
     }
   }
 
@@ -45,7 +46,7 @@ function Editor(props: any) {
           <TextField text="Node Label"/>
         </div>
         <div className="add-node-line-2">
-          <InputField onChange={setNodeLabel} placeholderText="Node Label"/>
+          <InputField onChange={setNodeLabel} value={nodeLabel} placeholderText="Node Label"/>
           <Button text="ADD" handleClick={handleAddNode}/>
         </div>
         <DropdownSelect optionList={["Alphabetical", "Numerical", "Roman Numeral"]}/>

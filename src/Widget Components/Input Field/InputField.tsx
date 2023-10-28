@@ -16,7 +16,7 @@ const StyledInputField = styled.input`
 
 function InputField(props: any) {
   return (
-    <StyledInputField onChange={(e)=>props.onChange(e.target.value)} type="text" placeholder={props.placeholderText}/>
+    <StyledInputField onChange={(e)=>props.onChange(e.target.value)} type="text" value={props.value} placeholder={props.placeholderText}/>
   )
 }
 export default InputField;
