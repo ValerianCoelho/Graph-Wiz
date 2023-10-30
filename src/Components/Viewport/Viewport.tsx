@@ -44,7 +44,7 @@ position: absolute;
 function Viewport(props: any) {
   const [x2, setX2] = useState(0);
   const [y2, setY2] = useState(0);
-  // const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(null);
   const [fromNodeID, setFromNodeID] = useState(null);
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
@@ -110,10 +110,6 @@ function Viewport(props: any) {
     });
 }, [props.scale]);
   
-
-
-
-
   useEffect(() => {
     if (viewport.current) {
       const panzoom = Panzoom(viewport.current, {
@@ -152,10 +148,6 @@ function Viewport(props: any) {
     }
   }, []);
 
-
-
-
-
   return (
     <>
       <StyledViewportWrapper>
@@ -193,7 +185,13 @@ function Viewport(props: any) {
             <div className="viewport__body" ref={viewport}>
               <div className="nodes-wrapper" ref={nodesWrapper}>
                 {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>(
-                  <Node label={nodeData.label} key={nodeID} id={nodeID} addEdge={isAddEdgeBtnClicked} onClick={setFromNodeID}/>
+                  <Node 
+                    label={nodeData.label} 
+                    key={nodeID} 
+                    id={nodeID} 
+                    addEdge={isAddEdgeBtnClicked} 
+                    onPointerDown={setFromNodeID}
+                  />
                 ))}
               </div>
               <div className="paths-wrapper">

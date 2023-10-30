@@ -63,7 +63,7 @@ function Node(props: any) {
 
       const nodeCoords = props.node[props.id].coord; // from redux store
 
-      props.onClick(props.id)
+      props.onPointerDown(props.id)
       props.updatePseudoPathStartCoords({x: nodeCoords[0] + (width/2), y: nodeCoords[1] + (height/2)})
       props.toggleCreatingPath(props.creatingPath);
     };
