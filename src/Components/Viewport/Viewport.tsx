@@ -8,6 +8,7 @@ import Theme from "../../Theme.tsx";
 import { toggleCreatingPath, updateScale } from '../../Redux/index.tsx';
 import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
 import { addPath } from '../../Redux/index.tsx';
+import { deletePath } from '../../Redux/index.tsx';
 
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
@@ -62,7 +63,7 @@ function Viewport(props: any) {
   useEffect(()=> {
     const handleKeyDown = (e: any)=> {
       if(e.keyCode === 46) {
-        console.log('Delete Key Pressed')
+        props.deletePath(props.selectedComponentID)
       }
     }
     document.addEventListener('keydown', handleKeyDown);
@@ -233,7 +234,8 @@ const mapStateToProps = (state: any) => {
     node: state.node.data,
     creatingPath: state.globalFlags.creatingPath,
     path: state.path.pathData,
-    pan:state.panzoom.pan
+    pan:state.panzoom.pan,
+    selectedComponentID: state.globalFlags.selectedComponentID
   }
 }
 
@@ -250,6 +252,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     addPath: (pathID: string, fromNodeID: string, toNodeID: string)=>{
       dispatch(addPath(pathID, fromNodeID, toNodeID))
+    },
+    deletePath: (pathID: string)=> {
+      dispatch(deletePath(pathID))
     }
   }
 }
