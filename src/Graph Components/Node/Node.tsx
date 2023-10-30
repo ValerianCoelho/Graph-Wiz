@@ -38,19 +38,28 @@ const AddEdgeBtn = styled.div`
 `
 const Label = styled.div`
   z-index: 3;
-
 `
 
 function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
   const addEdgeBtn = useRef<HTMLDivElement>(null);
 
+  useEffect(()=> {
+    const handleDblClick = ()=> {
+      console.log("Node Dbl-Clicked")
+    }
+    node.current?.addEventListener('dblclick', handleDblClick);
+
+    return ()=> {
+      node.current?.removeEventListener('dblclick', handleDblClick);
+    }
+  }, [])
+
   useEffect(() => {
     const handleClick = () => {
       const rect = node.current?.getBoundingClientRect();
       const width = rect?.width || 0; // node elements width
       const height = rect?.height || 0; // node elements height
-      console.log('kndsfkndnfkd', width)
 
       const nodeCoords = props.node[props.id].coord; // from redux store
 

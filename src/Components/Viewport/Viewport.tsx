@@ -44,6 +44,7 @@ position: absolute;
 function Viewport(props: any) {
   const [x2, setX2] = useState(0);
   const [y2, setY2] = useState(0);
+  // const [selectedComponent, setSelectedComponent] = useState(null);
   const [fromNodeID, setFromNodeID] = useState(null);
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
@@ -85,10 +86,6 @@ function Viewport(props: any) {
     };
   }, [props.creatingPath]);
   
-
-
-
-
   useEffect(() => {
     viewport.current?.parentElement?.addEventListener("pointermove", (e) => {
         const defaultCoords = { left: 0, top: 0 };
