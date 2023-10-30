@@ -25,6 +25,7 @@ const nodeReducer = (state: any = initialNodeState, action: any)=> {
         ...state,
         data: {
           ...state.data,
+          componentType: 'node', // the extra unnamed node appears only when this line is added
           [action.payload.nodeID]: action.payload.data
         }
       }

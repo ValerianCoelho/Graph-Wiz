@@ -15,6 +15,7 @@ const pathReducer = (state: any = initialPathState, action: any)=> {
         pathData: {
           ...state.pathData,
           [action.payload.pathID]: {
+            componentType: 'path',
             fromNodeID: action.payload.fromNodeID,
             toNodeID: action.payload.toNodeID
           }
