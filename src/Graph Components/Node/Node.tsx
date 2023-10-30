@@ -6,7 +6,9 @@ import { updateNodeCoord } from "../../Redux";
 import { updatePseudoPathStartCoords } from '../../Redux';
 import { toggleCreatingPath } from '../../Redux';
 import { useEffect, useRef } from 'react'
+import { setSelectedComponent } from '../../Redux';
 
+// border: 1px solid ${props => props.selectedID == props.id ? 'red' : Theme.nodeBorderColor};
 const StyledNode = styled.div`
   width: 30px;
   height: 30px;
@@ -14,6 +16,7 @@ const StyledNode = styled.div`
 
   color: ${Theme.nodeFgColor};
   background-color: ${Theme.nodeBgColor};
+  
   border: 1px solid ${Theme.nodeBorderColor};
 
   display: flex;
@@ -46,7 +49,7 @@ function Node(props: any) {
 
   useEffect(()=> {
     const handleDblClick = ()=> {
-      props.onDblClick(props.id);
+      props.setSelectedComponent(props.id);
     }
     node.current?.addEventListener('dblclick', handleDblClick);
 
@@ -117,7 +120,8 @@ const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
     node: state.node.data,
-    creatingPath: state.globalFlags.creatingPath
+    creatingPath: state.globalFlags.creatingPath,
+    selectedComponentID: state.globalFlags.selectedComponentID
   }
 }
 
@@ -131,6 +135,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     updatePseudoPathStartCoords: (coords: {x: number, y: number})=> {
       dispatch(updatePseudoPathStartCoords(coords))
+    },
+    setSelectedComponent: (selectedComponentID: string)=> {
+      dispatch(setSelectedComponent(selectedComponentID))
     }
   }
 }

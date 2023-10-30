@@ -13,7 +13,7 @@ function Path({x1, y1, x2, y2, ...props}:any) {
 
   useEffect(()=> {
     const handleDblClick = ()=> {
-      props.onDblClick(props.id)
+      // props.onDblClick(props.id)
     }
     path.current?.addEventListener('dblclick', handleDblClick);
 

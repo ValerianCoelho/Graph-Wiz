@@ -39,12 +39,10 @@ stroke: #2A2A2F;
 position: absolute;
 `
 
-
-
 function Viewport(props: any) {
   const [x2, setX2] = useState(0);
   const [y2, setY2] = useState(0);
-  const [selectedComponent, setSelectedComponent] = useState(null);
+  // const [selectedComponent, setSelectedComponent] = useState<String | null>(null);
   const [fromNodeID, setFromNodeID] = useState(null);
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
@@ -62,11 +60,15 @@ function Viewport(props: any) {
   let thickLineWidth:number=Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
   const thinLines = [...Array(subdivisions).keys()];
 
-  useEffect(()=> {
-    console.log(selectedComponent);
-    console.log(props.node);
-    console.log(props.path)
-  }, [selectedComponent])
+  // useEffect(()=> {
+  //   console.log('Okay', selectedComponent);
+    // if(props.node[selectedComponent]) {
+    //   console.log(props.node[selectedComponent]['componentType'])
+    // }
+    // else if(props.path[selectedComponent]) {
+    //   console.log(props.path[selectedComponent]['componentType'])
+    // }
+  // }, [selectedComponent])
  
   useEffect(() => {
     const handlePointerUp = (e:any) => {
@@ -194,7 +196,7 @@ function Viewport(props: any) {
                     id={nodeID} 
                     addEdge={isAddEdgeBtnClicked} 
                     onPointerDown={setFromNodeID}
-                    onDblClick={setSelectedComponent}
+                    // onDblClick={setSelectedComponent}
                   />
                 ))}
               </div>
@@ -211,7 +213,7 @@ function Viewport(props: any) {
                       y1={fromNodeCoord[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
                       x2={toNodeCoord[0]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
                       y2={toNodeCoord[1]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
-                      onDblClick={setSelectedComponent}
+                      // onDblClick={setSelectedComponent}
                     /> 
                   )
                 })}
