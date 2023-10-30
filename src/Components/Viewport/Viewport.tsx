@@ -203,11 +203,14 @@ function Viewport(props: any) {
                   const toNodeCoord = props.node[pathData.toNodeID].coord;
                   return (
                     <Path 
-                    key={pathID} 
-                    x1={fromNodeCoord[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-                    y1={fromNodeCoord[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-                    x2={toNodeCoord[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-                    y2={toNodeCoord[1]+15}/> // size of node = 30, therefore offset = 30/2 = 15. change this later
+                      key={pathID} 
+                      id={pathID}
+                      x1={fromNodeCoord[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
+                      y1={fromNodeCoord[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
+                      x2={toNodeCoord[0]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
+                      y2={toNodeCoord[1]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
+                      onDblClick={setSelectedComponent}
+                    /> 
                   )
                 })}
               </div>

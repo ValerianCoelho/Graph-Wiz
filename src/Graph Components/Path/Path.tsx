@@ -8,12 +8,12 @@ type PathProps = {
   y2: string
 }
 
-function Path({x1, y1, x2, y2}: PathProps) {
+function Path({x1, y1, x2, y2, ...props}:any) {
   const path = useRef<SVGSVGElement>(null);
 
   useEffect(()=> {
     const handleDblClick = ()=> {
-      console.log("Path Dbl-Clicked")
+      props.onDblClick(props.id)
     }
     path.current?.addEventListener('dblclick', handleDblClick);
 
