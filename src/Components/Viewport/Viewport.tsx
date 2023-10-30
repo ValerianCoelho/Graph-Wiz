@@ -64,6 +64,8 @@ function Viewport(props: any) {
 
   useEffect(()=> {
     console.log(selectedComponent);
+    console.log(props.node);
+    console.log(props.path)
   }, [selectedComponent])
  
   useEffect(() => {
@@ -221,11 +223,6 @@ function Viewport(props: any) {
     </>
   );
 }
-
-
-
-
-
 
 const mapStateToProps = (state: any) => {
   return {
