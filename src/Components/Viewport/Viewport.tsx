@@ -19,30 +19,29 @@ const StyledViewportWrapper = styled.div`
   position:relative;
 `
 const StyledGraphPatternWrapper = styled.div`
-height:100%;
-width:100%;
-position:absolute;
-z-index:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+  z-index:0;
 `
 const StyledPatternSvg = styled.svg`
-height:100%;
-width:100%;
+  height:100%;
+  width:100%;
 `
 const StyledPatternBg = styled.div`
-height:100%;
-width:100%;
-background-color:transparent;
-position:absolute;
+  height:100%;
+  width:100%;
+  background-color:transparent;
+  position:absolute;
 `
 const StyledPatternLine = styled.line`
-stroke: #2A2A2F;
-position: absolute;
+  stroke: #2A2A2F;
+  position: absolute;
 `
 
 function Viewport(props: any) {
   const [x2, setX2] = useState(0);
   const [y2, setY2] = useState(0);
-  // const [selectedComponent, setSelectedComponent] = useState<String | null>(null);
   const [fromNodeID, setFromNodeID] = useState(null);
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
@@ -60,15 +59,17 @@ function Viewport(props: any) {
   let thickLineWidth:number=Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
   const thinLines = [...Array(subdivisions).keys()];
 
-  // useEffect(()=> {
-  //   console.log('Okay', selectedComponent);
-    // if(props.node[selectedComponent]) {
-    //   console.log(props.node[selectedComponent]['componentType'])
-    // }
-    // else if(props.path[selectedComponent]) {
-    //   console.log(props.path[selectedComponent]['componentType'])
-    // }
-  // }, [selectedComponent])
+  useEffect(()=> {
+    const handleKeyDown = (e: any)=> {
+      if(e.keyCode === 46) {
+        console.log('Delete Key Pressed')
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return ()=> {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+  })
  
   useEffect(() => {
     const handlePointerUp = (e:any) => {
