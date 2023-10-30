@@ -62,8 +62,9 @@ function Viewport(props: any) {
   let thickLineWidth:number=Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
   const thinLines = [...Array(subdivisions).keys()];
 
-
-
+  useEffect(()=> {
+    console.log(selectedComponent);
+  }, [selectedComponent])
  
   useEffect(() => {
     const handlePointerUp = (e:any) => {
@@ -191,6 +192,7 @@ function Viewport(props: any) {
                     id={nodeID} 
                     addEdge={isAddEdgeBtnClicked} 
                     onPointerDown={setFromNodeID}
+                    onDblClick={setSelectedComponent}
                   />
                 ))}
               </div>

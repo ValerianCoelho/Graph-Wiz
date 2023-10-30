@@ -46,7 +46,7 @@ function Node(props: any) {
 
   useEffect(()=> {
     const handleDblClick = ()=> {
-      console.log("Node Dbl-Clicked")
+      props.onDblClick(props.id);
     }
     node.current?.addEventListener('dblclick', handleDblClick);
 
