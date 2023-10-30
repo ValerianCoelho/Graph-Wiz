@@ -8,16 +8,15 @@ import { toggleCreatingPath } from '../../Redux';
 import { useEffect, useRef } from 'react'
 import { setSelectedComponent } from '../../Redux';
 
-// border: 1px solid ${props => props.selectedID == props.id ? 'red' : Theme.nodeBorderColor};
 const StyledNode = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-
+  
   color: ${Theme.nodeFgColor};
   background-color: ${Theme.nodeBgColor};
   
-  border: 1px solid ${Theme.nodeBorderColor};
+  border: 1px solid ${props => props.id == props.selectedComponentID ? 'red' : Theme.nodeBorderColor}; // why is this throwing an error?
 
   display: flex;
   justify-content: center;
@@ -57,6 +56,10 @@ function Node(props: any) {
       node.current?.removeEventListener('dblclick', handleDblClick);
     }
   }, [])
+
+  useEffect(()=> {
+    console.log('selectedComponentID: ', props.selectedComponentID)
+  }, [props.selectedComponentID])
 
   useEffect(() => {
     const handleClick = () => {
