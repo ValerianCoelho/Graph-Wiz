@@ -58,7 +58,7 @@ function Node(props: any) {
   }, [])
 
   useEffect(()=> {
-    console.log('selectedComponentID: ', props.selectedComponentID)
+    console.log('selectedComponentID: ', props.selectedComponentID) // why is this running as many times as the number of components
   }, [props.selectedComponentID])
 
   useEffect(() => {
