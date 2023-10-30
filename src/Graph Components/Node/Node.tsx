@@ -8,7 +8,7 @@ import { toggleCreatingPath } from '../../Redux';
 import { useEffect, useRef } from 'react'
 import { setSelectedComponent } from '../../Redux';
 
-const StyledNode = styled.div`
+const StyledNode = styled.div<{$selectedComponentID:string,$id:string}>`
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -16,7 +16,7 @@ const StyledNode = styled.div`
   color: ${Theme.nodeFgColor};
   background-color: ${Theme.nodeBgColor};
   
-  border: 1px solid ${props => props.id == props.selectedComponentID ? 'red' : Theme.nodeBorderColor}; // why is this throwing an error?
+  border: 1px solid ${props => props.$id == props.$selectedComponentID ? 'red' : Theme.nodeBorderColor}; // why is this throwing an error?
 
   display: flex;
   justify-content: center;
@@ -109,7 +109,7 @@ function Node(props: any) {
   }, [props.scale]);
 
   return (
-    <StyledNode className='excluded-class' ref={node}>
+    <StyledNode className='excluded-class' ref={node} $selectedComponentID={props.selectedComponentID} $id={props.id} >
       { props.addEdge ? <AddEdgeBtn className='ignore-interact' ref={addEdgeBtn}>
                           <Label data-node-id={props.id}>{props.label}</Label>
                         </AddEdgeBtn>
