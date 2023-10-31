@@ -62,9 +62,19 @@ function Viewport(props: any) {
 
   useEffect(()=> {
     const handleKeyDown = (e: any)=> {
-      if(e.keyCode === 46) {
-        props.deletePath(props.selectedComponentID)
+      if (e.keyCode === 46) {
+        if (props.path[props.selectedComponentID] && props.path[props.selectedComponentID]['componentType'] === "path") {
+          props.deletePath(props.selectedComponentID)
+        }
+        else if (props.node[props.selectedComponentID] && props.node[props.selectedComponentID]['componentType'] === "node") {
+          for(let key in props.path) {
+            if(props.path[key]['fromNodeID'] == props.selectedComponentID || props.path[key]['toNodeID'] == props.selectedComponentID) {
+              props.deletePath(key)
+            }
+          }
+        }
       }
+      
     }
     document.addEventListener('keydown', handleKeyDown);
     return ()=> {
