@@ -9,6 +9,7 @@ import { toggleCreatingPath, updateScale } from '../../Redux/index.tsx';
 import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
 import { addPath } from '../../Redux/index.tsx';
 import { deletePath } from '../../Redux/index.tsx';
+import { deleteNode } from '../../Redux/index.tsx';
 
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
@@ -72,6 +73,7 @@ function Viewport(props: any) {
               props.deletePath(key)
             }
           }
+          props.deleteNode(props.selectedComponentID)
         }
       }
       
@@ -265,6 +267,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     deletePath: (pathID: string)=> {
       dispatch(deletePath(pathID))
+    },
+    deleteNode: (nodeID: string)=> {
+      dispatch(deleteNode(nodeID))
     }
   }
 }

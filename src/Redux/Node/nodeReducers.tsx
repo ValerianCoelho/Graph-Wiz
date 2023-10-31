@@ -1,4 +1,4 @@
-import { UPDATE_NODE_COORD, ADD_NODE } from "./nodeActions";
+import { UPDATE_NODE_COORD, ADD_NODE, DELETE_NODE } from "./nodeActions";
 // import { nodeState, nodeAction } from "../../Types/Redux/node";
 
 const initialNodeState = {
@@ -30,6 +30,13 @@ const nodeReducer = (state: any = initialNodeState, action: any)=> {
             componentType: 'node'
           }
         }
+      }
+    case DELETE_NODE:
+      console.log(state)
+      const { [action.payload]: deletedNode, ...newNodeData} = state.data;
+      return {
+        ...state,
+        data: newNodeData
       }
     default: return state;
   }

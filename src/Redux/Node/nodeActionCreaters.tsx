@@ -1,4 +1,4 @@
-import { UPDATE_NODE_COORD, ADD_NODE } from "./nodeActions"
+import { UPDATE_NODE_COORD, ADD_NODE, DELETE_NODE } from "./nodeActions"
 
 export const updateNodeCoord = (nodeID: string, coord: Array<number>)=> {
   return {
@@ -17,5 +17,12 @@ export const addNode = (nodeID: string, data: object)=> {
       nodeID: nodeID,
       data: data
     }
+  }
+}
+
+export const deleteNode = (nodeID: string)=> {
+  return {
+    type: DELETE_NODE,
+    payload: nodeID
   }
 }
