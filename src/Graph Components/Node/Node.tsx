@@ -1,12 +1,15 @@
 import interact from 'interactjs'
 import styled from "styled-components";
-import Theme from "../../Theme";
+
 import { connect } from "react-redux";
-import { updateNodeCoord } from "../../Redux";
-import { updatePseudoPathStartCoords } from '../../Redux';
-import { toggleCreatingPath } from '../../Redux';
 import { useEffect, useRef } from 'react'
+
+import { updateNodeCoord } from "../../Redux";
+import { toggleCreatingPath } from '../../Redux';
 import { setSelectedComponent } from '../../Redux';
+import { updatePseudoPathStartCoords } from '../../Redux';
+
+import Theme from "../../Theme";
 
 const StyledNode = styled.div<{$selectedComponentID:string,$id:string}>`
   width: 30px;
@@ -39,16 +42,17 @@ const AddEdgeBtn = styled.div`
   align-items: center;
 `
 const Label = styled.div`
-  z-index: 3;
+  // Label Styles
 `
 
 function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
   const addEdgeBtn = useRef<HTMLDivElement>(null);
 
+  // when a node is double-clicked, the new selectedComponent would be the this instance of the node
   useEffect(()=> {
     const handleDblClick = ()=> {
-      props.setSelectedComponent(props.id);
+      props.setSelectedComponent(props.id); // update the selectedComponent's value as ID of current node instance
     }
     node.current?.addEventListener('dblclick', handleDblClick);
 
@@ -57,38 +61,43 @@ function Node(props: any) {
     }
   }, [])
 
+  // Bug in here, fix later
   useEffect(()=> {
     console.log('selectedComponentID: ', props.selectedComponentID) // why is this running as many times as the number of components
   }, [props.selectedComponentID])
 
+  // handle initial steps to be performed while creating a new path
   useEffect(() => {
-    const handleClick = () => {
+    const handlePointerDown = () => {
       const rect = node.current?.getBoundingClientRect();
-      const width = rect?.width || 0; // node elements width
-      const height = rect?.height || 0; // node elements height
-
+      const width = rect?.width || 0; // Node element's width
+      const height = rect?.height || 0; // Node element's height
       const nodeCoords = props.node[props.id].coord; // from redux store
 
-      props.onPointerDown(props.id)
-      props.updatePseudoPathStartCoords({x: nodeCoords[0] + (width/2), y: nodeCoords[1] + (height/2)})
-      props.toggleCreatingPath(props.creatingPath);
+      props.onPointerDown(props.id) // save the current node's id as fromNodeID for the path about to be created
+      props.updatePseudoPathStartCoords({ // Update the pseudo-path's start coords (x1, y1)
+        x: nodeCoords[0] + (width / 2), 
+        y: nodeCoords[1] + (height / 2)
+      })
+      props.toggleCreatingPath(props.creatingPath); // set creatingPath flag to true
     };
-  
-    addEdgeBtn.current?.addEventListener('pointerdown', handleClick);
+    addEdgeBtn.current?.addEventListener('pointerdown', handlePointerDown);
   
     return () => {
-      addEdgeBtn.current?.removeEventListener('pointerdown', handleClick);
+      addEdgeBtn.current?.removeEventListener('pointerdown', handlePointerDown);
     };
-  }, [props.addEdge, props.creatingPath,props.node]);  
+  }, [props.addEdge, props.creatingPath, props.node]);  
 
-  useEffect(()=> {
+  // Setup the Interactjs Library for the nodes
+  useEffect(()=> { 
     if(node.current) {
       const draggable = interact(node.current).draggable({
-        ignoreFrom: '.ignore-interact',
+        ignoreFrom: '.ignore-interact', // Ignore elements with this class for dragging
         listeners: {
           move: (event)=> {
             const target = event.target; 
   
+            // Update node coordinates during dragging
             const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx / props.scale;
             const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy / props.scale;
 
@@ -97,21 +106,30 @@ function Node(props: any) {
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
             
+            // Update node coordinates in the Redux store
             props.updateNodeCoord(props.id, [x, y]);
           }
         }
       });
 
       return () => {
+        // Clean up the draggable behavior
         draggable.unset();
       };
     }
-  }, [props.scale]);
+  }, [props.scale]); // whenever scale changes translation formula needs to update
 
   return (
-    <StyledNode className='excluded-class' ref={node} $selectedComponentID={props.selectedComponentID} $id={props.id} >
+    <StyledNode 
+      ref={node} 
+      className='excluded-class' // Exclude elements with this classname from being panned because of the Panzoom Library
+      $id={props.id} // props passed to styled components
+      $selectedComponentID={props.selectedComponentID} // props passed to styled components
+    >
       { props.addEdge ? <AddEdgeBtn className='ignore-interact' ref={addEdgeBtn}>
-                          <Label data-node-id={props.id}>{props.label}</Label>
+                          <Label 
+                            data-node-id={props.id} // store the nodeID in the Label-Elements Attribute
+                          >{props.label}</Label>
                         </AddEdgeBtn>
                       : <Label>{props.label}</Label>
       }
@@ -119,15 +137,17 @@ function Node(props: any) {
   )
 }
 
+// Map Redux state to component props
 const mapStateToProps = (state: any) => {
   return {
-    scale: state.panzoom.scale,
     node: state.node.data,
+    scale: state.panzoom.scale,
     creatingPath: state.globalFlags.creatingPath,
     selectedComponentID: state.globalFlags.selectedComponentID
   }
 }
 
+// Map Redux actions to component props
 const mapDispatchToProps = (dispatch: any) => {
   return {
     updateNodeCoord: (id: string, coord: Array<number>) => {
@@ -145,6 +165,7 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
+// Connect the component to the Redux store
 export default connect(
   mapStateToProps,
   mapDispatchToProps
