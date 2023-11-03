@@ -84,6 +84,7 @@ function Viewport(props: any) {
     }
   })
  
+  // Bug here. when a path creation has started and ended in the same node it still creates a new path. fix this
   useEffect(() => {
     const handlePointerUp = (e:any) => {
       if(props.creatingPath){
@@ -145,6 +146,7 @@ function Viewport(props: any) {
         if (event.ctrlKey) {
           panzoom.zoomWithWheel(event);
           props.updateScale(panzoom.getScale());
+          props.updatePan(panzoom.getPan())
         }
       });
   
