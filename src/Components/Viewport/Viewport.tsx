@@ -88,12 +88,13 @@ function Viewport(props: any) {
   useEffect(() => {
     const handlePointerUp = (e:any) => {
       if(props.creatingPath){
+        // console.log(nodesWrapper.current);
+        console.log(nodesWrapper.current?.contains(e.target));
         if (!nodesWrapper.current?.contains(e.target)) {
           props.toggleCreatingPath(props.creatingPath);
         }
         else {
-          const toNodeID = e.target.getAttribute('data-node-id');
-          console.log(fromNodeID, toNodeID);
+          const toNodeID = e.target.getAttribute('data-node-id') || e.target.children[0].getAttribute('data-node-id') || e.target.children[0].children[0].getAttribute('data-node-id');
           props.addPath(crypto.randomUUID(), fromNodeID, toNodeID)
           props.toggleCreatingPath(true);
         }
