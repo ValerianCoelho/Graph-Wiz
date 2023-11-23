@@ -94,6 +94,7 @@ function Viewport(props: any) {
           props.toggleCreatingPath(props.creatingPath);
         }
         else {
+          console.log(e.target.querySelectorAll('[data-node-id]'))
           const toNodeID = e.target.getAttribute('data-node-id') || e.target.children[0].getAttribute('data-node-id') || e.target.children[0].children[0].getAttribute('data-node-id');
           props.addPath(crypto.randomUUID(), fromNodeID, toNodeID)
           props.toggleCreatingPath(true);
