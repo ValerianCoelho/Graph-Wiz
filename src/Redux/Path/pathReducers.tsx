@@ -9,7 +9,15 @@ const initialPathState = {
 const pathReducer = (state: any = initialPathState, action: any)=> {
   switch(action.type) {
     case ADD_PATH:
-      console.log(state)
+      const isRepeated = Object.values(state.pathData).some((pathInfo: any)=> {
+        if(action.payload.fromNodeID === pathInfo.fromNodeID && action.payload.toNodeID === pathInfo.toNodeID ||
+           action.payload.fromNodeID === pathInfo.toNodeID && action.payload.toNodeID === pathInfo.fromNodeID) {
+          return state;
+        }
+      })
+      if(isRepeated) {
+        return state;
+      }
       return {
         ...state,
         pathData: {
