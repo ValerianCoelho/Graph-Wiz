@@ -65,7 +65,7 @@ function Viewport(props: any) {
   useEffect(()=> {
     const handleClick = (event: any)=> {
       if(event.ctrlKey) {
-        props.setSelectedComponent(undefined); // I need to set creating path to false
+        props.setSelectedComponent(null); // I need to set creating path to false
       }
     }
     viewport.current?.parentElement?.addEventListener('click', handleClick)

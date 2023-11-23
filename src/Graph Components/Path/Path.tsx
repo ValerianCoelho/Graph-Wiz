@@ -10,7 +10,7 @@ const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string}>`
   z-index: -1;
 
   path{
-    stroke: ${props => props.$id == props.$selectedComponentID ? 'blue' : Theme.pathStroke};
+    stroke: ${props => props.$id === props.$selectedComponentID ? 'blue' : Theme.pathStroke};
     stroke-width: 2;
     fill: transparent;
   }
