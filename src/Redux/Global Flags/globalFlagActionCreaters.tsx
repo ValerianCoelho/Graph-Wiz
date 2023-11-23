@@ -3,10 +3,10 @@ import { SET_IS_CREATING_PATH,
          SET_SELECTED_COMPONENT 
        } from "./globalFlagActions";
 
-export const setIsCreatingPath = (creatingPath: boolean)=> {
+export const setIsCreatingPath = (isCreatingPath: boolean)=> {
   return {
     type: SET_IS_CREATING_PATH,
-    payload: creatingPath
+    payload: isCreatingPath
   }
 }
 

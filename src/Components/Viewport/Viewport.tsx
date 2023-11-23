@@ -100,7 +100,7 @@ function Viewport(props: any) {
   // Bug here. when a path creation has started and ended in the same node it still creates a new path. fix this
   useEffect(() => {
     const handlePointerUp = (e:any) => {
-      if(props.creatingPath){
+      if(props.isCreatingPath){
         // console.log(nodesWrapper.current);
         console.log(nodesWrapper.current?.contains(e.target));
         if (!nodesWrapper.current?.contains(e.target)) {
@@ -111,7 +111,7 @@ function Viewport(props: any) {
           if(fromNodeID != toNodeID) { // prevent self loops for now
             props.addPath(crypto.randomUUID(), fromNodeID, toNodeID)
           }
-          props.setIsCreatingPath(true);
+          props.setIsCreatingPath(false);
         }
       }
     };
@@ -120,7 +120,7 @@ function Viewport(props: any) {
     return () => {
       viewport.current?.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [props.creatingPath]);
+  }, [props.isCreatingPath]);
   
   useEffect(() => {
     viewport.current?.parentElement?.addEventListener("pointermove", (e) => {
@@ -251,7 +251,7 @@ function Viewport(props: any) {
                 })}
               </div>
 
-              { props.creatingPath && <PseudoPath x2={x2} y2={y2}/>}
+              { props.isCreatingPath && <PseudoPath x2={x2} y2={y2}/>}
             </div>
       </StyledViewportWrapper>
     </>
@@ -262,7 +262,7 @@ const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
     node: state.node.data,
-    creatingPath: state.globalFlags.creatingPath,
+    isCreatingPath: state.globalFlags.isCreatingPath,
     path: state.path.pathData,
     pan:state.panzoom.pan,
     selectedComponentID: state.globalFlags.selectedComponentID
@@ -277,8 +277,8 @@ const mapDispatchToProps = (dispatch: any) => {
     updatePan: (pan: { x: number, y: number }) => {
       dispatch(updatePan(pan))
     },
-    setIsCreatingPath: (creatingPath: boolean)=> {
-      dispatch(setIsCreatingPath(creatingPath))
+    setIsCreatingPath: (isCreatingPath: boolean)=> {
+      dispatch(setIsCreatingPath(isCreatingPath))
     },
     addPath: (pathID: string, fromNodeID: string, toNodeID: string)=>{
       dispatch(addPath(pathID, fromNodeID, toNodeID))

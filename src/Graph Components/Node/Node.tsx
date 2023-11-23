@@ -80,14 +80,14 @@ function Node(props: any) {
         x: nodeCoords[0] + (width / 2) / props.scale, 
         y: nodeCoords[1] + (height / 2) / props.scale
       })
-      props.setIsCreatingPath(true); // set creatingPath flag to true
+      props.setIsCreatingPath(true); // set isCreatingPath flag to true
     };
     addEdgeBtn.current?.addEventListener('pointerdown', handlePointerDown);
   
     return () => {
       addEdgeBtn.current?.removeEventListener('pointerdown', handlePointerDown);
     };
-  }, [props.addEdge, props.creatingPath, props.node]);  
+  }, [props.addEdge, props.isCreatingPath, props.node]);  
 
   // Setup the Interactjs Library for the nodes
   useEffect(()=> { 
@@ -143,7 +143,7 @@ const mapStateToProps = (state: any) => {
   return {
     node: state.node.data,
     scale: state.panzoom.scale,
-    creatingPath: state.globalFlags.creatingPath,
+    isCreatingPath: state.globalFlags.isCreatingPath,
     selectedComponentID: state.globalFlags.selectedComponentID
   }
 }
@@ -154,8 +154,8 @@ const mapDispatchToProps = (dispatch: any) => {
     updateNodeCoord: (id: string, coord: Array<number>) => {
       dispatch(updateNodeCoord(id, coord))
     },
-    setIsCreatingPath: (creatingPath: boolean)=> {
-      dispatch(setIsCreatingPath(creatingPath))
+    setIsCreatingPath: (isCreatingPath: boolean)=> {
+      dispatch(setIsCreatingPath(isCreatingPath))
     },
     updatePseudoPathStartCoords: (coords: {x: number, y: number})=> {
       dispatch(updatePseudoPathStartCoords(coords))
