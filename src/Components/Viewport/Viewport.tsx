@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 
 import Theme from "../../Theme.tsx";
 
-import { toggleCreatingPath, updateScale } from '../../Redux/index.tsx';
+import { setIsCreatingPath, updateScale } from '../../Redux/index.tsx';
 import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
 import { addPath } from '../../Redux/index.tsx';
 import { deletePath } from '../../Redux/index.tsx';
@@ -104,14 +104,14 @@ function Viewport(props: any) {
         // console.log(nodesWrapper.current);
         console.log(nodesWrapper.current?.contains(e.target));
         if (!nodesWrapper.current?.contains(e.target)) {
-          props.toggleCreatingPath(props.creatingPath);
+          props.setIsCreatingPath(false);
         }
         else {
           const toNodeID = e.target.getAttribute('data-node-id') || e.target.children[0].getAttribute('data-node-id') || e.target.children[0].children[0].getAttribute('data-node-id');
           if(fromNodeID != toNodeID) { // prevent self loops for now
             props.addPath(crypto.randomUUID(), fromNodeID, toNodeID)
           }
-          props.toggleCreatingPath(true);
+          props.setIsCreatingPath(true);
         }
       }
     };
@@ -277,8 +277,8 @@ const mapDispatchToProps = (dispatch: any) => {
     updatePan: (pan: { x: number, y: number }) => {
       dispatch(updatePan(pan))
     },
-    toggleCreatingPath: (creatingPath: boolean)=> {
-      dispatch(toggleCreatingPath(creatingPath))
+    setIsCreatingPath: (creatingPath: boolean)=> {
+      dispatch(setIsCreatingPath(creatingPath))
     },
     addPath: (pathID: string, fromNodeID: string, toNodeID: string)=>{
       dispatch(addPath(pathID, fromNodeID, toNodeID))

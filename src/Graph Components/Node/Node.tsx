@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { useEffect, useRef } from 'react'
 
 import { updateNodeCoord } from "../../Redux";
-import { toggleCreatingPath } from '../../Redux';
+import { setIsCreatingPath } from '../../Redux';
 import { setSelectedComponent } from '../../Redux';
 import { updatePseudoPathStartCoords } from '../../Redux';
 
@@ -80,7 +80,7 @@ function Node(props: any) {
         x: nodeCoords[0] + (width / 2) / props.scale, 
         y: nodeCoords[1] + (height / 2) / props.scale
       })
-      props.toggleCreatingPath(props.creatingPath); // set creatingPath flag to true
+      props.setIsCreatingPath(true); // set creatingPath flag to true
     };
     addEdgeBtn.current?.addEventListener('pointerdown', handlePointerDown);
   
@@ -154,8 +154,8 @@ const mapDispatchToProps = (dispatch: any) => {
     updateNodeCoord: (id: string, coord: Array<number>) => {
       dispatch(updateNodeCoord(id, coord))
     },
-    toggleCreatingPath: (creatingPath: boolean)=> {
-      dispatch(toggleCreatingPath(creatingPath))
+    setIsCreatingPath: (creatingPath: boolean)=> {
+      dispatch(setIsCreatingPath(creatingPath))
     },
     updatePseudoPathStartCoords: (coords: {x: number, y: number})=> {
       dispatch(updatePseudoPathStartCoords(coords))

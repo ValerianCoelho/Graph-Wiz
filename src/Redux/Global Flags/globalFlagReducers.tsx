@@ -1,4 +1,4 @@
-import { SET_SELECTED_COMPONENT, TOGGLE_CREATING_PATH, UPDATE_PSEUDO_PATH_START_COORDS } from "./globalFlagActions";
+import { SET_SELECTED_COMPONENT, SET_IS_CREATING_PATH, UPDATE_PSEUDO_PATH_START_COORDS } from "./globalFlagActions";
 
 const initialGlobalFlagState = {
   creatingPath: false,
@@ -12,10 +12,10 @@ const initialGlobalFlagState = {
 const globalFlagReducer = (state: any = initialGlobalFlagState, action: any)=> {
   
   switch(action.type) {
-    case TOGGLE_CREATING_PATH:
+    case SET_IS_CREATING_PATH:
       return {
         ...state,
-        creatingPath: !action.payload
+        creatingPath: action.payload
       }
       case UPDATE_PSEUDO_PATH_START_COORDS:
         return {
