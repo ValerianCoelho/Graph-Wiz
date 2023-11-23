@@ -97,28 +97,22 @@ function Viewport(props: any) {
     }
   })
  
-  // Bug here. when a path creation has started and ended in the same node it still creates a new path. fix this
   useEffect(() => {
     const handlePointerUp = (e:any) => {
-      if(props.isCreatingPath){
-        // console.log(nodesWrapper.current);
-        console.log(nodesWrapper.current?.contains(e.target));
-        if (!nodesWrapper.current?.contains(e.target)) {
-          props.setIsCreatingPath(false);
-        }
-        else {
+      if(props.isCreatingPath) {
+        if (nodesWrapper.current?.contains(e.target)) {
           const toNodeID = e.target.getAttribute('data-node-id') || e.target.children[0].getAttribute('data-node-id') || e.target.children[0].children[0].getAttribute('data-node-id');
           if(fromNodeID != toNodeID) { // prevent self loops for now
             props.addPath(crypto.randomUUID(), fromNodeID, toNodeID)
           }
-          props.setIsCreatingPath(false);
         }
+        props.setIsCreatingPath(false);
       }
     };
-    viewport.current?.addEventListener('pointerup', handlePointerUp);
+    viewport.current?.parentElement?.addEventListener('pointerup', handlePointerUp);
   
     return () => {
-      viewport.current?.removeEventListener('pointerup', handlePointerUp);
+      viewport.current?.parentElement?.removeEventListener('pointerup', handlePointerUp);
     };
   }, [props.isCreatingPath]);
   
