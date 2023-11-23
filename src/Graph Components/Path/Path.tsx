@@ -4,13 +4,6 @@ import { setSelectedComponent } from "../../Redux";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-type PathProps = {
-  x1: string,
-  y1: string,
-  x2: string,
-  y2: string
-}
-
 const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string}>`
   overflow: visible;
   position: absolute;
