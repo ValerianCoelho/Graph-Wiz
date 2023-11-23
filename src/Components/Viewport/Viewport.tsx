@@ -10,6 +10,7 @@ import { updatePan } from '../../Redux/Panzoom/panzoomActionCreaters.tsx';
 import { addPath } from '../../Redux/index.tsx';
 import { deletePath } from '../../Redux/index.tsx';
 import { deleteNode } from '../../Redux/index.tsx';
+import { setSelectedComponent } from '../../Redux/index.tsx';
 
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
@@ -60,6 +61,18 @@ function Viewport(props: any) {
   let thinLineWidth:number = (scale / subdivisions) % threshold / (threshold);
   let thickLineWidth:number=Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
   const thinLines = [...Array(subdivisions).keys()];
+
+  useEffect(()=> {
+    const handleClick = (event: any)=> {
+      if(event.ctrlKey) {
+        props.setSelectedComponent(undefined);
+      }
+    }
+    viewport.current?.parentElement?.addEventListener('click', handleClick)
+    return ()=> {
+      viewport.current?.parentElement?.addEventListener('click', handleClick)
+    }
+  }, [])
 
   useEffect(()=> {
     const handleKeyDown = (e: any)=> {
@@ -151,7 +164,7 @@ function Viewport(props: any) {
           props.updatePan(panzoom.getPan())
         }
       });
-  
+
       parent?.addEventListener('pointerdown', (event) => {
         isPointerDown = true;
         panzoom.handleDown(event);
@@ -274,6 +287,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     deleteNode: (nodeID: string)=> {
       dispatch(deleteNode(nodeID))
+    },
+    setSelectedComponent: (selectedComponentID: string)=> {
+      dispatch(setSelectedComponent(selectedComponentID))
     }
   }
 }
