@@ -43,10 +43,10 @@ const StyledPatternLine = styled.line`
 `
 
 function Viewport(props: any) {
-  const [ax1, setAx1] = useState(0);
-  const [ay1, setAy1] = useState(0);
-  const [ax2, setAx2] = useState(0);
-  const [ay2, setAy2] = useState(0);
+  const [ax1, setAx1] = useState<number|null>(null);
+  const [ay1, setAy1] = useState<number|null>(null);
+  const [ax2, setAx2] = useState<number|null>(null);
+  const [ay2, setAy2] = useState<number|null>(null);
 
   const [x2, setX2] = useState(0); // used for pseudo path's end coords
   const [y2, setY2] = useState(0); // used for pseudo path's end coords
@@ -90,13 +90,13 @@ function Viewport(props: any) {
   }, [x2, y2]); // Include dependencies that are used in the effect
 
   // Remove : To test if ax1 and ax2 are updated or not
-  // useEffect(()=> {
-  //   console.log(ax1, ay1);
-  // }, [ax1, ay1])
+  useEffect(()=> {
+    console.log(ax1, ay1);
+  }, [ax1, ay1])
   
-  // useEffect(()=> {
-  //   console.log(ax2, ay2);
-  // }, [ax2, ay2])
+  useEffect(()=> {
+    console.log(ax2, ay2);
+  }, [ax2, ay2])
 
 
   useEffect(()=> {
@@ -144,6 +144,10 @@ function Viewport(props: any) {
           }
         }
         props.setIsCreatingPath(false);
+        setAx1(null);
+        setAy1(null);
+        setAx2(null);
+        setAy2(null);
       }
     };
     viewport.current?.parentElement?.addEventListener('pointerup', handlePointerUp);
