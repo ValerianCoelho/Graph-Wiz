@@ -9,7 +9,7 @@ const initialAnchorState = {
 const anchorReducer = (state: any = initialAnchorState, action: any)=> {
   switch(action.type) {
     case ADD_ANCHOR:
-      console.log('ANCHOR DATA', state);
+      console.log('ANCHOR DATA', state.anchorData);
       return {
         ...state,
         anchorData: {

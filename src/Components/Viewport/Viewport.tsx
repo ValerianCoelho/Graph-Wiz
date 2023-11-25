@@ -280,6 +280,10 @@ function Viewport(props: any) {
                       y1={fromNodeCoord[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
                       x2={toNodeCoord[0]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
                       y2={toNodeCoord[1]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
+                      ax1={props.anchor[pathID].a1.ax1}
+                      ay1={props.anchor[pathID].a1.ay1}
+                      ax2={props.anchor[pathID].a2.ax2}
+                      ay2={props.anchor[pathID].a2.ay2}
                     /> 
                   )
                 })}
@@ -308,7 +312,8 @@ const mapStateToProps = (state: any) => {
     isCreatingPath: state.globalFlags.isCreatingPath,
     path: state.path.pathData,
     pan:state.panzoom.pan,
-    selectedComponentID: state.globalFlags.selectedComponentID
+    selectedComponentID: state.globalFlags.selectedComponentID,
+    anchor: state.anchor.anchorData
   }
 }
 
