@@ -138,7 +138,7 @@ function Viewport(props: any) {
       if(props.isCreatingPath) {
         if (nodesWrapper.current?.contains(e.target)) {
           const toNodeID = e.target.getAttribute('data-node-id') || e.target.children[0].getAttribute('data-node-id') || e.target.children[0].children[0].getAttribute('data-node-id');
-          if(fromNodeID != toNodeID) { // prevent self loops for now
+          if(fromNodeID != toNodeID || (ax2 && ay2)) { // prevent self loops for now
             const pathID = crypto.randomUUID();
             props.addPath(pathID, fromNodeID, toNodeID);
             props.addAnchor(pathID, {ax1, ay1}, {ax2, ay2});
