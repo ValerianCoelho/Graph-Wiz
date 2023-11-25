@@ -11,6 +11,7 @@ import { addPath } from '../../Redux/index.tsx';
 import { deletePath } from '../../Redux/index.tsx';
 import { deleteNode } from '../../Redux/index.tsx';
 import { setSelectedComponent } from '../../Redux/index.tsx';
+import { addAnchor } from '../../Redux/index.tsx';
 
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
@@ -90,14 +91,13 @@ function Viewport(props: any) {
   }, [x2, y2]); // Include dependencies that are used in the effect
 
   // Remove : To test if ax1 and ax2 are updated or not
-  useEffect(()=> {
-    console.log(ax1, ay1);
-  }, [ax1, ay1])
+  // useEffect(()=> {
+  //   console.log(ax1, ay1);
+  // }, [ax1, ay1])
   
-  useEffect(()=> {
-    console.log(ax2, ay2);
-  }, [ax2, ay2])
-
+  // useEffect(()=> {
+  //   console.log(ax2, ay2);
+  // }, [ax2, ay2])
 
   useEffect(()=> {
     const handleKeydown = (event: any)=> {
@@ -125,8 +125,7 @@ function Viewport(props: any) {
           }
           props.deleteNode(props.selectedComponentID)
         }
-      }
-      
+      } 
     }
     document.addEventListener('keydown', handleKeyDown);
     return ()=> {
@@ -140,7 +139,9 @@ function Viewport(props: any) {
         if (nodesWrapper.current?.contains(e.target)) {
           const toNodeID = e.target.getAttribute('data-node-id') || e.target.children[0].getAttribute('data-node-id') || e.target.children[0].children[0].getAttribute('data-node-id');
           if(fromNodeID != toNodeID) { // prevent self loops for now
-            props.addPath(crypto.randomUUID(), fromNodeID, toNodeID)
+            const pathID = crypto.randomUUID();
+            props.addPath(pathID, fromNodeID, toNodeID);
+            props.addAnchor(pathID, {ax1, ay1}, {ax2, ay2});
           }
         }
         props.setIsCreatingPath(false);
@@ -155,7 +156,7 @@ function Viewport(props: any) {
     return () => {
       viewport.current?.parentElement?.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [props.isCreatingPath]);
+  }, [props.isCreatingPath, ax1, ay1, ax2, ay2]);
   
   useEffect(() => {
     viewport.current?.parentElement?.addEventListener("pointermove", (e) => {
@@ -283,7 +284,6 @@ function Viewport(props: any) {
                   )
                 })}
               </div>
-
               { 
                 props.isCreatingPath && 
                 <PseudoPath 
@@ -334,6 +334,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     setSelectedComponent: (selectedComponentID: string)=> {
       dispatch(setSelectedComponent(selectedComponentID))
+    },
+    addAnchor: (pathID: string, a1: {ax1: number, ay1: number}, a2:{ax2: number, ay2: number})=> {
+      dispatch(addAnchor(pathID, a1, a2))
     }
   }
 }

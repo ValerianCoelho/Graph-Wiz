@@ -12,7 +12,6 @@ const initialGlobalFlagState = {
 const globalFlagReducer = (state: any = initialGlobalFlagState, action: any)=> {
   switch(action.type) {
     case SET_IS_CREATING_PATH:
-      console.log('IS_CREATING_PATH : ', action.payload)
       return {
         ...state,
         isCreatingPath: action.payload

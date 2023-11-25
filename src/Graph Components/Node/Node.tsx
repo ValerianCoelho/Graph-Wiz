@@ -63,7 +63,7 @@ function Node(props: any) {
 
   // Bug in here, fix later
   useEffect(()=> {
-    console.log('selectedComponentID: ', props.selectedComponentID) // why is this running as many times as the number of components
+    // console.log('selectedComponentID: ', props.selectedComponentID) // why is this running as many times as the number of components
   }, [props.selectedComponentID])
 
   // handle initial steps to be performed while creating a new path

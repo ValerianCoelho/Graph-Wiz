@@ -3,12 +3,14 @@ import panzoomReducer from './Panzoom/panzoomReducers'
 import nodeReducer from './Node/nodeReducers';
 import globalFlagReducer from './Global Flags/globalFlagReducers';
 import pathReducer from './Path/pathReducers';
+import anchorReducer from './Anchor/AnchorReducer';
 
 const rootReducer = combineReducers({
   node: nodeReducer,
   panzoom: panzoomReducer,
   globalFlags: globalFlagReducer,
-  path: pathReducer
+  path: pathReducer,
+  anchor: anchorReducer
 })
 
 const store = createStore(rootReducer);
