@@ -43,10 +43,17 @@ const StyledPatternLine = styled.line`
 `
 
 function Viewport(props: any) {
-  const [x2, setX2] = useState(0);
-  const [y2, setY2] = useState(0);
+  const [ax1, setAx1] = useState(0);
+  const [ay1, setAy1] = useState(0);
+  const [ax2, setAx2] = useState(0);
+  const [ay2, setAy2] = useState(0);
+
+  const [x2, setX2] = useState(0); // used for pseudo path's end coords
+  const [y2, setY2] = useState(0); // used for pseudo path's end coords
+
   const [fromNodeID, setFromNodeID] = useState(null);
   const [isAddEdgeBtnClicked, setIsAddBtnClicked] = useState(false);
+
   const viewport = useRef<HTMLDivElement>(null);
   const nodesWrapper = useRef<HTMLDivElement>(null);
 
@@ -62,15 +69,45 @@ function Viewport(props: any) {
   let thickLineWidth:number=Math.abs((-scale + threshold) % (subdivisions * threshold) / (threshold * subdivisions));
   const thinLines = [...Array(subdivisions).keys()];
 
+  useEffect(() => {
+    const handleKeydown = (event: any) => {
+      if (event.key.toLowerCase() === 'a') {
+        if (!ax1 && !ay1) {
+          setAx1(x2);
+          setAy1(y2);
+          return;
+        }
+        if(!ax2 && !ay2) {
+          setAx2(x2);
+          setAy2(y2);
+        }
+      }
+    }
+    document.addEventListener('keydown', handleKeydown);
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+    };
+  }, [x2, y2]); // Include dependencies that are used in the effect
+
+  // Remove : To test if ax1 and ax2 are updated or not
+  // useEffect(()=> {
+  //   console.log(ax1, ay1);
+  // }, [ax1, ay1])
+  
+  // useEffect(()=> {
+  //   console.log(ax2, ay2);
+  // }, [ax2, ay2])
+
+
   useEffect(()=> {
-    const handleClick = (event: any)=> {
-      if(event.ctrlKey) {
+    const handleKeydown = (event: any)=> {
+      if(event.key.toLowerCase() === 'd') {
         props.setSelectedComponent(null); // I need to set creating path to false
       }
     }
-    viewport.current?.parentElement?.addEventListener('click', handleClick)
+    document.addEventListener('keydown', handleKeydown)
     return ()=> {
-      viewport.current?.parentElement?.addEventListener('click', handleClick)
+      document.removeEventListener('keydown', handleKeydown)
     }
   }, [])
 
@@ -222,7 +259,6 @@ function Viewport(props: any) {
                     id={nodeID} 
                     addEdge={isAddEdgeBtnClicked} 
                     onPointerDown={setFromNodeID}
-                    // onDblClick={setSelectedComponent}
                   />
                 ))}
               </div>
@@ -239,13 +275,22 @@ function Viewport(props: any) {
                       y1={fromNodeCoord[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
                       x2={toNodeCoord[0]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
                       y2={toNodeCoord[1]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
-                      // onDblClick={setSelectedComponent}
                     /> 
                   )
                 })}
               </div>
 
-              { props.isCreatingPath && <PseudoPath x2={x2} y2={y2}/>}
+              { 
+                props.isCreatingPath && 
+                <PseudoPath 
+                  x2={x2} // end coords of pseudo path
+                  y2={y2} // end coords of pseudo path
+                  // ax1={ax1}
+                  // ay1={ay1}
+                  // ax2={ax2}
+                  // ay2={ay2}
+                />
+              }
             </div>
       </StyledViewportWrapper>
     </>

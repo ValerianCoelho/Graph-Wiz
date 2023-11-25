@@ -7,7 +7,7 @@ import TextField from '../../Widget Components/Text Field/TextField.tsx';
 import InputField from '../../Widget Components/Input Field/InputField.tsx';
 import Button from '../../Widget Components/Button/Button.tsx';
 import './Editor.css'
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 
 const StyledSvg = styled.svg`
