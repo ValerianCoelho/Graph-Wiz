@@ -289,10 +289,10 @@ function Viewport(props: any) {
                 <PseudoPath 
                   x2={x2} // end coords of pseudo path
                   y2={y2} // end coords of pseudo path
-                  // ax1={ax1}
-                  // ay1={ay1}
-                  // ax2={ax2}
-                  // ay2={ay2}
+                  ax1={ax1} // for quadratic bezier
+                  ay1={ay1} // for quadratic bezier
+                  ax2={ax2} // for cubic bezier
+                  ay2={ay2} // for cubic bezier
                 />
               }
             </div>

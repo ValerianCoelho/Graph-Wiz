@@ -16,7 +16,17 @@ const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string}>`
   }
 `
 
-function Path({x1, y1, x2, y2, ...props}:any) {
+function calculatePath(x1: number, y1: number, ax1: number, ay1: number, ax2: number, ay2: number, x2: number, y2: number): string {
+  if(ax2 && ay2) {
+    return `M ${x1} ${y1} C ${ax1} ${ay1}, ${ax2} ${ay2}, ${x2} ${y2}`;
+  }
+  if(ax1 && ay1) {
+    return `M ${x1} ${y1} Q ${ax1} ${ay1}, ${x2} ${y2}`;
+  }
+  return `M ${x1}, ${y1} L ${x2}, ${y2}`;
+}
+
+function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
   const path = useRef<SVGSVGElement>(null);
 
   useEffect(()=> {
@@ -31,8 +41,13 @@ function Path({x1, y1, x2, y2, ...props}:any) {
   }, [])
 
   return (
-    <StyledSvg ref={path} width="1" height="1" xmlns="http://www.w3.org/2000/svg" $selectedComponentID={props.selectedComponentID} $id={props.id}>
-      <path d={`M${x1},${y1} L${x2},${y2}`}/>
+    <StyledSvg 
+      ref={path} 
+      $id={props.id}
+      $selectedComponentID={props.selectedComponentID}
+      xmlns="http://www.w3.org/2000/svg" 
+    > 
+      <path d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
     </StyledSvg>
   )
 }
@@ -50,7 +65,6 @@ const mapDispatchToProps = (dispatch: any) => {
     }
   }
 }
-
 
 export default connect(
   mapStateToProps,
