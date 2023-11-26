@@ -6,7 +6,7 @@ const initialGlobalFlagState = {
     x: 0,
     y: 0
   },
-  selectedComponentID: 'undef'
+  selectedComponentID: null
 }
 
 const globalFlagReducer = (state: any = initialGlobalFlagState, action: any)=> {

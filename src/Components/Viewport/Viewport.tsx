@@ -16,6 +16,7 @@ import { addAnchor } from '../../Redux/index.tsx';
 import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
 import PseudoPath from '../../Graph Components/Pseudo Path/PseudoPath.tsx';
+import AnchorPoint from '../../Graph Components/AnchorPoint/AnchorPoint.tsx';
 import NavigationButton from '../../Widget Components/Navigation Button/NavigationButton.tsx';
 
 const StyledViewportWrapper = styled.div`
@@ -299,7 +300,11 @@ function Viewport(props: any) {
                   ay2={ay2} // for cubic bezier
                 />
               }
+              <div>
+                {props.selectedComponentID && <AnchorPoint/>}
+              </div>
             </div>
+            
       </StyledViewportWrapper>
     </>
   );
