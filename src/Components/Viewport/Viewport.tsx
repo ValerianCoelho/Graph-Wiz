@@ -72,7 +72,7 @@ function Viewport(props: any) {
 
   useEffect(() => {
     const handleKeydown = (event: any) => {
-      if (event.key.toLowerCase() === 'a') {
+      if (event.key.toLowerCase() === 'a' && props.isCreatingPath) {
         if (!ax1 && !ay1) {
           setAx1(x2);
           setAy1(y2);
