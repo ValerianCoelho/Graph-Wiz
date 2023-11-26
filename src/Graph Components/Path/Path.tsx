@@ -15,6 +15,7 @@ const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string}>`
     fill: none;
   }
   path:hover {
+    stroke-width: ${props => props.$id === props.$selectedComponentID ? '2' : '5'};
     stroke: ${props => props.$id === props.$selectedComponentID ? 'none' : 'gray'}; // Change this to a better color
   }
 `
