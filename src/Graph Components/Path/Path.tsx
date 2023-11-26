@@ -12,7 +12,10 @@ const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string}>`
   path{
     stroke: ${props => props.$id === props.$selectedComponentID ? 'blue' : Theme.pathStroke};
     stroke-width: 2;
-    fill: transparent;
+    fill: none;
+  }
+  path:hover {
+    stroke: ${props => props.$id === props.$selectedComponentID ? 'none' : 'gray'}; // Change this to a better color
   }
 `
 
