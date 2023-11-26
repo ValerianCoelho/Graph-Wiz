@@ -4,19 +4,23 @@ import { setSelectedComponent } from "../../Redux";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string}>`
+const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string, $scale:number}>`
   overflow: visible;
   position: absolute;
   z-index: -1;
 
-  path{
+  .path{
     stroke: ${props => props.$id === props.$selectedComponentID ? 'blue' : Theme.pathStroke};
     stroke-width: 2;
     fill: none;
   }
-  path:hover {
-    stroke-width: ${props => props.$id === props.$selectedComponentID ? '2' : '5'};
-    stroke: ${props => props.$id === props.$selectedComponentID ? 'none' : 'gray'}; // Change this to a better color
+  .hidden-path {
+    stroke: transparent;
+    stroke-width: ${props => 10 / props.$scale}; // changes based on zoom level
+    fill: none;
+  }
+  .path:hover, .hidden-path:hover + .path{
+    stroke: ${props => props.$id === props.$selectedComponentID ? 'blue' : 'gray'}; // Change this to a better color
   }
 `
 
@@ -43,21 +47,24 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       path.current?.removeEventListener('dblclick', handleDblClick);
     }
   }, [])
-
+  
   return (
     <StyledSvg 
       ref={path} 
       $id={props.id}
+      $scale={props.scale}
       $selectedComponentID={props.selectedComponentID}
       xmlns="http://www.w3.org/2000/svg" 
     > 
-      <path d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
+      <path className="hidden-path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
+      <path className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
     </StyledSvg>
   )
 }
 
 const mapStateToProps = (state: any) => {
   return {
+    scale: state.panzoom.scale,
     selectedComponentID: state.globalFlags.selectedComponentID
   }
 }
