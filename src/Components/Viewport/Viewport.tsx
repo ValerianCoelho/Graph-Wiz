@@ -301,7 +301,7 @@ function Viewport(props: any) {
                 />
               }
               {props.selectedComponentID && 
-                <div>
+                <div key={props.selectedComponentID}>
                   {props.anchor[props.selectedComponentID].a1.ax1 && 
                     <AnchorPoint
                       initialXPos={props.anchor[props.selectedComponentID].a1.ax1} 
