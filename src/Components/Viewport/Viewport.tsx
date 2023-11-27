@@ -116,10 +116,10 @@ function Viewport(props: any) {
   useEffect(()=> {
     const handleKeyDown = (e: any)=> {
       if (e.keyCode === 46) {
-        if (props.path[props.selectedComponentID] && props.path[props.selectedComponentID]['componentType'] === "path") {
+        if (props.path[props.selectedComponentID]?.componentType === "path") {
           props.deletePath(props.selectedComponentID)
         }
-        else if (props.node[props.selectedComponentID] && props.node[props.selectedComponentID]['componentType'] === "node") {
+        else if (props.node[props.selectedComponentID]?.componentType === "node") {
           for(let key in props.path) {
             if(props.path[key]['fromNodeID'] == props.selectedComponentID || props.path[key]['toNodeID'] == props.selectedComponentID) {
               props.deletePath(key)
@@ -300,7 +300,7 @@ function Viewport(props: any) {
                   ay2={ay2} // for cubic bezier
                 />
               }
-              {props.selectedComponentID && 
+              {(props.path[props.selectedComponentID]?.componentType === "path") && 
                 <div key={props.selectedComponentID}>
                   {props.anchor[props.selectedComponentID].a1.ax1 && 
                     <AnchorPoint
