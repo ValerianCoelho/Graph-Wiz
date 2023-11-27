@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { updateAnchorCoord } from "../../Redux";
 
-const StyledAnchor = styled.div<{$initialXPos: number, $initialYPos: number}>`
+const StyledAnchor = styled.div`
   width: 15px;
   height: 15px;
   background-color: white;
   border-radius: 50%;
   border: 2px solid #0080F6;
-  transform: ${props => `translate(${props.$initialXPos}px, ${props.$initialYPos}px)`};
+  
   position: absolute;
   top: 0;
   left: 0;
@@ -19,6 +19,12 @@ const StyledAnchor = styled.div<{$initialXPos: number, $initialYPos: number}>`
 
 function AnchorPoint(props: any) {
   const anchorPointRef = useRef<HTMLDivElement>(null);
+
+  useEffect(()=> {
+    if(anchorPointRef.current) {
+      anchorPointRef.current.style.transform = `translate(${props.initialXPos}px, ${props.initialYPos}px)`;
+    }
+  }, [])
 
   // Setup the Interactjs Library for the nodes
   useEffect(()=> { 
