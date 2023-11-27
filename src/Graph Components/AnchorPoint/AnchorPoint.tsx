@@ -10,6 +10,9 @@ const StyledAnchor = styled.div<{$initialXPos: number, $initialYPos: number}>`
   border-radius: 50%;
   border: 2px solid #0080F6;
   transform: ${props => `translate(${props.$initialXPos}px, ${props.$initialYPos}px)`};
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 

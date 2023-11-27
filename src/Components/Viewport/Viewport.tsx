@@ -290,8 +290,7 @@ function Viewport(props: any) {
                   )
                 })}
               </div>
-              { 
-                props.isCreatingPath && 
+              {props.isCreatingPath && 
                 <PseudoPath 
                   x2={x2} // end coords of pseudo path
                   y2={y2} // end coords of pseudo path
@@ -301,14 +300,21 @@ function Viewport(props: any) {
                   ay2={ay2} // for cubic bezier
                 />
               }
-              
               {props.selectedComponentID && 
                 <div>
-                  <AnchorPoint
-                    initialXPos={200} 
-                    initialYPos={400} 
-                  />
-                  <DashedLine/>
+                  {props.anchor[props.selectedComponentID].a1.ax1 && 
+                    <AnchorPoint
+                      initialXPos={props.anchor[props.selectedComponentID].a1.ax1} 
+                      initialYPos={props.anchor[props.selectedComponentID].a1.ay1} 
+                    />
+                  }
+                  {props.anchor[props.selectedComponentID].a2.ax2 && 
+                    <AnchorPoint
+                      initialXPos={props.anchor[props.selectedComponentID].a2.ax2} 
+                      initialYPos={props.anchor[props.selectedComponentID].a2.ay2} 
+                    />
+                  }
+                  {/* <DashedLine/> */}
                 </div>
               }
               
