@@ -10,6 +10,9 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
+  ::-webkit-scrollbar {
+    display: none;
+}
 `;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
