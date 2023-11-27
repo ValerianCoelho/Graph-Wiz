@@ -304,7 +304,10 @@ function Viewport(props: any) {
               
               {props.selectedComponentID && 
                 <div>
-                  <AnchorPoint/>
+                  <AnchorPoint
+                    initialXPos={200} 
+                    initialYPos={400} 
+                  />
                   <DashedLine/>
                 </div>
               }

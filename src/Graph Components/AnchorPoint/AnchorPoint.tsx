@@ -3,13 +3,15 @@ import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-const StyledAnchor = styled.div`
+const StyledAnchor = styled.div<{$initialXPos: number, $initialYPos: number}>`
   width: 15px;
   height: 15px;
   background-color: white;
   border-radius: 50%;
   border: 2px solid #0080F6;
-`
+  transform: ${props => `translate(${props.$initialXPos}px, ${props.$initialYPos}px)`};
+`;
+
 
 function AnchorPoint(props: any) {
   const anchorPointRef = useRef<HTMLDivElement>(null);
@@ -23,8 +25,8 @@ function AnchorPoint(props: any) {
             const target = event.target; 
   
             // Update node coordinates during dragging
-            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx / props.scale;
-            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy / props.scale;
+            const x = (parseFloat(target.getAttribute('data-x')) || props.initialXPos) + event.dx / props.scale;
+            const y = (parseFloat(target.getAttribute('data-y')) || props.initialYPos) + event.dy / props.scale;
 
             target.style.transform = `translate(${x}px, ${y}px)`;
   
@@ -44,6 +46,8 @@ function AnchorPoint(props: any) {
   return (
     <StyledAnchor
       ref={anchorPointRef}
+      $initialXPos={props.initialXPos}
+      $initialYPos={props.initialYPos}
       className="excluded-class"
     />
   )
