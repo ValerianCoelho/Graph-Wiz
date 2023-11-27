@@ -305,13 +305,15 @@ function Viewport(props: any) {
                   {props.anchor[props.selectedComponentID].a1.ax1 && 
                     <AnchorPoint
                       initialXPos={props.anchor[props.selectedComponentID].a1.ax1} 
-                      initialYPos={props.anchor[props.selectedComponentID].a1.ay1} 
+                      initialYPos={props.anchor[props.selectedComponentID].a1.ay1}
+                      anchor='a1'
                     />
                   }
                   {props.anchor[props.selectedComponentID].a2.ax2 && 
                     <AnchorPoint
                       initialXPos={props.anchor[props.selectedComponentID].a2.ax2} 
                       initialYPos={props.anchor[props.selectedComponentID].a2.ay2} 
+                      anchor='a2'
                     />
                   }
                   {/* <DashedLine/> */}
