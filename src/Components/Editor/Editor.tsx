@@ -26,6 +26,8 @@ function Editor(props: any) {
       props.addNode(crypto.randomUUID(), {label: input, coord: [0, 0]})
       setNodeLabel('');
     }
+    let newChar=String.fromCharCode(nodeLabel.charCodeAt(0)+1);
+    setNodeLabel(newChar);
   }
 
   return (
