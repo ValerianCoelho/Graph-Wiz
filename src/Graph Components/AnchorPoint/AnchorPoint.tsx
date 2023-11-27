@@ -2,6 +2,7 @@ import interact from "interactjs";
 import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { updateAnchorCoord } from "../../Redux";
 
 const StyledAnchor = styled.div<{$initialXPos: number, $initialYPos: number}>`
   width: 15px;
@@ -35,6 +36,8 @@ function AnchorPoint(props: any) {
   
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
+
+            props.updateAnchorCoord(props.selectedComponentID, props.anchor, {ax:x, ay:y});
           }
         }
       });
@@ -59,11 +62,22 @@ function AnchorPoint(props: any) {
 // Map Redux state to component props
 const mapStateToProps = (state: any) => {
   return {
-    scale: state.panzoom.scale
+    scale: state.panzoom.scale,
+    selectedComponentID: state.globalFlags.selectedComponentID
+  }
+}
+
+// Map Redux actions to component props
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateAnchorCoord: (pathID: string, anchor: string, a: {ax: number, ay: number})=> {
+      dispatch(updateAnchorCoord(pathID, anchor, a))
+    }
   }
 }
 
 // Connect the component to the Redux store
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(AnchorPoint)
