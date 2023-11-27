@@ -58,8 +58,6 @@ function AnchorPoint(props: any) {
   return (
     <StyledAnchor
       ref={anchorPointRef}
-      $initialXPos={props.initialXPos}
-      $initialYPos={props.initialYPos}
       className="excluded-class"
     />
   )
