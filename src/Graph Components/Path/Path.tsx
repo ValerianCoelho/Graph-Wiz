@@ -4,7 +4,7 @@ import { setSelectedComponent } from "../../Redux";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string, $scale:number}>`
+const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string, $scale:number, $isCreatingPath:boolean}>`
   overflow: visible;
   position: absolute;
   z-index: -1;
@@ -20,7 +20,13 @@ const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string, $scale:nu
     fill: none;
   }
   .path:hover, .hidden-path:hover + .path{
-    stroke: ${props => props.$id === props.$selectedComponentID ? 'blue' : 'gray'}; // Change this to a better color
+    stroke: ${props => props.$isCreatingPath 
+              ? "white" 
+              : props => props.$id === props.$selectedComponentID 
+                ? 'blue' 
+                : 'gray'
+            }; // Change this to a better color}
+    
   }
 `
 
@@ -53,6 +59,7 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       ref={path} 
       $id={props.id}
       $scale={props.scale}
+      $isCreatingPath={props.isCreatingPath}
       $selectedComponentID={props.selectedComponentID}
       xmlns="http://www.w3.org/2000/svg" 
     > 
@@ -65,6 +72,7 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
 const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
+    isCreatingPath: state.globalFlags.isCreatingPath,
     selectedComponentID: state.globalFlags.selectedComponentID
   }
 }
