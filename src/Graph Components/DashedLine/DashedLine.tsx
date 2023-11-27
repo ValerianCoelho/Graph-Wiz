@@ -1,20 +1,23 @@
 import styled from "styled-components";
 
 const StyledDashedLine = styled.svg`
-  border: 2px dashed #454545;
   overflow: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
 `
 
-function DashedLine() {
+function DashedLine({x1, y1, x2, y2, ...props}: any) {
   return (
-    <StyledDashedLine xmlns="http://www.w3.org/2000/svg">
-    <line 
-      x1="1" y1="1" x2="100" y2="100" 
-      stroke-linecap="round" 
-      stroke="black" 
-      stroke-width="1" 
-      stroke-dasharray="1 2" 
-    />
+    <StyledDashedLine viewBox="0 0 1280 1280" xmlns="http://www.w3.org/2000/svg"> 
+      <line 
+        x1={x1} y1={y1} x2={x2} y2={y2} 
+        stroke-linecap="round" 
+        stroke="gray" 
+        stroke-width="1" 
+        stroke-dasharray="5 5" 
+      />
   </StyledDashedLine>
   )
 }

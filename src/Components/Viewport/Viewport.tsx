@@ -44,7 +44,7 @@ const StyledPatternLine = styled.line`
   stroke: #2A2A2F;
   position: absolute;
 `
-
+// If things break then change DashedLine to Path
 const displayAnchorHandles = (node: any, path: any, selectedComponentID: any, anchor: any)=> {
   const A1Exists = anchor[selectedComponentID].a1.ax1;
   const A2Exists = anchor[selectedComponentID].a2.ax2;
@@ -67,21 +67,21 @@ const displayAnchorHandles = (node: any, path: any, selectedComponentID: any, an
   }
   return (
     <>
-      { A1Exists && <Path
+      { A1Exists && <DashedLine
                       x1={N1.x}
                       y1={N1.y}
                       x2={A1.x}
                       y2={A1.y}
                     />
       }
-      { A1Exists && <Path
+      { A1Exists && <DashedLine
                       x1={A1.x}
                       y1={A1.y}
                       x2={ A2Exists ? A2.x : N2.x}
                       y2={ A2Exists ? A2.y : N2.y}
                     />
       }
-      { A2Exists && <Path
+      { A2Exists && <DashedLine
                       x1={A2.x}
                       y1={A2.y}
                       x2={N2.x}
@@ -364,6 +364,12 @@ function Viewport(props: any) {
                     />
                   }
                   {displayAnchorHandles(props.node, props.path, props.selectedComponentID, props.anchor)}
+                  {/* {<DashedLine 
+                    x1={"1"} 
+                    y1={"1"} 
+                    x2={"100"} 
+                    y2={"100"} 
+                  />} */}
                 </div>
               }
             </div>
