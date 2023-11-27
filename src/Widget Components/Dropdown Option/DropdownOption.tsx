@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import styled from "styled-components";
 
 
@@ -13,9 +13,17 @@ const StyledDropdownTitle  = styled.div`
     padding: 10px 0;
     padding-left: 20px;
 `
-const StyledDropdownList = styled.div<{$isOpen:boolean}>`
+const StyledDropdownList = styled.div`
     list-style-type: none;
-    display:${props=>props.$isOpen?"block":"none"}
+    display:block;
+    max-height:0;
+    overflow-y: hidden;
+    transition: all 0.2s ease-in-out;
+    &.active{
+        max-height: 1000px;
+        overflow-y: visible;
+    }
+
 `
 const StyledDropdownOption = styled.div`
     background-color: #191932;
@@ -32,10 +40,11 @@ function DropdownOption(props: any) {
   const [isOpen, setIsOpen] = useState(false);
 
 
+
   return (
     <StyledDropdownOptions>
         <StyledDropdownTitle onClick={()=>{setIsOpen(!isOpen)}}>{props.title}</StyledDropdownTitle>
-        <StyledDropdownList $isOpen={isOpen}>
+        <StyledDropdownList className={isOpen?"active":""}  >
             {props.optionList.map((option: any)=>(
             <StyledDropdownOption key={option} onClick={()=>{console.log(option)}}> {option} </StyledDropdownOption>
             ))}
