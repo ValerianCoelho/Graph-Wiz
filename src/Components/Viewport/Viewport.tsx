@@ -139,26 +139,22 @@ function Viewport(props: any) {
     };
   }, [x2, y2]); // Include dependencies that are used in the effect
 
-  // Remove : To test if ax1 and ax2 are updated or not
-  // useEffect(()=> {
-  //   console.log(ax1, ay1);
-  // }, [ax1, ay1])
-  
-  // useEffect(()=> {
-  //   console.log(ax2, ay2);
-  // }, [ax2, ay2])
 
   useEffect(()=> {
     const handleKeydown = (event: any)=> {
       if(event.key.toLowerCase() === 'd') {
         props.setSelectedComponent(null); // I need to set creating path to false
       }
+      if(event.key === 'Tab') {
+        event.preventDefault();
+        setIsAddBtnClicked(!isAddEdgeBtnClicked);
+      }
     }
     document.addEventListener('keydown', handleKeydown)
     return ()=> {
       document.removeEventListener('keydown', handleKeydown)
     }
-  }, [])
+  }, [isAddEdgeBtnClicked])
 
   useEffect(()=> {
     const handleKeyDown = (e: any)=> {
