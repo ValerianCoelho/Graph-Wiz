@@ -56,7 +56,7 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
   
   return (
     <StyledSvg 
-      ref={path} 
+      ref={path}
       $id={props.id}
       $scale={props.scale}
       $isCreatingPath={props.isCreatingPath}
@@ -64,7 +64,13 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       xmlns="http://www.w3.org/2000/svg" 
     > 
       <path className="hidden-path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
-      <path className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
+      <path id={`path-${props.id}`} className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
+
+      <text font-family="Arial" font-size="10" fill="white">
+        <textPath xlinkHref={`#path-${props.id}`} startOffset="50%" text-anchor="middle">
+          <tspan dy="-5">Graph Wiz</tspan>
+        </textPath>
+      </text>
     </StyledSvg>
   )
 }
