@@ -71,6 +71,7 @@ function DropdownSelect(props: any) {
           <StyledOption key={option} onClick={()=>{
             setSelectedOption(option);
             setIsOpen(!isOpen);
+            props.handleSelect(option)
           }}> {option} </StyledOption>
         ))}
       </StyledOptionList>
