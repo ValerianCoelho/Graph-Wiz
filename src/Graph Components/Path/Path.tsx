@@ -67,8 +67,8 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       <path id={`path-${props.id}`} className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
 
       { props.weightOption === 'Weighted' && 
-        <text font-family="Arial" font-size="10" fill="white">
-          <textPath xlinkHref={`#path-${props.id}`} startOffset="50%" text-anchor="middle">
+        <text fontFamily="Arial" fontSize="10" fill="white">
+          <textPath xlinkHref={`#path-${props.id}`} startOffset="50%" textAnchor="middle">
             <tspan dy="-5">Graph Wiz</tspan>
           </textPath>
         </text>
