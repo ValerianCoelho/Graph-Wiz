@@ -43,7 +43,7 @@ const pathReducer = (state: any = initialPathState, action: any)=> {
           ...state.pathData,
           [pathID]: {
             ...state.pathData[pathID],
-            weight: weight
+            weight: weight ? weight : 0
           }
 
         }

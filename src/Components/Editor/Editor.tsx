@@ -42,6 +42,26 @@ const StyledRightDirectedEdgeBtn = styled.svg`
   }
 `
 
+function weightInput(selectedComponentID: string, path: any, weightOption: string, updateWeight: any) {
+  const isPathSelected = path[selectedComponentID]?.componentType === 'path' ? true : false;
+  return (
+    <>
+      { weightOption === 'Weighted' && 
+        <InputField 
+          value={isPathSelected ? path[selectedComponentID].weight : ''}
+          placeholderText={isPathSelected ? "Enter Weight" : "Select an Edge" }
+          isDisabled={isPathSelected ? false : true}
+
+          handleInput={(weightValue: string)=> {
+            const weight = parseInt(weightValue);
+            updateWeight(selectedComponentID, weight);
+          }}
+        />}
+    </>
+  )
+}
+
+
 function Editor(props: any) {
   const [nodeLabel, setNodeLabel] = useState('');
 
@@ -99,16 +119,7 @@ function Editor(props: any) {
           </div>}
         </div>
 
-        { props.weightOption === 'Weighted' && 
-          <InputField 
-            placeholderText={props.selectedComponentID ? "Enter Weight" : "Select an Edge" }
-            isDisabled={props.selectedComponentID ? false : true}
-            handleInput={(weightValue: string)=> {
-              const weight = parseInt(weightValue);
-              props.updateWeight(props.selectedComponentID, weight);
-            }}
-          />
-        }
+        {weightInput(props.selectedComponentID, props.path, props.weightOption, props.updateWeight)}
       </div>
       }
     </div>
@@ -120,6 +131,7 @@ const mapStateToProps = (state: any) => {
     weightOption: state.globalFlags.weightOption,
     directedOption: state.globalFlags.directedOption,
     selectedComponentID: state.globalFlags.selectedComponentID,
+    path: state.path.pathData,
   }
 }
 
