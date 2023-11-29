@@ -198,7 +198,8 @@ function Viewport(props: any) {
           const toNodeID = e.target.getAttribute('data-node-id') || e.target.children[0].getAttribute('data-node-id') || e.target.children[0].children[0].getAttribute('data-node-id');
           if(fromNodeID != toNodeID || (ax2 && ay2)) { // prevent self loops for now
             const pathID = crypto.randomUUID();
-            props.addPath(pathID, fromNodeID, toNodeID);
+            const weight = 1;
+            props.addPath(pathID, fromNodeID, toNodeID, weight);
             props.addAnchor(pathID, {ax1, ay1}, {ax2, ay2});
           }
         }
@@ -342,6 +343,7 @@ function Viewport(props: any) {
                       ay1={props.anchor[pathID].a1.ay1}
                       ax2={props.anchor[pathID].a2.ax2}
                       ay2={props.anchor[pathID].a2.ay2}
+                      weight={pathData.weight}
                     /> 
                   )
                 })}
@@ -411,8 +413,8 @@ const mapDispatchToProps = (dispatch: any) => {
     setIsCreatingPath: (isCreatingPath: boolean)=> {
       dispatch(setIsCreatingPath(isCreatingPath))
     },
-    addPath: (pathID: string, fromNodeID: string, toNodeID: string)=>{
-      dispatch(addPath(pathID, fromNodeID, toNodeID))
+    addPath: (pathID: string, fromNodeID: string, toNodeID: string, weight: number)=>{
+      dispatch(addPath(pathID, fromNodeID, toNodeID, weight))
     },
     deletePath: (pathID: string)=> {
       dispatch(deletePath(pathID))

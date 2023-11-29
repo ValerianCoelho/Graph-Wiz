@@ -69,7 +69,7 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       { props.weightOption === 'Weighted' && 
         <text fontFamily="Arial" fontSize="10" fill="white">
           <textPath xlinkHref={`#path-${props.id}`} startOffset="50%" textAnchor="middle">
-            <tspan dy="-5">Graph Wiz</tspan>
+            <tspan dy="-5">{props.weight}</tspan>
           </textPath>
         </text>
       }
