@@ -8,16 +8,19 @@ const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string, $scale:nu
   overflow: visible;
   position: absolute;
   z-index: -1;
+  pointer-events: none;
 
   .path{
     stroke: ${props => props.$id === props.$selectedComponentID ? 'blue' : Theme.pathStroke};
     stroke-width: 2;
     fill: none;
+    pointer-events: stroke;
   }
   .hidden-path {
     stroke: transparent;
     stroke-width: ${props => 10 / props.$scale}; // changes based on zoom level
     fill: none;
+    pointer-events: stroke;
   }
   .path:hover, .hidden-path:hover + .path{
     stroke: ${props => props.$isCreatingPath 

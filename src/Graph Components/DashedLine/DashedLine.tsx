@@ -4,12 +4,14 @@ const StyledSvg = styled.svg`
   overflow: visible;
   position: absolute;
   z-index: -1;
+  pointer-events: none;
 
   .line{
     stroke: gray;
     stroke-width: 2;
     fill: none;
     stroke-linecap: round;
+    pointer-events: stroke;
   }
 `
 
