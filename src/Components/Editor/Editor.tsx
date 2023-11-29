@@ -10,7 +10,7 @@ import './Editor.css'
 import { useEffect, useState } from "react";
 import { setWeightOption } from "../../Redux/index.tsx";
 import { setDirectedOption } from "../../Redux/index.tsx";
-
+import { updateWeight } from "../../Redux/index.tsx";
 
 const StyledAddNodeSvgBtn = styled.svg`
   &:hover path {
@@ -44,7 +44,6 @@ const StyledRightDirectedEdgeBtn = styled.svg`
 
 function Editor(props: any) {
   const [nodeLabel, setNodeLabel] = useState('');
-  const [weightValue, setWeightValue] = useState(1);
 
   const handleAddNode = ()=> {
     const input = nodeLabel;
@@ -55,10 +54,6 @@ function Editor(props: any) {
     let newChar=String.fromCharCode(nodeLabel.charCodeAt(0)+1);
     setNodeLabel(newChar);
   }
-
-  useEffect(()=> {
-    console.log(weightValue);
-  }, [weightValue])
 
   return (
     <div className="editor">
@@ -108,7 +103,10 @@ function Editor(props: any) {
           <InputField 
             placeholderText={props.selectedComponentID ? "Enter Weight" : "Select an Edge" }
             isDisabled={props.selectedComponentID ? false : true}
-            handleInput={setWeightValue}
+            handleInput={(weightValue: string)=> {
+              const weight = parseInt(weightValue);
+              props.updateWeight(props.selectedComponentID, weight);
+            }}
           />
         }
       </div>
@@ -135,6 +133,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     setDirectedOption: (directedOption: string)=> {
       dispatch(setDirectedOption(directedOption))
+    },
+    updateWeight: (pathID: string, weight: number)=> {
+      dispatch(updateWeight(pathID, weight))
     }
   }
 }
