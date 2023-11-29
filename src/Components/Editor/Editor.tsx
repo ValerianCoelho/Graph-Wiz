@@ -44,6 +44,7 @@ const StyledRightDirectedEdgeBtn = styled.svg`
 
 function Editor(props: any) {
   const [nodeLabel, setNodeLabel] = useState('');
+  const [weightValue, setWeightValue] = useState(1);
 
   const handleAddNode = ()=> {
     const input = nodeLabel;
@@ -54,6 +55,10 @@ function Editor(props: any) {
     let newChar=String.fromCharCode(nodeLabel.charCodeAt(0)+1);
     setNodeLabel(newChar);
   }
+
+  useEffect(()=> {
+    console.log(weightValue);
+  }, [weightValue])
 
   return (
     <div className="editor">
@@ -73,12 +78,15 @@ function Editor(props: any) {
           <TextField text="Node Label"/>
         </div>
         <div className="add-node-line-2">
-          <InputField onChange={setNodeLabel} value={nodeLabel} placeholderText="Node Label"/>
+          <InputField 
+            handleChange={setNodeLabel} 
+            value={nodeLabel} 
+            placeholderText="Node Label"
+          />
           <Button text="ADD" handleClick={handleAddNode}/>
         </div>
         <DropdownSelect optionList={["Alphabetical", "Numerical", "Roman Numeral"]}/>
       </div>
-
 
       {(props.directedOption === 'Directed' || props.weightOption === 'Weighted') &&
         <div className="link-type panel">
@@ -100,6 +108,7 @@ function Editor(props: any) {
           <InputField 
             placeholderText={props.selectedComponentID ? "Enter Weight" : "Select an Edge" }
             isDisabled={props.selectedComponentID ? false : true}
+            handleInput={setWeightValue}
           />
         }
       </div>

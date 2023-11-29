@@ -20,8 +20,9 @@ function InputField(props: any) {
       type="text" 
       value={props.value} 
       placeholder={props.placeholderText}
-      onChange={(e)=>props.onChange(e.target.value)} 
       disabled={props.isDisabled}
+      onChange={props.handleChange ? (e)=>props.handleChange(e.target.value) : undefined} 
+      onInput={props.handleInput ? (e) => props.handleInput(e.currentTarget.value) : undefined}
     />
   )
 }
