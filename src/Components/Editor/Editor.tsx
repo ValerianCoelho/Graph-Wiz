@@ -96,7 +96,12 @@ function Editor(props: any) {
           </div>}
         </div>
 
-        { props.weightOption === 'Weighted' && <InputField placeholderText="Weight"/>}
+        { props.weightOption === 'Weighted' && 
+          <InputField 
+            placeholderText={props.selectedComponentID ? "Enter Weight" : "Select an Edge" }
+            isDisabled={props.selectedComponentID ? false : true}
+          />
+        }
       </div>
       }
     </div>
@@ -107,6 +112,7 @@ const mapStateToProps = (state: any) => {
   return {
     weightOption: state.globalFlags.weightOption,
     directedOption: state.globalFlags.directedOption,
+    selectedComponentID: state.globalFlags.selectedComponentID,
   }
 }
 

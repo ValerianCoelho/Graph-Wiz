@@ -142,9 +142,6 @@ function Viewport(props: any) {
 
   useEffect(()=> {
     const handleKeydown = (event: any)=> {
-      if(event.key.toLowerCase() === 'd') {
-        props.setSelectedComponent(null); // I need to set creating path to false
-      }
       if(event.key === 'Tab') {
         event.preventDefault();
         setIsAddBtnClicked(!isAddEdgeBtnClicked);
@@ -155,6 +152,22 @@ function Viewport(props: any) {
       document.removeEventListener('keydown', handleKeydown)
     }
   }, [isAddEdgeBtnClicked])
+
+  useEffect(() => {
+    const handleKeydown = (event: any) => {
+        if(event.ctrlKey) {
+          event.preventDefault();
+          if (event.key.toLowerCase() === 'd') {
+              props.setSelectedComponent(null);
+          }
+        }
+    };
+    document.addEventListener('keydown', handleKeydown);
+    return () => {
+        document.removeEventListener('keydown', handleKeydown);
+    };
+}, []);
+
 
   useEffect(()=> {
     const handleKeyDown = (e: any)=> {

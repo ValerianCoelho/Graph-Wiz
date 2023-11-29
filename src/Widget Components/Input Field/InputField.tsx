@@ -16,7 +16,13 @@ const StyledInputField = styled.input`
 
 function InputField(props: any) {
   return (
-    <StyledInputField onChange={(e)=>props.onChange(e.target.value)} type="text" value={props.value} placeholder={props.placeholderText}/>
+    <StyledInputField 
+      type="text" 
+      value={props.value} 
+      placeholder={props.placeholderText}
+      onChange={(e)=>props.onChange(e.target.value)} 
+      disabled={props.isDisabled}
+    />
   )
 }
 export default InputField;
