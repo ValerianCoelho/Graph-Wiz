@@ -66,11 +66,13 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       <path className="hidden-path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
       <path id={`path-${props.id}`} className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
 
-      <text font-family="Arial" font-size="10" fill="white">
-        <textPath xlinkHref={`#path-${props.id}`} startOffset="50%" text-anchor="middle">
-          <tspan dy="-5">Graph Wiz</tspan>
-        </textPath>
-      </text>
+      { props.weightOption === 'Weighted' && 
+        <text font-family="Arial" font-size="10" fill="white">
+          <textPath xlinkHref={`#path-${props.id}`} startOffset="50%" text-anchor="middle">
+            <tspan dy="-5">Graph Wiz</tspan>
+          </textPath>
+        </text>
+      }
     </StyledSvg>
   )
 }
@@ -79,7 +81,8 @@ const mapStateToProps = (state: any) => {
   return {
     scale: state.panzoom.scale,
     isCreatingPath: state.globalFlags.isCreatingPath,
-    selectedComponentID: state.globalFlags.selectedComponentID
+    selectedComponentID: state.globalFlags.selectedComponentID,
+    weightOption: state.globalFlags.weightOption,
   }
 }
 
