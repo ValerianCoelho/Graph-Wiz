@@ -66,7 +66,21 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       $selectedComponentID={props.selectedComponentID}
       xmlns="http://www.w3.org/2000/svg" 
     > 
-      <path className="hidden-path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
+      <defs>
+        <marker
+          id="arrow"
+          viewBox="0 0 10 10"
+          refX={props.isCreatingPath ? "5" : "19"}
+          refY="5"
+          markerWidth={1.5 * props.scale}
+          markerHeight={1.5 * props.scale}
+          orient="auto-start-reverse"
+          fill="white"
+          >
+          <path d="M 0 0 L 10 5 L 0 10 z" />
+        </marker>
+      </defs>    
+      <path className="hidden-path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)} markerEnd="url(#arrow)"/>
       <path id={`path-${props.id}`} className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
 
       { props.weightOption === 'Weighted' && 
