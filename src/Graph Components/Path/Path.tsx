@@ -83,8 +83,8 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       <path 
         className="hidden-path" 
         d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)} 
-        markerStart={props.directedOption === 'Directed' ? "url(#arrow)" : ""}
-        markerEnd={props.directedOption === 'Directed' ? "url(#arrow)" : ""}
+        markerStart={props.directedOption === 'Directed' && props.direction === 'Backward' ? "url(#arrow)" : ""}
+        markerEnd={props.directedOption === 'Directed' && props.direction === 'Forward' ? "url(#arrow)" : ""}
       />
       <path id={`path-${props.id}`} className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
 

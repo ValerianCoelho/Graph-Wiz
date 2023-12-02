@@ -199,7 +199,8 @@ function Viewport(props: any) {
           if(fromNodeID != toNodeID || (ax2 && ay2)) { // prevent self loops for now
             const pathID = crypto.randomUUID();
             const weight = 1;
-            props.addPath(pathID, fromNodeID, toNodeID, weight);
+            const direction = 'Forward';
+            props.addPath(pathID, fromNodeID, toNodeID, weight, direction);
             props.addAnchor(pathID, {ax1, ay1}, {ax2, ay2});
           }
         }
@@ -344,6 +345,7 @@ function Viewport(props: any) {
                       ax2={props.anchor[pathID].a2.ax2}
                       ay2={props.anchor[pathID].a2.ay2}
                       weight={pathData.weight}
+                      direction={pathData.direction}
                     /> 
                   )
                 })}
@@ -375,12 +377,6 @@ function Viewport(props: any) {
                     />
                   }
                   {displayAnchorHandles(props.node, props.path, props.selectedComponentID, props.anchor)}
-                  {/* {<DashedLine 
-                    x1={"1"} 
-                    y1={"1"} 
-                    x2={"100"} 
-                    y2={"100"} 
-                  />} */}
                 </div>
               }
             </div>
@@ -413,8 +409,8 @@ const mapDispatchToProps = (dispatch: any) => {
     setIsCreatingPath: (isCreatingPath: boolean)=> {
       dispatch(setIsCreatingPath(isCreatingPath))
     },
-    addPath: (pathID: string, fromNodeID: string, toNodeID: string, weight: number)=>{
-      dispatch(addPath(pathID, fromNodeID, toNodeID, weight))
+    addPath: (pathID: string, fromNodeID: string, toNodeID: string, weight: number, direction: string)=>{
+      dispatch(addPath(pathID, fromNodeID, toNodeID, weight, direction))
     },
     deletePath: (pathID: string)=> {
       dispatch(deletePath(pathID))
