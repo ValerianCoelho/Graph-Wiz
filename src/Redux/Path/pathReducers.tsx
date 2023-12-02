@@ -1,4 +1,4 @@
-import { ADD_PATH, DELETE_PATH, UPDATE_WEIGHT } from "./pathActions";
+import { ADD_PATH, CHANGE_DIRECTION, DELETE_PATH, UPDATE_WEIGHT } from "./pathActions";
 
 const initialPathState = {
   pathData: {
@@ -37,7 +37,7 @@ const pathReducer = (state: any = initialPathState, action: any)=> {
         ...state,
         pathData: newPathData
       }
-    case UPDATE_WEIGHT:
+    case UPDATE_WEIGHT: {
       const { pathID, weight } = action.payload;
       return {
         ...state,
@@ -50,6 +50,21 @@ const pathReducer = (state: any = initialPathState, action: any)=> {
 
         }
       }
+    }
+    case CHANGE_DIRECTION: {
+      console.log(state)
+      const { pathID, direction } = action.payload;
+      return {
+        ...state,
+        pathData: {
+          ...state.pathData,
+          [pathID]: {
+            ...state.pathData[pathID],
+            direction: direction
+          }
+        }
+      }
+    }
     default: return state;
   }
 }

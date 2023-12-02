@@ -1,4 +1,4 @@
-import { ADD_PATH, DELETE_PATH, UPDATE_WEIGHT } from "./pathActions";
+import { ADD_PATH, DELETE_PATH, UPDATE_WEIGHT, CHANGE_DIRECTION } from "./pathActions";
 
 export const addPath = (pathID: string, fromNodeID: string, toNodeID: string, weight: number, direction: string)=> {
   return {
@@ -26,6 +26,16 @@ export const updateWeight = (pathID: string, weight: number)=> {
     payload: {
       pathID: pathID,
       weight: weight
+    }
+  }
+}
+
+export const changeDirection = (pathID: string, direction: string)=> {
+  return {
+    type: CHANGE_DIRECTION,
+    payload: {
+      pathID: pathID,
+      direction: direction
     }
   }
 }
