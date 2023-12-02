@@ -20,9 +20,9 @@ const StyledAddNodeSvgBtn = styled.svg`
   }
 `
 
-const StyledLeftDirectedEdgeBtn = styled.svg`
+const StyledLeftDirectedEdgeBtn = styled.svg<{$selected:boolean}>`
   color: ${Theme.fgColor};
-  background-color: ${Theme.bgColor};
+  background-color: ${props => props.$selected ? '#272753' : Theme.bgColor};
   box-sizing: content-box;
   padding: 5px;
   border: 1px solid ${Theme.nodeBorderColor};
@@ -31,9 +31,9 @@ const StyledLeftDirectedEdgeBtn = styled.svg`
     background-color: #272753;
   }
 `
-const StyledRightDirectedEdgeBtn = styled.svg`
+const StyledRightDirectedEdgeBtn = styled.svg<{$selected:boolean}>`
   color: ${Theme.fgColor};
-  background-color: ${Theme.bgColor};
+  background-color: ${props => props.$selected ? '#272753' : Theme.bgColor};
   box-sizing: content-box;
   padding: 5px;
   border: 1px solid ${Theme.nodeBorderColor};
@@ -108,10 +108,11 @@ function Editor(props: any) {
         <div className="link-type panel">
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <TextField text="Link Type"/>
-          { props.directedOption === 'Directed' 
+          { props.directedOption === 'Directed' && props.selectedComponentID
             && 
             <div style={{display: 'flex', gap: '7px'}}>
               <StyledLeftDirectedEdgeBtn 
+                $selected={props.path[props.selectedComponentID].direction === 'Forward' ?  true : false}
                 width="20" 
                 height="20" 
                 viewBox="0 0 16 16" 
@@ -124,6 +125,7 @@ function Editor(props: any) {
                 <path d="M14.2501 8.00001C14.2501 8.19892 14.1711 8.38968 14.0304 8.53033C13.8898 8.67099 13.699 8.75001 13.5001 8.75001H4.3126L7.5326 11.9694C7.6735 12.1103 7.75265 12.3014 7.75265 12.5006C7.75265 12.6999 7.6735 12.891 7.5326 13.0319C7.39171 13.1728 7.20061 13.2519 7.00135 13.2519C6.8021 13.2519 6.611 13.1728 6.4701 13.0319L1.9701 8.53188C1.90018 8.4622 1.84471 8.37941 1.80685 8.28824C1.769 8.19708 1.74951 8.09934 1.74951 8.00063C1.74951 7.90192 1.769 7.80418 1.80685 7.71302C1.84471 7.62185 1.90018 7.53906 1.9701 7.46938L6.4701 2.96938C6.53987 2.89961 6.62269 2.84427 6.71384 2.80652C6.80499 2.76876 6.90269 2.74933 7.00135 2.74933C7.10002 2.74933 7.19771 2.76876 7.28886 2.80652C7.38002 2.84427 7.46284 2.89961 7.5326 2.96938C7.60237 3.03914 7.65771 3.12197 7.69546 3.21312C7.73322 3.30427 7.75265 3.40197 7.75265 3.50063C7.75265 3.59929 7.73322 3.69699 7.69546 3.78814C7.65771 3.87929 7.60237 3.96212 7.5326 4.03188L4.3126 7.25001H13.5001C13.699 7.25001 13.8898 7.32902 14.0304 7.46967C14.1711 7.61033 14.2501 7.80109 14.2501 8.00001Z" fill="#6A6A9F"/>
               </StyledLeftDirectedEdgeBtn>
               <StyledRightDirectedEdgeBtn 
+                $selected={props.path[props.selectedComponentID]?.direction === 'Backward' ?  true : false}
                 width="20" 
                 height="20" 
                 viewBox="0 0 16 16" 
