@@ -69,18 +69,23 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       <defs>
         <marker
           id="arrow"
-          viewBox="0 0 10 10"
-          refX={props.isCreatingPath ? "5" : "19"}
-          refY="5"
-          markerWidth={1.5 * props.scale}
-          markerHeight={1.5 * props.scale}
-          orient="auto-start-reverse"
           fill="white"
-          >
+          viewBox="0 0 10 10"
+          orient="auto-start-reverse"
+          refY="5"
+          refX={props.isCreatingPath ? "5" : "21"}
+          markerWidth={1.2 * props.scale}
+          markerHeight={1.2 * props.scale}
+        >
           <path d="M 0 0 L 10 5 L 0 10 z" />
         </marker>
       </defs>    
-      <path className="hidden-path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)} markerEnd="url(#arrow)"/>
+      <path 
+        className="hidden-path" 
+        d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)} 
+        markerStart={props.directedOption === 'Directed' ? "url(#arrow)" : ""}
+        markerEnd={props.directedOption === 'Directed' ? "url(#arrow)" : ""}
+      />
       <path id={`path-${props.id}`} className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
 
       { props.weightOption === 'Weighted' && 
@@ -100,6 +105,7 @@ const mapStateToProps = (state: any) => {
     isCreatingPath: state.globalFlags.isCreatingPath,
     selectedComponentID: state.globalFlags.selectedComponentID,
     weightOption: state.globalFlags.weightOption,
+    directedOption: state.globalFlags.directedOption,
   }
 }
 
