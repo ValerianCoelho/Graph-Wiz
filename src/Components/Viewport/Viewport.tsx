@@ -284,7 +284,9 @@ function Viewport(props: any) {
   return (
     <>
       <StyledViewportWrapper>
-        <div onClick={()=>{setIsAddBtnClicked(!isAddEdgeBtnClicked)}}><NavigationButton color={isAddEdgeBtnClicked ? '#FFFFFF' : '#6A6A9F'}/></div>
+        <div onClick={()=>{setIsAddBtnClicked(!isAddEdgeBtnClicked)}}>
+          <NavigationButton color={isAddEdgeBtnClicked ? '#FFFFFF' : '#6A6A9F'}/>
+        </div>
 
         <StyledGraphPatternWrapper>
             <StyledPatternBg>
@@ -317,21 +319,25 @@ function Viewport(props: any) {
 
             <div className="viewport__body" ref={viewport}>
               <div className="nodes-wrapper" ref={nodesWrapper}>
-                {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>(
-                  <Node 
+                {Object.entries(props.node).map(([nodeID, nodeData]: [string, any])=>{
+                  // console.log("NODE") // [Performance Bug]: why is this line printing multiple times when I hover over the viewport
+                  //                        [Reason]: this happens because the state updates everytime we dispatch an action regardless of that action belonging to the reducer 
+                  //                                  that deals with nodes, now when the action is passed to the nodeReducer it will go to the default case and return the state 
+                  return (<Node 
                     label={nodeData.label} 
                     key={nodeID} 
                     id={nodeID} 
                     addEdge={isAddEdgeBtnClicked} 
                     onPointerDown={setFromNodeID}
-                  />
-                ))}
+                  />)
+                })}
               </div>
               <div className="paths-wrapper">
                 {Object.entries(props.path).map(([pathID, pathData]: [string, any])=>{
                   if(props.node[pathData.toNodeID]==undefined){return null}
                   const fromNodeCoord = props.node[pathData.fromNodeID].coord;
                   const toNodeCoord = props.node[pathData.toNodeID].coord;
+                  // console.log("PATH") // [Performance Bug]: why is this line printing multiple times when I hover over the viewport
                   return (
                     <Path 
                       key={pathID} 

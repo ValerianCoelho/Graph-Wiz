@@ -87,7 +87,7 @@ function Node(props: any) {
     return () => {
       addEdgeBtn.current?.removeEventListener('pointerdown', handlePointerDown);
     };
-  }, [props.addEdge, props.isCreatingPath, props.node]);  
+  }, [props.addEdge, props.isCreatingPath, props.node, props.scale]);  
 
   // Setup the Interactjs Library for the nodes
   useEffect(()=> { 
