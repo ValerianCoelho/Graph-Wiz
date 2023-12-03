@@ -92,6 +92,36 @@ const displayAnchorHandles = (node: any, path: any, selectedComponentID: any, an
   )
 }
 
+function displayAnchorPoints(selectedComponentID: any, anchor: any) {
+  const A1Exists = anchor[selectedComponentID].a1.ax1;
+  const A2Exists = anchor[selectedComponentID].a2.ax2;
+
+  const A1 = {
+    x: anchor[selectedComponentID].a1.ax1,
+    y: anchor[selectedComponentID].a1.ay1
+  }
+  const A2 = {
+    x: anchor[selectedComponentID].a2.ax2,
+    y: anchor[selectedComponentID].a2.ay2
+  }
+  return (
+    <>
+      { A1Exists && <AnchorPoint
+                      initialXPos={A1.x} 
+                      initialYPos={A1.y}
+                      anchor='a1'
+                    />
+      }
+      { A2Exists && <AnchorPoint
+                      initialXPos={A2.x} 
+                      initialYPos={A2.y} 
+                      anchor='a2'
+                    />
+      }
+    </>
+  )
+}
+
 function Viewport(props: any) {
   const [ax1, setAx1] = useState<number|null>(null);
   const [ay1, setAy1] = useState<number|null>(null);
@@ -366,27 +396,13 @@ function Viewport(props: any) {
                   ay2={ay2} // for cubic bezier
                 />
               }
-              {(props.path[props.selectedComponentID]?.componentType === "path") && 
+              {props.path[props.selectedComponentID]?.componentType === "path" && 
                 <div key={props.selectedComponentID}>
-                  {props.anchor[props.selectedComponentID].a1.ax1 && 
-                    <AnchorPoint
-                      initialXPos={props.anchor[props.selectedComponentID].a1.ax1} 
-                      initialYPos={props.anchor[props.selectedComponentID].a1.ay1}
-                      anchor='a1'
-                    />
-                  }
-                  {props.anchor[props.selectedComponentID].a2.ax2 && 
-                    <AnchorPoint
-                      initialXPos={props.anchor[props.selectedComponentID].a2.ax2} 
-                      initialYPos={props.anchor[props.selectedComponentID].a2.ay2} 
-                      anchor='a2'
-                    />
-                  }
-                  {displayAnchorHandles(props.node, props.path, props.selectedComponentID, props.anchor)}
+                  {displayAnchorPoints(props.selectedComponentID, props.anchor)} // Display The Anchor Points
+                  {displayAnchorHandles(props.node, props.path, props.selectedComponentID, props.anchor)} // Display The Anchor Handles
                 </div>
               }
             </div>
-            
       </StyledViewportWrapper>
     </>
   );
