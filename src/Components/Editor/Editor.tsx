@@ -68,6 +68,9 @@ function Editor(props: any) {
 
   const handleAddNode = ()=> {
     const input = nodeLabel;
+    if(nodeLabel==""){
+      return;
+    }
     if(input?.trim()) {
       props.addNode(crypto.randomUUID(), {label: input, coord: [0, 0]})
       setNodeLabel('');
