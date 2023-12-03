@@ -122,6 +122,46 @@ function displayAnchorPoints(selectedComponentID: any, anchor: any) {
   )
 }
 
+function displayEdges(path: any, node: any, anchor: any) {
+  return (
+    <>
+      {Object.entries(path).map(([pathID, pathData]: [string, any])=>{
+        if(node[pathData.toNodeID] == undefined) {
+          return null;
+        }
+        const Node = {
+          from: node[pathData.fromNodeID].coord,
+          to: node[pathData.toNodeID].coord
+        }
+        const A1 = {
+          x: anchor[pathID].a1.ax1,
+          y: anchor[pathID].a1.ay1
+        }
+        const A2 = {
+          x: anchor[pathID].a2.ax2,
+          y: anchor[pathID].a2.ay2
+        }
+        return (
+          <Path 
+            key={pathID} 
+            id={pathID}
+            x1={Node.from[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
+            y1={Node.from[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
+            x2={Node.to[0]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
+            y2={Node.to[1]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
+            ax1={A1.x}
+            ay1={A1.y}
+            ax2={A2.x}
+            ay2={A2.y}
+            weight={pathData.weight}
+            direction={pathData.direction}
+          /> 
+        )
+      })}
+    </>
+  )
+}
+
 function Viewport(props: any) {
   const [ax1, setAx1] = useState<number|null>(null);
   const [ay1, setAy1] = useState<number|null>(null);
@@ -363,28 +403,7 @@ function Viewport(props: any) {
                 })}
               </div>
               <div className="paths-wrapper">
-                {Object.entries(props.path).map(([pathID, pathData]: [string, any])=>{
-                  if(props.node[pathData.toNodeID]==undefined){return null}
-                  const fromNodeCoord = props.node[pathData.fromNodeID].coord;
-                  const toNodeCoord = props.node[pathData.toNodeID].coord;
-                  // console.log("PATH") // [Performance Bug]: why is this line printing multiple times when I hover over the viewport
-                  return (
-                    <Path 
-                      key={pathID} 
-                      id={pathID}
-                      x1={fromNodeCoord[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-                      y1={fromNodeCoord[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-                      x2={toNodeCoord[0]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
-                      y2={toNodeCoord[1]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
-                      ax1={props.anchor[pathID].a1.ax1}
-                      ay1={props.anchor[pathID].a1.ay1}
-                      ax2={props.anchor[pathID].a2.ax2}
-                      ay2={props.anchor[pathID].a2.ay2}
-                      weight={pathData.weight}
-                      direction={pathData.direction}
-                    /> 
-                  )
-                })}
+                {displayEdges(props.path, props.node, props.anchor)}
               </div>
               {props.isCreatingPath && 
                 <PseudoPath 
@@ -398,8 +417,8 @@ function Viewport(props: any) {
               }
               {props.path[props.selectedComponentID]?.componentType === "path" && 
                 <div key={props.selectedComponentID}>
-                  {displayAnchorPoints(props.selectedComponentID, props.anchor)} // Display The Anchor Points
-                  {displayAnchorHandles(props.node, props.path, props.selectedComponentID, props.anchor)} // Display The Anchor Handles
+                  {displayAnchorPoints(props.selectedComponentID, props.anchor)}
+                  {displayAnchorHandles(props.node, props.path, props.selectedComponentID, props.anchor)}
                 </div>
               }
             </div>
