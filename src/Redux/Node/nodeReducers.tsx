@@ -9,28 +9,33 @@ const initialNodeState = {
 
 const nodeReducer = (state: any = initialNodeState, action: any)=> {
   switch(action.type) {
-    case UPDATE_NODE_COORD:
+    case UPDATE_NODE_COORD: {
+      const {nodeID, coord} = action.payload;
       return {
         ...state,
         data: {
           ...state.data,
-          [action.payload.nodeID]: {
-            ...state.data[action.payload.nodeID], 
-            coord: action.payload.coord
+          [nodeID]: {
+            ...state.data[nodeID], 
+            coord: coord
           }
         }
       };
-    case ADD_NODE:
+    }
+    case ADD_NODE: {
+      const {nodeID, label, coord} = action.payload;
       return {
         ...state,
         data: {
           ...state.data,
-          [action.payload.nodeID]: {
-            ...action.payload.data,
+          [nodeID]: {
+            label: label,
+            coord: coord,
             componentType: 'node'
           }
         }
       }
+    }
     case DELETE_NODE:
       console.log(state)
       const { [action.payload]: deletedNode, ...newNodeData} = state.data;

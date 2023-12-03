@@ -50,12 +50,12 @@ const displayAnchorHandles = (node: any, path: any, selectedComponentID: any, an
   const A2Exists = anchor[selectedComponentID].a2.ax2;
 
   const N1 = {
-    x: node[path[selectedComponentID].fromNodeID].coord[0]+15,
-    y: node[path[selectedComponentID].fromNodeID].coord[1]+15
+    x: node[path[selectedComponentID].fromNodeID].coord.x + 15,
+    y: node[path[selectedComponentID].fromNodeID].coord.y + 15
   }
   const N2 = {
-    x: node[path[selectedComponentID].toNodeID].coord[0]+15,
-    y: node[path[selectedComponentID].toNodeID].coord[1]+15
+    x: node[path[selectedComponentID].toNodeID].coord.x + 15,
+    y: node[path[selectedComponentID].toNodeID].coord.y + 15
   }
   const A1 = {
     x: anchor[selectedComponentID].a1.ax1 + 7.5,
@@ -130,8 +130,14 @@ function displayEdges(path: any, node: any, anchor: any) {
           return null;
         }
         const Node = {
-          from: node[pathData.fromNodeID].coord,
-          to: node[pathData.toNodeID].coord
+          from: {
+            x: node[pathData.fromNodeID].coord.x + 15, // size of node = 30, therefore offset = 30/2 = 15. change this later
+            y: node[pathData.fromNodeID].coord.y + 15, // size of node = 30, therefore offset = 30/2 = 15. change this later
+          },
+          to: {
+            x: node[pathData.toNodeID].coord.x + 15, // size of node = 30, therefore offset = 30/2 = 15. change this later
+            y: node[pathData.toNodeID].coord.y + 15, // size of node = 30, therefore offset = 30/2 = 15. change this later
+          } 
         }
         const A1 = {
           x: anchor[pathID].a1.ax1,
@@ -143,12 +149,12 @@ function displayEdges(path: any, node: any, anchor: any) {
         }
         return (
           <Path 
-            key={pathID} 
             id={pathID}
-            x1={Node.from[0]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-            y1={Node.from[1]+15}  // size of node = 30, therefore offset = 30/2 = 15. change this later
-            x2={Node.to[0]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
-            y2={Node.to[1]+15}    // size of node = 30, therefore offset = 30/2 = 15. change this later
+            key={pathID} 
+            x1={Node.from.x}
+            y1={Node.from.y}
+            x2={Node.to.x}
+            y2={Node.to.y}
             ax1={A1.x}
             ay1={A1.y}
             ax2={A2.x}

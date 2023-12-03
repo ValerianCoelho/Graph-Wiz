@@ -77,8 +77,8 @@ function Node(props: any) {
       props.onPointerDown(props.id) // save the current node's id as fromNodeID for the path about to be created
       console.log(props.scale);
       props.updatePseudoPathStartCoords({ // Update the pseudo-path's start coords (x1, y1)
-        x: nodeCoords[0] + (width / 2) / props.scale, 
-        y: nodeCoords[1] + (height / 2) / props.scale
+        x: nodeCoords.x + (width / 2) / props.scale, 
+        y: nodeCoords.y + (height / 2) / props.scale
       })
       props.setIsCreatingPath(true); // set isCreatingPath flag to true
     };
@@ -108,7 +108,7 @@ function Node(props: any) {
             target.setAttribute('data-y', y);
             
             // Update node coordinates in the Redux store
-            props.updateNodeCoord(props.id, [x, y]);
+            props.updateNodeCoord(props.id, {x: x, y: y});
           }
         }
       });
@@ -151,7 +151,7 @@ const mapStateToProps = (state: any) => {
 // Map Redux actions to component props
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    updateNodeCoord: (id: string, coord: Array<number>) => {
+    updateNodeCoord: (id: string, coord: {x: number, y: number}) => {
       dispatch(updateNodeCoord(id, coord))
     },
     setIsCreatingPath: (isCreatingPath: boolean)=> {

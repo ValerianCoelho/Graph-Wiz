@@ -9,6 +9,7 @@ function PseudoPath(props: any) {
   useEffect(()=>{
     setX1(props.coords.x) // from redux store
     setY1(props.coords.y) // from redux store
+    console.log(x1, y1);
   }, [props.coords])
 
   return (

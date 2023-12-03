@@ -1,6 +1,6 @@
 import { UPDATE_NODE_COORD, ADD_NODE, DELETE_NODE } from "./nodeActions"
 
-export const updateNodeCoord = (nodeID: string, coord: Array<number>)=> {
+export const updateNodeCoord = (nodeID: string, coord: {x: number, y: number})=> {
   return {
     type: UPDATE_NODE_COORD,
     payload: {
@@ -10,12 +10,13 @@ export const updateNodeCoord = (nodeID: string, coord: Array<number>)=> {
   }
 }
 
-export const addNode = (nodeID: string, data: object)=> {
+export const addNode = (nodeID: string, label: string, coord: {x: number, y: number})=> {
   return {
     type: ADD_NODE,
     payload: {
       nodeID: nodeID,
-      data: data
+      label: label,
+      coord: coord
     }
   }
 }

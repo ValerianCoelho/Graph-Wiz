@@ -72,7 +72,7 @@ function Editor(props: any) {
       return;
     }
     if(input?.trim()) {
-      props.addNode(crypto.randomUUID(), {label: input, coord: [0, 0]})
+      props.addNode(crypto.randomUUID(), input, {x: 0, y: 0})
       setNodeLabel('');
     }
     let newChar=String.fromCharCode(nodeLabel.charCodeAt(0)+1);
@@ -160,8 +160,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    addNode: (nodeID:string, data: object) => {
-      dispatch(addNode(nodeID, data))
+    addNode: (nodeID:string, label: string, coord: {x: number, y: number}) => {
+      dispatch(addNode(nodeID, label, coord))
     },
     setWeightOption: (weightOption: string)=> {
       dispatch(setWeightOption(weightOption))
