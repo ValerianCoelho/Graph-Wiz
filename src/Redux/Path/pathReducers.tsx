@@ -9,7 +9,6 @@ const initialPathState = {
 const pathReducer = (state: any = initialPathState, action: any)=> {
   switch(action.type) {
     case ADD_PATH:
-      console.log(state.pathData)
       const isRepeated = Object.values(state.pathData).some((pathInfo: any)=> {
         if(action.payload.fromNodeID === pathInfo.fromNodeID && action.payload.toNodeID === pathInfo.toNodeID) {
           return state;
@@ -52,7 +51,6 @@ const pathReducer = (state: any = initialPathState, action: any)=> {
       }
     }
     case CHANGE_DIRECTION: {
-      console.log(state)
       const { pathID, direction } = action.payload;
       return {
         ...state,

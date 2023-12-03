@@ -75,7 +75,6 @@ function Node(props: any) {
       const nodeCoords = props.node[props.id].coord; // from redux store
 
       props.onPointerDown(props.id) // save the current node's id as fromNodeID for the path about to be created
-      console.log(props.scale);
       props.updatePseudoPathStartCoords({ // Update the pseudo-path's start coords (x1, y1)
         x: nodeCoords.x + (width / 2) / props.scale, 
         y: nodeCoords.y + (height / 2) / props.scale

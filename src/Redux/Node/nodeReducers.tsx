@@ -37,7 +37,6 @@ const nodeReducer = (state: any = initialNodeState, action: any)=> {
       }
     }
     case DELETE_NODE:
-      console.log(state)
       const { [action.payload]: deletedNode, ...newNodeData} = state.data;
       return {
         ...state,

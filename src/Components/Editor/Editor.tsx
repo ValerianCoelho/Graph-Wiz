@@ -111,11 +111,11 @@ function Editor(props: any) {
         <div className="link-type panel">
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <TextField text="Link Type"/>
-          { props.directedOption === 'Directed' && props.selectedComponentID
+          { props.directedOption === 'Directed' && props.path[props.selectedComponentID]?.componentType === "path"
             && 
             <div style={{display: 'flex', gap: '7px'}}>
               <StyledLeftDirectedEdgeBtn 
-                $selected={props.path[props.selectedComponentID].direction === 'Forward' ?  true : false}
+                $selected={props.path[props.selectedComponentID]?.direction === 'Forward' ?  true : false}
                 width="20" 
                 height="20" 
                 viewBox="0 0 16 16" 

@@ -23,7 +23,7 @@ function DashedLine({x1, y1, x2, y2}: any) {
         y1={y1} 
         x2={x2} 
         y2={y2} 
-        stroke-dasharray="5 5" 
+        strokeDasharray="5 5" 
       />
     </StyledSvg>
   )
