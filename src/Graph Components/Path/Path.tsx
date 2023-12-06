@@ -33,6 +33,37 @@ const StyledSvg = styled.svg<{$selectedComponentID:string, $id:string, $scale:nu
   }
 `
 
+function calculateSlope(p1: number, p2: number, p3: number, p4: number){
+  const t = 0.5;
+  if(p3) {
+    return p1 * (-3 * t ** 2 + 6 * t - 3) + 
+           p2 * (9 * t ** 2 - 12 * t + 3) + 
+           p3 * (-9 * t ** 2 + 6 * t) + 
+           p4 * (3 * t ** 2);
+  }
+  if(p2) {
+    return p1 * (2 * t - 2) + 
+           p2 * (2 - 4 * t) + 
+           p4 * (2 * t);
+  }
+  if(p1) {
+    return p1 * (-1) + p4;
+  }
+  return 0;
+}
+
+function calculateInclination(p1: {x: number, y: number}, 
+                              p2: {x: number, y: number}, 
+                              p3: {x: number, y: number}, 
+                              p4: {x: number, y: number}) {
+  const dx = calculateSlope(p1.x, p2.x, p3.x, p4.x);
+  const dy = calculateSlope(p1.y, p2.y, p3.y, p4.y);
+  const slope = dx / dy;
+  const inclinationRadians = Math.atan(slope)
+  const inclinationDegrees = (inclinationRadians * 180) / Math.PI;
+  return inclinationDegrees + 90;
+}
+
 function calculatePath(x1: number, y1: number, ax1: number, ay1: number, ax2: number, ay2: number, x2: number, y2: number): string {
   if(ax2 && ay2) {
     return `M ${x1} ${y1} C ${ax1} ${ay1}, ${ax2} ${ay2}, ${x2} ${y2}`;
@@ -91,7 +122,7 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       { props.weightOption === 'Weighted' && 
         <text fontFamily="Arial" fontSize="10" fill="white">
           <textPath xlinkHref={`#path-${props.id}`} startOffset="50%" textAnchor="middle">
-            <tspan dy="-5">{props.weight}</tspan>
+            <tspan rotate={calculateInclination({x: x1, y: y1}, {x: ax1, y: ay1}, {x: ax2, y: ay2}, {x: x2, y: y2})} dy="-5">{props.weight}</tspan>
           </textPath>
         </text>
       }
