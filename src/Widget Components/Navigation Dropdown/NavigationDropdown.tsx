@@ -28,22 +28,25 @@ const StyledNavigationOptions = styled.ul`
   z-index: 3;
   list-style-type: none;
   border-radius: 5px;
-
   & .navigation-section{
     padding: 10px;
-
-    & > li {
+    & > ul  {
       cursor: default;
-      padding: 5px 20px;
+      padding: 5px 10px;
       border-radius: 5px;
-
+      list-style-type: none;
+      display: flex;
+      justify-content: space-between;
+      & > li:first-child {
+        margin-right: 40px;
+      }
       &:hover {
         background-color: #2F2F4E;
       }
     }
   }
   & .navigation-section:not(:last-child){
-    border-bottom: 1.5px solid #6A6A9F;
+    border-bottom: 1px solid #6A6A9F;
   }
 `
 
@@ -59,9 +62,10 @@ function NavigationDropdown(props: any) {
                 <div className="navigation-section" key={NavigationOptionIndex * 10 + SectionIndex}>
                   {Section.map((Option: any, OptionIndex: number) => (
                     // Add the return statement here
-                    <li key={NavigationOptionIndex * 100 + SectionIndex * 10 + OptionIndex}>
-                      {Option.option}
-                    </li>
+                    <ul key={NavigationOptionIndex * 100 + SectionIndex * 10 + OptionIndex}>
+                      <li>{Option.option}</li>
+                      <li>{Option.hotkey}</li>
+                    </ul>
                   ))}
                 </div>
               ))}
