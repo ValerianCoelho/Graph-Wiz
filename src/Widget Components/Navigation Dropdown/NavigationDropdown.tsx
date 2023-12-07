@@ -17,15 +17,34 @@ const StyledNavigation = styled.ul`
 
       &:hover {
         background-color: #252545;
-      }
+      } 
     }
   }
 `;
 
 const StyledNavigationOptions = styled.ul`
   position: absolute;
-  background-color: white;
+  background-color: #252545;
   z-index: 3;
+  list-style-type: none;
+  border-radius: 5px;
+
+  & .navigation-section{
+    padding: 10px;
+
+    & > li {
+      cursor: default;
+      padding: 5px 20px;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #2F2F4E;
+      }
+    }
+  }
+  & .navigation-section:not(:last-child){
+    border-bottom: 1.5px solid #6A6A9F;
+  }
 `
 
 function NavigationDropdown(props: any) {
@@ -37,7 +56,7 @@ function NavigationDropdown(props: any) {
             <li>{NavigationOption.title}</li>
             <StyledNavigationOptions>
               {NavigationOption.children?.map((Section: any, SectionIndex: number) => (
-                <div key={NavigationOptionIndex * 10 + SectionIndex}>
+                <div className="navigation-section" key={NavigationOptionIndex * 10 + SectionIndex}>
                   {Section.map((Option: any, OptionIndex: number) => (
                     // Add the return statement here
                     <li key={NavigationOptionIndex * 100 + SectionIndex * 10 + OptionIndex}>
