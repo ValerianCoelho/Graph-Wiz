@@ -23,11 +23,11 @@ const StyledNavigation = styled.ul`
 `;
 
 const StyledNavigationOptions = styled.ul`
-  position: absolute;
   background-color: #252545;
   z-index: 3;
   list-style-type: none;
   border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
   & .navigation-section{
     padding: 10px;
     & > ul  {
@@ -50,26 +50,40 @@ const StyledNavigationOptions = styled.ul`
   }
 `
 
+function renderNavigation(NavigationOption: any) {
+  return (
+    <StyledNavigationOptions>
+      {NavigationOption.children?.map((Section: any) => (
+        <div className="navigation-section" key={crypto.randomUUID()}>
+          {Section.map((Option: any) => (
+            // Add the return statement here
+            <ul key={crypto.randomUUID()}>
+              <li>{Option.option}</li>
+              <li>{Option.hotkey}</li>
+              { Option.children 
+                && 
+                <div style={{position: "absolute", right: "-212px", overflow: "visible"}}>
+                  {renderNavigation(Option)}
+                </div>
+              }
+            </ul>
+          ))}
+        </div>
+      ))}
+    </StyledNavigationOptions>
+  )
+}
+
 function NavigationDropdown(props: any) {
   return (
     <>
       <StyledNavigation>
-        {props.navigationData.map((NavigationOption: any, NavigationOptionIndex: number) => (
-          <ul key={NavigationOptionIndex}>
+        {props.navigationData.map((NavigationOption: any) => (
+          <ul key={crypto.randomUUID()}>
             <li>{NavigationOption.title}</li>
-            <StyledNavigationOptions>
-              {NavigationOption.children?.map((Section: any, SectionIndex: number) => (
-                <div className="navigation-section" key={NavigationOptionIndex * 10 + SectionIndex}>
-                  {Section.map((Option: any, OptionIndex: number) => (
-                    // Add the return statement here
-                    <ul key={NavigationOptionIndex * 100 + SectionIndex * 10 + OptionIndex}>
-                      <li>{Option.option}</li>
-                      <li>{Option.hotkey}</li>
-                    </ul>
-                  ))}
-                </div>
-              ))}
-            </StyledNavigationOptions>
+            <div style={{position: "absolute", zIndex: 3}}>
+              {renderNavigation(NavigationOption)}
+            </div>
           </ul>
         ))}
       </StyledNavigation>
