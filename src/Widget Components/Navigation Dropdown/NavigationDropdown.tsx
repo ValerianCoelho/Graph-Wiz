@@ -53,6 +53,8 @@ const StyledNavigationOptions = styled.ul`
 
 
 function renderNavigationOptions(NavigationOption: any) {
+  const [dropdownOption, setDropdownOption] = useState(''); // this useState causes the fault
+
   return (
     <StyledNavigationOptions>
       {
@@ -60,10 +62,14 @@ function renderNavigationOptions(NavigationOption: any) {
           <div className="navigation-section" key={crypto.randomUUID()}>
             {
               Section.map((Option: any) => (
-                <ul key={crypto.randomUUID()}>
+                <ul onClick={()=>{setDropdownOption(Option.option)}} key={crypto.randomUUID()}>
                   <li>{Option.option}</li>
                   <li>{Option.hotkey}</li>
-                  { Option.children && <div style={{position: "absolute", right: "-212px", overflow: "visible"}}>
+                  { Option.children 
+                    &&
+                    dropdownOption === Option.option
+                    && 
+                    <div style={{position: "absolute", right: "-212px", overflow: "visible"}}>
                                           {renderNavigationOptions(Option)}
                                         </div>
                   }
@@ -98,7 +104,7 @@ function NavigationDropdown(props: any) {
 
   useEffect(()=> {
     document.addEventListener("click", handleClickedOutside, true)
-  })
+  }, [])
 
   return (
     <>
