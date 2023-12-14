@@ -36,7 +36,30 @@ export const navigationData = [
           {
             "option": "Share",
             "hotkey": ">",
-            // Add Here
+            "children": [
+              [
+                {
+                  "option": "Whatsapp",
+                },
+                {
+                  "option": "Instagram",
+                },
+                {
+                  "option": "Facebook",
+                },
+                {
+                  "option": "Discord",
+                }
+              ],
+              [
+                {
+                  "option": "Copy Link",
+                },
+                {
+                  "option": "Copy Github Link",
+                }
+              ]
+            ]
           }
         ],
         [
