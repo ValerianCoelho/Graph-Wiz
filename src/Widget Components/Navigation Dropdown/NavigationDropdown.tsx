@@ -52,7 +52,7 @@ const StyledNavigationOptions = styled.ul`
 `
 
 
-function renderNavigationOptions(NavigationOption: any) {
+function RenderNavigationOptions(NavigationOption: any) {
   // const [dropdownOption, setDropdownOption] = useState(''); // this useState causes the fault
 
   return (
@@ -73,7 +73,7 @@ function renderNavigationOptions(NavigationOption: any) {
                     // dropdownOption === Option.option
                     && 
                     <div style={{position: "absolute", right: "-212px", overflow: "visible"}}>
-                      {renderNavigationOptions(Option)}
+                      <RenderNavigationOptions NavigationOption={Option}/>
                     </div>
                   }
                 </ul>
@@ -121,7 +121,8 @@ function NavigationDropdown(props: any) {
                  &&
                  currentNavigationTab === NavigationOption.title
                  && 
-                 renderNavigationOptions(NavigationOption)}
+                 <RenderNavigationOptions NavigationOption={NavigationOption}/>
+                }
               </div>
             </ul>
           ))
