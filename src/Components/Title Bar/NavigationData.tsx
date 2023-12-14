@@ -77,48 +77,27 @@ export const navigationData = [
       "children": [
         [
           {
-            "option": "Save",
-            "hotkey": "Ctrl + S"
+            "option": "Undo",
+            "hotkey": "Ctrl +Z"
           },
           {
-            "option": "Save As",
-            "hotkey": "Ctrl + Shift + S"
+            "option": "Redo",
+            "hotkey": "Ctrl + Shift + Z"
           }
         ],
         [
           {
-            "option": "New File",
-            "hotkey": "Ctrl + N"
+            "option": "Cut",
+            "hotkey": "Ctrl + X"
           },
           {
-            "option": "New Window",
-            "hotkey": "Ctrl + Shift + N"
-          }
-        ],
-        [
-          {
-            "option": "Open File",
-            "hotkey": "Ctrl + O"
+            "option": "Copy",
+            "hotkey": "Ctrl + C"
           },
           {
-            "option": "Open Template",
-            "hotkey": "Ctrl + O + T"
-          }
-        ],
-        [
-          {
-            "option": "Share",
-            "hotkey": ">",
-            // Add Here
-          }
-        ],
-        [
-          {
-            "option": "Revert File",
+            "option": "Paste",
+            "hotkey": "Ctrl + V"
           },
-          {
-            "option": "Exit",
-          }
         ]
       ]
     },
@@ -127,49 +106,46 @@ export const navigationData = [
       "children": [
         [
           {
-            "option": "Save",
-            "hotkey": "Ctrl + S"
-          },
-          {
-            "option": "Save As",
-            "hotkey": "Ctrl + Shift + S"
-          }
-        ],
-        [
-          {
-            "option": "New File",
-            "hotkey": "Ctrl + N"
-          },
-          {
-            "option": "New Window",
+            "option": "Fullscreen",
             "hotkey": "Ctrl + Shift + N"
           }
         ],
         [
           {
-            "option": "Open File",
-            "hotkey": "Ctrl + O"
+            "option": "Hide Analysis Panel",
+            "hotkey": "Ctrl + S"
           },
           {
-            "option": "Open Template",
-            "hotkey": "Ctrl + O + T"
-          }
+            "option": "Hide Workspace",
+            "hotkey": "Ctrl + Shift + S"
+          },
+          {
+            "option": "Hide Taskbar",
+            "hotkey": "Ctrl + N"
+          },
         ],
         [
           {
-            "option": "Share",
+            "option": "Theme",
             "hotkey": ">",
-            // Add Here
-          }
+            "children": [
+              [
+                {
+                  "option": "Dark",
+                },
+                {
+                  "option": "Light",
+                },
+              ]
+            ]
+          },
         ],
         [
           {
-            "option": "Revert File",
+            "option": "Settings",
+            "hotkey": "Ctrl + S"
           },
-          {
-            "option": "Exit",
-          }
-        ]
+        ],
       ]
     },
     {
@@ -177,47 +153,26 @@ export const navigationData = [
       "children": [
         [
           {
-            "option": "Save",
-            "hotkey": "Ctrl + S"
+            "option": "documentation",
+            "hotkey": ""
           },
           {
-            "option": "Save As",
-            "hotkey": "Ctrl + Shift + S"
-          }
+            "option": "hotkeys",
+            "hotkey": ""
+          },
+          {
+            "option": "References",
+            "hotkey": ""
+          },
+          {
+            "option": "Tutorials",
+            "hotkey": ""
+          },
         ],
         [
           {
-            "option": "New File",
-            "hotkey": "Ctrl + N"
-          },
-          {
-            "option": "New Window",
-            "hotkey": "Ctrl + Shift + N"
-          }
-        ],
-        [
-          {
-            "option": "Open File",
-            "hotkey": "Ctrl + O"
-          },
-          {
-            "option": "Open Template",
-            "hotkey": "Ctrl + O + T"
-          }
-        ],
-        [
-          {
-            "option": "Share",
-            "hotkey": ">",
-            // Add Here
-          }
-        ],
-        [
-          {
-            "option": "Revert File",
-          },
-          {
-            "option": "Exit",
+            "option": "About",
+            "hotkey": ""
           }
         ]
       ]

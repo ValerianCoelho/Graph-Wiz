@@ -38,6 +38,7 @@ const StyledNavigationOptions = styled.ul`
       list-style-type: none;
       display: flex;
       justify-content: space-between;
+      white-space: nowrap;
       & > li:first-child {
         margin-right: 40px;
       }
@@ -71,7 +72,7 @@ function RenderNavigationOptions(props: any) {
                     &&
                     dropdownOption === Option.option
                     && 
-                    <div style={{position: "absolute", right: "-212px", overflow: "visible"}}>
+                    <div style={{position: "absolute", left: "100%", overflow: "visible"}}>
                       <RenderNavigationOptions NavigationOption={Option.children}/>
                     </div>
                   }
