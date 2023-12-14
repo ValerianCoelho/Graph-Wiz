@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const StyledNavigation = styled.ul`
@@ -50,42 +51,72 @@ const StyledNavigationOptions = styled.ul`
   }
 `
 
-function renderNavigation(NavigationOption: any) {
+
+function renderNavigationOptions(NavigationOption: any) {
   return (
     <StyledNavigationOptions>
-      {NavigationOption.children?.map((Section: any) => (
-        <div className="navigation-section" key={crypto.randomUUID()}>
-          {Section.map((Option: any) => (
-            // Add the return statement here
-            <ul key={crypto.randomUUID()}>
-              <li>{Option.option}</li>
-              <li>{Option.hotkey}</li>
-              { Option.children 
-                && 
-                <div style={{position: "absolute", right: "-212px", overflow: "visible"}}>
-                  {renderNavigation(Option)}
-                </div>
-              }
-            </ul>
-          ))}
-        </div>
-      ))}
+      {
+        NavigationOption.children?.map((Section: any) => (
+          <div className="navigation-section" key={crypto.randomUUID()}>
+            {
+              Section.map((Option: any) => (
+                <ul key={crypto.randomUUID()}>
+                  <li>{Option.option}</li>
+                  <li>{Option.hotkey}</li>
+                  { Option.children && <div style={{position: "absolute", right: "-212px", overflow: "visible"}}>
+                                          {renderNavigationOptions(Option)}
+                                        </div>
+                  }
+                </ul>
+              ))
+            }
+          </div>
+        ))
+      }
     </StyledNavigationOptions>
   )
 }
 
 function NavigationDropdown(props: any) {
+  const [isNavigationOpen, setIsNavigationOpen] = useState(false);
+  const [currentNavigationTab, setCurrentNavigationTab] = useState('');
+  const navigationRef:any = useRef(null);
+
+  function handleNavigationTabClicked(title: string) {
+    setCurrentNavigationTab(title);
+    if(!isNavigationOpen) {
+      setIsNavigationOpen(true);
+    }
+  }
+
+  function handleClickedOutside(event: any) {
+    if(!navigationRef.current.contains(event.target)){
+      setIsNavigationOpen(false);
+    }
+    document.removeEventListener("click", handleClickedOutside);
+  }
+
+  useEffect(()=> {
+    document.addEventListener("click", handleClickedOutside, true)
+  })
+
   return (
     <>
-      <StyledNavigation>
-        {props.navigationData.map((NavigationOption: any) => (
-          <ul key={crypto.randomUUID()}>
-            <li>{NavigationOption.title}</li>
-            <div style={{position: "absolute", zIndex: 3}}>
-              {renderNavigation(NavigationOption)}
-            </div>
-          </ul>
-        ))}
+      <StyledNavigation ref={navigationRef}>
+        {
+          props.navigationData.map((NavigationOption: any) => (
+            <ul key={crypto.randomUUID()}>
+              <li onClick={()=>{handleNavigationTabClicked(NavigationOption.title)}}>{NavigationOption.title}</li>
+              <div style={{position: "absolute", zIndex: 3}}>
+                {isNavigationOpen
+                 &&
+                 currentNavigationTab === NavigationOption.title
+                 && 
+                 renderNavigationOptions(NavigationOption)}
+              </div>
+            </ul>
+          ))
+        }
       </StyledNavigation>
     </>
   );
