@@ -13,22 +13,14 @@ import {
   MenuItem,
   Typography,
   TextField,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  Box,
   Stack,
   Button,
+  List,
+  ListItem,
+  Divider,
+  Box,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
-const StyledAddNodeSvgBtn = styled.svg`
-  &:hover path {
-    stroke: ${Theme.toolHoverColor};
-    fill: ${Theme.toolHoverColor};
-  }
-`;
 
 const StyledLeftDirectedEdgeBtn = styled.svg<{ $selected: boolean }>`
   color: ${Theme.fgColor};
@@ -67,6 +59,7 @@ function WeightInput(props: any) {
           }
           label={isPathSelected ? "Enter Weight" : "Select an Edge"}
           disabled={isPathSelected ? false : true}
+          size="small"
           onChange={(e) => {
             const weight = parseInt(e.target.value);
             props.updateWeight(props.selectedComponentID, weight);
@@ -95,14 +88,15 @@ function Editor(props: any) {
   };
 
   return (
-    <div className="editor">
-      <div className="graph-type panel">
+    <List>
+      <Stack spacing={2} p={1.5}>
         <Typography variant="h6">Graph Type</Typography>
         <TextField
           select
           label={"Directed"}
           fullWidth={true}
           value={props.directedOption}
+          size="small"
           onChange={(e: any) => {
             props.setDirectedOption(e.target.value);
           }}
@@ -115,6 +109,7 @@ function Editor(props: any) {
           label={"Weighted"}
           fullWidth={true}
           value={props.weightOption}
+          size="small"
           onChange={(e: any) => {
             props.setWeightOption(e.target.value);
           }}
@@ -122,19 +117,21 @@ function Editor(props: any) {
           <MenuItem value="Non Weighted">Non Weighted</MenuItem>
           <MenuItem value="Weighted">Weighted</MenuItem>
         </TextField>
-      </div>
-      <div className="add-node panel">
+      </Stack>
+      <Divider/>
+      <Stack spacing={2} p={1.5}>
         <Stack direction={"row"} alignItems={"center"} spacing={1}>
           <AddCircleIcon fontSize="large" color="primary" />
           <Typography>Node Label</Typography>
         </Stack>
-        <Stack direction={"row"}>
+        <Stack direction={"row"} spacing={1}>
           <TextField
             label={"Node Label"}
             value={nodeLabel}
             variant="outlined"
             type={"text"}
             fullWidth={true}
+            size="small"
             onChange={(e) => {
               setNodeLabel(e.target.value);
             }}
@@ -148,6 +145,7 @@ function Editor(props: any) {
           label={"Naming Convention"}
           fullWidth={true}
           value={namingConvention}
+          size="small"
           onChange={(e: any) => {
             setNamingConvention(e.target.value);
           }}
@@ -156,11 +154,11 @@ function Editor(props: any) {
           <MenuItem value="Numerical">Numerical</MenuItem>
           <MenuItem value="Roman Numeral">Roman Numeral</MenuItem>
         </TextField>
-      </div>
-
+      </Stack>
+      <Divider/>
       {(props.directedOption === "Directed" ||
         props.weightOption === "Weighted") && (
-        <div className="link-type panel">
+        <Stack spacing={1} p={1.5}>
           <div
             style={{
               display: "flex",
@@ -231,9 +229,9 @@ function Editor(props: any) {
             weightOption={props.weightOption}
             updateWeight={props.updateWeight}
           />
-        </div>
+        </Stack>
       )}
-    </div>
+    </List>
   );
 }
 
