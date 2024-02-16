@@ -54,17 +54,22 @@ const StyledRightDirectedEdgeBtn = styled.svg<{ $selected: boolean }>`
 `;
 
 function WeightInput(props: any) {
-  const isPathSelected = props.path[props.selectedComponentID]?.componentType === "path" ? true : false;
+  const isPathSelected =
+    props.path[props.selectedComponentID]?.componentType === "path"
+      ? true
+      : false;
   return (
     <>
       {props.weightOption === "Weighted" && (
-        <InputField
-          value={isPathSelected ? props.path[props.selectedComponentID].weight : ""}
-          placeholderText={isPathSelected ? "Enter Weight" : "Select an Edge"}
-          isDisabled={isPathSelected ? false : true}
-          handleInput={(weightValue: string) => {
-            const weight = parseInt(weightValue);
-            updateWeight(props.selectedComponentID, weight);
+        <TextField
+          value={
+            isPathSelected ? props.path[props.selectedComponentID].weight : ""
+          }
+          label={isPathSelected ? "Enter Weight" : "Select an Edge"}
+          disabled={isPathSelected ? false : true}
+          onChange={(e) => {
+            const weight = parseInt(e.target.value);
+            props.updateWeight(props.selectedComponentID, weight);
           }}
         />
       )}
@@ -74,8 +79,7 @@ function WeightInput(props: any) {
 
 function Editor(props: any) {
   const [nodeLabel, setNodeLabel] = useState("");
-  const [namingConvention, setNamingConvention] = useState('Alphabetical');
-
+  const [namingConvention, setNamingConvention] = useState("Alphabetical");
 
   const handleAddNode = () => {
     const input = nodeLabel;
@@ -121,21 +125,23 @@ function Editor(props: any) {
       </div>
       <div className="add-node panel">
         <Stack direction={"row"} alignItems={"center"} spacing={1}>
-          <AddCircleIcon fontSize="large" color="primary"/>
+          <AddCircleIcon fontSize="large" color="primary" />
           <Typography>Node Label</Typography>
         </Stack>
-        <Stack direction={'row'}>
+        <Stack direction={"row"}>
           <TextField
-            label={'Node Label'}
+            label={"Node Label"}
             value={nodeLabel}
             variant="outlined"
-            type={'text'}
+            type={"text"}
             fullWidth={true}
             onChange={(e) => {
               setNodeLabel(e.target.value);
             }}
           />
-          <Button onClick={handleAddNode} variant="contained">Add</Button>
+          <Button onClick={handleAddNode} variant="contained">
+            Add
+          </Button>
         </Stack>
         <TextField
           select
