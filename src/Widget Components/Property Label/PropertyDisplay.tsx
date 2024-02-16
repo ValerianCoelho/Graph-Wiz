@@ -1,28 +1,11 @@
-import styled from 'styled-components';
-
-const StyledPropertyLabel = styled.div`
-    display: flex;
-    text-align: center;
-    border: 1px solid #6A6A9F;
-    border-radius: 5px;
-    overflow: hidden;
-    font-family: 'Open Sans', 'Arial';
-`
-const StyledProperty = styled.div`
-    background-color: #191932;
-    border-right: 1px solid #6A6A9F;
-    width: 70%;
-`
-const StyledValue = styled.div`
-    flex-grow: 1;
-`
+import { Stack, Typography } from '@mui/material';
 
 function PropertyLabel(props: any) {
   return (
-    <StyledPropertyLabel>
-      <StyledProperty> {props.property} </StyledProperty>
-      <StyledValue> {props.value} </StyledValue>
-    </StyledPropertyLabel>
+    <Stack direction={'row'} sx={{border: '1px solid rgba(0, 0, 0, .2)'}} borderRadius={1}>
+      <Typography minWidth={'70%'} borderRight={'1px solid rgba(0, 0, 0, .5)'} p={.5}>{props.property}</Typography>
+      <Typography p={.5} mx={'auto'}>{props.value}</Typography>
+    </Stack>
   )
 }
 
