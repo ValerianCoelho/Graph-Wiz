@@ -9,8 +9,9 @@ const StyledApp = styled.div`
   height: 100vh;
   display: grid;
   grid-template-columns: minmax(150px,15%) auto minmax(150px,15%);
-  grid-template-rows: minmax(5%, 40px) auto 5%;
+  grid-template-rows: minmax(5%, 40px) auto minmax(5%, 40px);
   gap: 1px;
+  background-color: black;
 `
 
 function App() {

@@ -2,8 +2,6 @@ import { connect } from "react-redux";
 import { addNode } from "../../Redux/index.tsx";
 import styled from "styled-components";
 import Theme from "../../Theme.tsx";
-import DropdownSelect from "../../Widget Components/Dropdown Select/DropdownSelect.tsx";
-import InputField from "../../Widget Components/Input Field/InputField.tsx";
 import { useState } from "react";
 import { setWeightOption } from "../../Redux/index.tsx";
 import { setDirectedOption } from "../../Redux/index.tsx";
@@ -16,9 +14,7 @@ import {
   Stack,
   Button,
   List,
-  ListItem,
   Divider,
-  Box,
 } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
@@ -88,7 +84,7 @@ function Editor(props: any) {
   };
 
   return (
-    <List>
+    <List sx={{backgroundColor: 'white'}}>
       <Stack spacing={2} p={1.5}>
         <Typography variant="h6">Graph Type</Typography>
         <TextField
