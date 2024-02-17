@@ -14,10 +14,10 @@ import { setSelectedComponent } from "../../Redux/index.tsx";
 import { addAnchor } from "../../Redux/index.tsx";
 
 import Node from "../../Graph Components/Node/Node.tsx";
-import Path from "../../Graph Components/Path/Path.tsx";
 import DisplayAnchorHandles from "./components/DisplayAnchorHandles/DisplayAnchorHandles.tsx";
 import PseudoPath from "../../Graph Components/Pseudo Path/PseudoPath.tsx";
 import DisplayAnchorPoints from "./components/DisplayAnchorPoints/DisplayAnchorPoints.tsx";
+import DisplayEdges from "./components/DisplayEdges/DisplayEdges.tsx";
 import NavigationButton from "../../Widget Components/Navigation Button/NavigationButton.tsx";
 
 const StyledViewportWrapper = styled.div`
@@ -45,51 +45,7 @@ const StyledPatternLine = styled.line`
   position: absolute;
 `;
 
-function displayEdges(path: any, node: any, anchor: any) {
-  return (
-    <>
-      {Object.entries(path).map(([pathID, pathData]: [string, any]) => {
-        if (node[pathData.toNodeID] == undefined) {
-          return null;
-        }
-        const Node = {
-          from: {
-            x: node[pathData.fromNodeID].coord.x + 15, // size of node = 30, therefore offset = 30/2 = 15. change this later
-            y: node[pathData.fromNodeID].coord.y + 15, // size of node = 30, therefore offset = 30/2 = 15. change this later
-          },
-          to: {
-            x: node[pathData.toNodeID].coord.x + 15, // size of node = 30, therefore offset = 30/2 = 15. change this later
-            y: node[pathData.toNodeID].coord.y + 15, // size of node = 30, therefore offset = 30/2 = 15. change this later
-          },
-        };
-        const A1 = {
-          x: anchor[pathID].a1.ax1,
-          y: anchor[pathID].a1.ay1,
-        };
-        const A2 = {
-          x: anchor[pathID].a2.ax2,
-          y: anchor[pathID].a2.ay2,
-        };
-        return (
-          <Path
-            id={pathID}
-            key={pathID}
-            x1={Node.from.x}
-            y1={Node.from.y}
-            x2={Node.to.x}
-            y2={Node.to.y}
-            ax1={A1.x}
-            ay1={A1.y}
-            ax2={A2.x}
-            ay2={A2.y}
-            weight={pathData.weight}
-            direction={pathData.direction}
-          />
-        );
-      })}
-    </>
-  );
-}
+
 
 function Viewport(props: any) {
   const [ax1, setAx1] = useState<number | null>(null);
@@ -392,7 +348,11 @@ function Viewport(props: any) {
             )}
           </div>
           <div className="paths-wrapper">
-            {displayEdges(props.path, props.node, props.anchor)}
+            <DisplayEdges
+              path={props.path}
+              node={props.node}
+              anchor={props.anchor}
+            />
           </div>
           {props.isCreatingPath && (
             <PseudoPath
@@ -406,7 +366,10 @@ function Viewport(props: any) {
           )}
           {props.path[props.selectedComponentID]?.componentType === "path" && (
             <div key={props.selectedComponentID}>
-              <DisplayAnchorPoints selectedComponentID={props.selectedComponentID} anchor={props.anchor}/>
+              <DisplayAnchorPoints
+                selectedComponentID={props.selectedComponentID}
+                anchor={props.anchor}
+              />
               <DisplayAnchorHandles
                 node={props.node}
                 path={props.path}
