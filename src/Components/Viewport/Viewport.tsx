@@ -17,7 +17,7 @@ import Node from "../../Graph Components/Node/Node.tsx";
 import Path from "../../Graph Components/Path/Path.tsx";
 import DisplayAnchorHandles from "./components/DisplayAnchorHandles/DisplayAnchorHandles.tsx";
 import PseudoPath from "../../Graph Components/Pseudo Path/PseudoPath.tsx";
-import AnchorPoint from "../../Graph Components/AnchorPoint/AnchorPoint.tsx";
+import DisplayAnchorPoints from "./components/DisplayAnchorPoints/DisplayAnchorPoints.tsx";
 import NavigationButton from "../../Widget Components/Navigation Button/NavigationButton.tsx";
 
 const StyledViewportWrapper = styled.div`
@@ -44,30 +44,6 @@ const StyledPatternLine = styled.line`
   stroke: #2a2a2f;
   position: absolute;
 `;
-
-function displayAnchorPoints(selectedComponentID: any, anchor: any) {
-  const A1Exists = anchor[selectedComponentID].a1.ax1;
-  const A2Exists = anchor[selectedComponentID].a2.ax2;
-
-  const A1 = {
-    x: anchor[selectedComponentID].a1.ax1,
-    y: anchor[selectedComponentID].a1.ay1,
-  };
-  const A2 = {
-    x: anchor[selectedComponentID].a2.ax2,
-    y: anchor[selectedComponentID].a2.ay2,
-  };
-  return (
-    <>
-      {A1Exists && (
-        <AnchorPoint initialXPos={A1.x} initialYPos={A1.y} anchor="a1" />
-      )}
-      {A2Exists && (
-        <AnchorPoint initialXPos={A2.x} initialYPos={A2.y} anchor="a2" />
-      )}
-    </>
-  );
-}
 
 function displayEdges(path: any, node: any, anchor: any) {
   return (
@@ -430,7 +406,7 @@ function Viewport(props: any) {
           )}
           {props.path[props.selectedComponentID]?.componentType === "path" && (
             <div key={props.selectedComponentID}>
-              {displayAnchorPoints(props.selectedComponentID, props.anchor)}
+              <DisplayAnchorPoints selectedComponentID={props.selectedComponentID} anchor={props.anchor}/>
               <DisplayAnchorHandles
                 node={props.node}
                 path={props.path}
