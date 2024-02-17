@@ -19,30 +19,11 @@ import PseudoPath from "../../Graph Components/Pseudo Path/PseudoPath.tsx";
 import DisplayAnchorPoints from "./components/DisplayAnchorPoints/DisplayAnchorPoints.tsx";
 import DisplayEdges from "./components/DisplayEdges/DisplayEdges.tsx";
 import NavigationButton from "../../Widget Components/Navigation Button/NavigationButton.tsx";
+import GraphPattern from "./components/GraphPattern/GraphPattern.tsx";
 
 const StyledViewportWrapper = styled.div`
   background-color: ${Theme.viewportColor};
   position: relative;
-`;
-const StyledGraphPatternWrapper = styled.div`
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: 0;
-`;
-const StyledPatternSvg = styled.svg`
-  height: 100%;
-  width: 100%;
-`;
-const StyledPatternBg = styled.div`
-  height: 100%;
-  width: 100%;
-  background-color: transparent;
-  position: absolute;
-`;
-const StyledPatternLine = styled.line`
-  stroke: #2a2a2f;
-  position: absolute;
 `;
 
 
@@ -62,20 +43,7 @@ function Viewport(props: any) {
   const viewport = useRef<HTMLDivElement>(null);
   const nodesWrapper = useRef<HTMLDivElement>(null);
 
-  const threshold = 50; // seems to control how big the squares are
-  const subdivisions = 10; // thin line subdivisions
-  let scale = props.scale * 300;
-  let translation = {
-    x: props.pan.x * props.scale,
-    y: props.pan.y * props.scale,
-  };
-  let tileSize: number = (scale % (subdivisions * threshold)) + threshold;
-  let thinLineWidth: number = ((scale / subdivisions) % threshold) / threshold;
-  let thickLineWidth: number = Math.abs(
-    ((-scale + threshold) % (subdivisions * threshold)) /
-      (threshold * subdivisions)
-  );
-  const thinLines = [...Array(subdivisions).keys()];
+  
 
   useEffect(() => {
     const handleKeydown = (event: any) => {
@@ -265,68 +233,7 @@ function Viewport(props: any) {
           />
         </div>
 
-        <StyledGraphPatternWrapper>
-          <StyledPatternBg>
-            <StyledPatternSvg>
-              <defs>
-                <pattern
-                  id="grid"
-                  x={translation.x}
-                  y={translation.y}
-                  width={tileSize}
-                  height={tileSize}
-                  patternUnits="userSpaceOnUse"
-                >
-                  {thinLines.map((line, index) => {
-                    return (
-                      <StyledPatternLine
-                        key={index}
-                        className="pattern__line"
-                        strokeWidth={thinLineWidth}
-                        x1="0"
-                        y1={(tileSize * line) / subdivisions}
-                        x2={tileSize}
-                        y2={(tileSize * line) / subdivisions}
-                      />
-                    );
-                  })}
-
-                  {thinLines.map((line, index) => {
-                    return (
-                      <StyledPatternLine
-                        key={index}
-                        className="pattern__line"
-                        strokeWidth={thinLineWidth}
-                        y1="0"
-                        x1={(tileSize * line) / subdivisions}
-                        y2={tileSize}
-                        x2={(tileSize * line) / subdivisions}
-                      />
-                    );
-                  })}
-
-                  <StyledPatternLine
-                    className="pattern__line"
-                    strokeWidth={thickLineWidth}
-                    x1="0"
-                    y1={thickLineWidth / 2}
-                    x2={tileSize}
-                    y2={thickLineWidth / 2}
-                  />
-                  <StyledPatternLine
-                    className="pattern__line"
-                    strokeWidth={thickLineWidth}
-                    x1={thickLineWidth / 2}
-                    y1="0"
-                    x2={thickLineWidth / 2}
-                    y2={tileSize}
-                  />
-                </pattern>
-              </defs>
-              <rect fill="url(#grid)" height="100%" width="100%"></rect>
-            </StyledPatternSvg>
-          </StyledPatternBg>
-        </StyledGraphPatternWrapper>
+        <GraphPattern scale={props.scale} pan={props.pan}/>
 
         <div className="viewport__body" ref={viewport}>
           <div className="nodes-wrapper" ref={nodesWrapper}>
