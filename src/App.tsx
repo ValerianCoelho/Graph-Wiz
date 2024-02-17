@@ -11,7 +11,7 @@ const StyledApp = styled.div`
   grid-template-columns: minmax(150px,20%) auto minmax(150px,20%);
   grid-template-rows: minmax(5%, 40px) auto minmax(5%, 40px);
   gap: 1px;
-  background-color: black;
+  background-color: #c3c3c3;
 `
 
 function App() {

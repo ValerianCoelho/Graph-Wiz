@@ -17,7 +17,7 @@ const StyledPatternBg = styled.div`
   position: absolute;
 `;
 const StyledPatternLine = styled.line`
-  stroke: #2a2a2f;
+  stroke: #cecece;
   position: absolute;
 `;
 

@@ -22,11 +22,9 @@ import NavigationButton from "../../Widget Components/Navigation Button/Navigati
 import GraphPattern from "./components/GraphPattern/GraphPattern.tsx";
 
 const StyledViewportWrapper = styled.div`
-  background-color: ${Theme.viewportColor};
+  background-color: #ffffff;
   position: relative;
 `;
-
-
 
 function Viewport(props: any) {
   const [ax1, setAx1] = useState<number | null>(null);
@@ -42,8 +40,6 @@ function Viewport(props: any) {
 
   const viewport = useRef<HTMLDivElement>(null);
   const nodesWrapper = useRef<HTMLDivElement>(null);
-
-  
 
   useEffect(() => {
     const handleKeydown = (event: any) => {
@@ -233,7 +229,7 @@ function Viewport(props: any) {
           />
         </div>
 
-        <GraphPattern scale={props.scale} pan={props.pan}/>
+        <GraphPattern scale={props.scale} pan={props.pan} />
 
         <div className="viewport__body" ref={viewport}>
           <div className="nodes-wrapper" ref={nodesWrapper}>

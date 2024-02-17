@@ -30,11 +30,13 @@ function Analysis() {
         <PropertyLabel property="Hamiltonian" value="True" />
       </Stack>
       <Divider />
+      <Typography variant="h6" p={1.5}>Graph Algorithms</Typography>
+      <Divider />
       {algorithms.map(({ title, names }, index) => (
         <React.Fragment key={index}>
           {index != 0 && <Divider />}
           <ListItemButton
-            sx={{ paddingY: 0 }}
+            sx={{ padding: 0 }}
             onClick={() => {
               setOpen(open === index ? -1 : index);
               console.log(index, open);
