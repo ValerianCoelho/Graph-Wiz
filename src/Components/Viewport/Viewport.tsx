@@ -2,8 +2,7 @@ import Panzoom from "@panzoom/panzoom";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-
-import Theme from "../../Theme.tsx";
+import { useHotkeys } from "react-hotkeys-hook";
 
 import { setIsCreatingPath, updateScale } from "../../Redux/index.tsx";
 import { updatePan } from "../../Redux/Panzoom/panzoomActionCreaters.tsx";
@@ -12,6 +11,8 @@ import { deletePath } from "../../Redux/index.tsx";
 import { deleteNode } from "../../Redux/index.tsx";
 import { setSelectedComponent } from "../../Redux/index.tsx";
 import { addAnchor } from "../../Redux/index.tsx";
+
+import { handleDeleteComponent } from "../../utils/Viewport.ts";
 
 import Node from "../../Graph Components/Node/Node.tsx";
 import DisplayAnchorHandles from "./components/DisplayAnchorHandles/DisplayAnchorHandles.tsx";
@@ -22,7 +23,7 @@ import NavigationButton from "../../Widget Components/Navigation Button/Navigati
 import GraphPattern from "./components/GraphPattern/GraphPattern.tsx";
 
 const StyledViewportWrapper = styled.div`
-  background-color: #ffffff;
+  background-color: #0c0c0c;
   position: relative;
 `;
 
@@ -41,79 +42,35 @@ function Viewport(props: any) {
   const viewport = useRef<HTMLDivElement>(null);
   const nodesWrapper = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleKeydown = (event: any) => {
-      if (event.key.toLowerCase() === "a" && props.isCreatingPath) {
-        if (!ax1 && !ay1) {
-          setAx1(x2);
-          setAy1(y2);
-          return;
-        }
-        if (!ax2 && !ay2) {
-          setAx2(x2);
-          setAy2(y2);
-        }
+  const handleAddAnchorPoint = () => {
+    if (props.isCreatingPath) {
+      if (!ax1 && !ay1) {
+        setAx1(x2);
+        setAy1(y2);
+        return;
       }
-    };
-    document.addEventListener("keydown", handleKeydown);
-    return () => {
-      document.removeEventListener("keydown", handleKeydown);
-    };
-  }, [x2, y2]); // Include dependencies that are used in the effect
+      if (!ax2 && !ay2) {
+        setAx2(x2);
+        setAy2(y2);
+      }
+    }
+  };
 
-  useEffect(() => {
-    const handleKeydown = (event: any) => {
-      if (event.key === "Tab") {
-        event.preventDefault();
-        setIsAddBtnClicked(!isAddEdgeBtnClicked);
-      }
-    };
-    document.addEventListener("keydown", handleKeydown);
-    return () => {
-      document.removeEventListener("keydown", handleKeydown);
-    };
-  }, [isAddEdgeBtnClicked]);
+  const handleToggleEdgeCreationMode = (e: any) => {
+    e.preventDefault();
+    setIsAddBtnClicked(!isAddEdgeBtnClicked);
+  };
 
-  useEffect(() => {
-    const handleKeydown = (event: any) => {
-      if (event.ctrlKey) {
-        event.preventDefault();
-        if (event.key.toLowerCase() === "d") {
-          props.setSelectedComponent(null);
-        }
-      }
-    };
-    document.addEventListener("keydown", handleKeydown);
-    return () => {
-      document.removeEventListener("keydown", handleKeydown);
-    };
-  }, []);
+  const handleDeselect = (e: any) => {
+    e.preventDefault();
+    props.setSelectedComponent(null);
+  };
 
-  useEffect(() => {
-    const handleKeyDown = (e: any) => {
-      if (e.keyCode === 46) {
-        if (props.path[props.selectedComponentID]?.componentType === "path") {
-          props.deletePath(props.selectedComponentID);
-        } else if (
-          props.node[props.selectedComponentID]?.componentType === "node"
-        ) {
-          for (let key in props.path) {
-            if (
-              props.path[key]["fromNodeID"] == props.selectedComponentID ||
-              props.path[key]["toNodeID"] == props.selectedComponentID
-            ) {
-              props.deletePath(key);
-            }
-          }
-          props.deleteNode(props.selectedComponentID);
-        }
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  });
+  // use the dependency arrays mentioned next to the statements if things dont work later
+  useHotkeys("delete", () => handleDeleteComponent(props)); // []
+  useHotkeys("a", handleAddAnchorPoint); // [x2, y2]
+  useHotkeys("tab", handleToggleEdgeCreationMode); // [isAddEdgeBtnClicked]
+  useHotkeys("ctrl+d", handleDeselect); // []
 
   useEffect(() => {
     const handlePointerUp = (e: any) => {
