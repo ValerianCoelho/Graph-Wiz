@@ -19,11 +19,11 @@ const Theme: ThemeType = {
   viewportColor: '#05050F',
   pannelColor: '#0E0E1C',
 
-  nodeBgColor: '#282847',
-  nodeBorderColor: '#6A6A9F',
-  nodeFgColor: '#FFFFFF',
+  nodeBgColor: '#ffffff',
+  nodeBorderColor: 'rgba(0, 0, 0, .3)',
+  nodeFgColor: 'rgba(0, 0, 0, .8)',
 
-  pathStroke: '#FFFFFF',
+  pathStroke: 'rgba(0, 0, 0, .4)',
   toolHoverColor: '#BBBBF9',
   toolActiveColor: '#F8F8F8'
 }

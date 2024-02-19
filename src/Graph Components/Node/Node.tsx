@@ -19,7 +19,7 @@ const StyledNode = styled.div<{$selectedComponentID:string,$id:string}>`
   color: ${Theme.nodeFgColor};
   background-color: ${Theme.nodeBgColor};
   
-  border: 1px solid ${props => props.$id == props.$selectedComponentID ? 'blue' : Theme.nodeBorderColor}; // why is this throwing an error?
+  border: 1px solid ${props => props.$id == props.$selectedComponentID ? '#1976d2' : Theme.nodeBorderColor}; // why is this throwing an error?
 
   display: flex;
   justify-content: center;
@@ -32,7 +32,7 @@ const StyledNode = styled.div<{$selectedComponentID:string,$id:string}>`
   left: 0;
 `
 const AddEdgeBtn = styled.div`
-  background-color: #05050F;
+  background-color: rgba(0, 0, 0, .2);
   width: 20px;
   height: 20px;
   border-radius: 50%;
