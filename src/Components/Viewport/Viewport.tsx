@@ -19,11 +19,13 @@ import DisplayAnchorHandles from "./components/DisplayAnchorHandles/DisplayAncho
 import PseudoPath from "../../Graph Components/Pseudo Path/PseudoPath.tsx";
 import DisplayAnchorPoints from "./components/DisplayAnchorPoints/DisplayAnchorPoints.tsx";
 import DisplayEdges from "./components/DisplayEdges/DisplayEdges.tsx";
-import NavigationButton from "../../Widget Components/Navigation Button/NavigationButton.tsx";
 import GraphPattern from "./components/GraphPattern/GraphPattern.tsx";
 
+import RouteIcon from "@mui/icons-material/Route";
+import IconButton from "@mui/material/IconButton";
+
 const StyledViewportWrapper = styled.div`
-  background-color: #0c0c0c;
+  background-color: #ffffff;
   position: relative;
 `;
 
@@ -176,15 +178,16 @@ function Viewport(props: any) {
   return (
     <>
       <StyledViewportWrapper>
-        <div
-          onClick={() => {
-            setIsAddBtnClicked(!isAddEdgeBtnClicked);
-          }}
+        <IconButton
+          onClick={() => setIsAddBtnClicked(!isAddEdgeBtnClicked)}
+          sx={{ position: "absolute", zIndex: 5 }}
+          size="large"
         >
-          <NavigationButton
-            color={isAddEdgeBtnClicked ? "#FFFFFF" : "#6A6A9F"}
+          <RouteIcon
+            color={isAddEdgeBtnClicked ? "primary" : ""}
+            fontSize="large"
           />
-        </div>
+        </IconButton>
 
         <GraphPattern scale={props.scale} pan={props.pan} />
 
