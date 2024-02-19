@@ -19,7 +19,7 @@ const StyledNode = styled.div<{$selectedComponentID:string,$id:string}>`
   color: ${Theme.nodeFgColor};
   background-color: ${Theme.nodeBgColor};
   
-  border: 1px solid ${props => props.$id == props.$selectedComponentID ? '#1976d2' : Theme.nodeBorderColor}; // why is this throwing an error?
+  border: 2px solid ${props => props.$id == props.$selectedComponentID ? '#1976d2' : Theme.nodeBorderColor}; // why is this throwing an error?
 
   display: flex;
   justify-content: center;

@@ -100,7 +100,7 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
       <defs>
         <marker
           id="arrow"
-          fill="white"
+          fill="#1976d2"
           viewBox="0 0 10 10"
           orient="auto-start-reverse"
           refY="5"
@@ -111,16 +111,16 @@ function Path({x1, y1, ax1, ay1, ax2, ay2, x2, y2, ...props}:any) {
           <path d="M 0 0 L 10 5 L 0 10 z" />
         </marker>
       </defs>    
+      <path id={`path-${props.id}`} className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
       <path 
         className="hidden-path" 
         d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)} 
         markerStart={props.directedOption === 'Directed' && props.direction === 'Backward' ? "url(#arrow)" : ""}
         markerEnd={props.directedOption === 'Directed' && props.direction === 'Forward' ? "url(#arrow)" : ""}
       />
-      <path id={`path-${props.id}`} className="path" d={calculatePath(x1, y1, ax1, ay1, ax2, ay2, x2, y2)}/>
 
       { props.weightOption === 'Weighted' && 
-        <text fontFamily="Arial" fontSize="10" fill="white">
+        <text fontFamily="Arial" fontSize="10" fill="rgba(0, 0, 0, .6)">
           <textPath xlinkHref={`#path-${props.id}`} startOffset="50%" textAnchor="middle">
             <tspan rotate={calculateInclination({x: x1, y: y1}, {x: ax1, y: ay1}, {x: ax2, y: ay2}, {x: x2, y: y2})} dy="-5">{props.weight}</tspan>
           </textPath>
