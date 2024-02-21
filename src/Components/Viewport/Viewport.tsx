@@ -11,6 +11,7 @@ import { deletePath } from "../../Redux/index.tsx";
 import { deleteNode } from "../../Redux/index.tsx";
 import { setSelectedComponent } from "../../Redux/index.tsx";
 import { addAnchor } from "../../Redux/index.tsx";
+import { addNode } from "../../Redux/index.tsx";
 
 import { handleDeleteComponent } from "../../utils/Viewport.ts";
 
@@ -73,6 +74,20 @@ function Viewport(props: any) {
   useHotkeys("a", handleAddAnchorPoint); // [x2, y2]
   useHotkeys("tab", handleToggleEdgeCreationMode); // [isAddEdgeBtnClicked]
   useHotkeys("ctrl+d", handleDeselect); // []
+
+  useEffect(()=>{
+    const handleAddNode = ()=> {
+      if(props.instantNodeCreationMode){
+      console.log(x2, y2)
+      props.addNode(crypto.randomUUID(), "A", { x: x2-15, y: y2-15 });
+      }
+    }
+    viewport.current?.parentElement?.addEventListener('click', handleAddNode)
+    return () => {
+      viewport.current?.parentElement?.removeEventListener('click', handleAddNode);
+    };
+    
+  }, [x2, y2])
 
   useEffect(() => {
     const handlePointerUp = (e: any) => {
@@ -199,11 +214,13 @@ function Viewport(props: any) {
                 // console.log("NODE") // [Performance Bug]: why is this line printing multiple times when I hover over the viewport
                 //                        [Reason]: this happens because the state updates everytime we dispatch an action regardless of that action belonging to the reducer
                 //                                  that deals with nodes, now when the action is passed to the nodeReducer it will go to the default case and return the state
+                console.log(nodeData)
                 return (
                   <Node
                     label={nodeData.label}
                     key={nodeID}
                     id={nodeID}
+                    coord={nodeData.coord}
                     addEdge={isAddEdgeBtnClicked}
                     onPointerDown={setFromNodeID}
                   />
@@ -257,6 +274,7 @@ const mapStateToProps = (state: any) => {
     pan: state.panzoom.pan,
     selectedComponentID: state.globalFlags.selectedComponentID,
     anchor: state.anchor.anchorData,
+    instantNodeCreationMode: state.globalFlags.instantNodeCreationMode,
   };
 };
 
@@ -295,6 +313,13 @@ const mapDispatchToProps = (dispatch: any) => {
       a2: { ax2: number; ay2: number }
     ) => {
       dispatch(addAnchor(pathID, a1, a2));
+    },
+    addNode: (
+      nodeID: string,
+      label: string,
+      coord: { x: number; y: number }
+    ) => {
+      dispatch(addNode(nodeID, label, coord));
     },
   };
 };

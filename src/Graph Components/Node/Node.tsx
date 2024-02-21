@@ -49,6 +49,12 @@ function Node(props: any) {
   const node = useRef<HTMLDivElement>(null);
   const addEdgeBtn = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (node.current) {
+      node.current.style.transform = `translate(${props.coord.x}px, ${props.coord.y}px)`;
+    }
+  }, []);
+
   // when a node is double-clicked, the new selectedComponent would be the this instance of the node
   useEffect(()=> {
     const handleDblClick = ()=> {
@@ -98,8 +104,8 @@ function Node(props: any) {
             const target = event.target; 
   
             // Update node coordinates during dragging
-            const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx / props.scale;
-            const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy / props.scale;
+            const x = (parseFloat(target.getAttribute('data-x')) || props.coord.x) + event.dx / props.scale;
+            const y = (parseFloat(target.getAttribute('data-y')) || props.coord.y) + event.dy / props.scale;
 
             target.style.transform = `translate(${x}px, ${y}px)`;
   
