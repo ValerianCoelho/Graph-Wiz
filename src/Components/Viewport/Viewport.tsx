@@ -182,8 +182,9 @@ function Viewport(props: any) {
           onClick={() => setIsAddBtnClicked(!isAddEdgeBtnClicked)}
           sx={{ position: "absolute", zIndex: 5 }}
           size="large"
-        >
+      >
           <RouteIcon
+          // @ts-ignore
             color={isAddEdgeBtnClicked ? "primary" : ""}
             fontSize="large"
           />

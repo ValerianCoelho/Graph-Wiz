@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Theme from "../../Theme.tsx";
 import { Stack, Typography } from "@mui/material";
 
 const StyledTaskBar = styled.div`

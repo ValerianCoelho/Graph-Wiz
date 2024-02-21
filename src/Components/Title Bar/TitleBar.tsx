@@ -8,7 +8,6 @@ import { ContentCut } from "@mui/icons-material";
 import {
   Divider,
   List,
-  ListItem,
   ListItemIcon,
   ListItemText,
   Typography,
@@ -47,14 +46,14 @@ function TitleBar() {
             >
               {children.map((section, sectionIndex) => (
                 <List key={sectionIndex} sx={{m: 0, p: 0}}>
-                  {section.map(({ option, hotkey }: any, optionIndex) => (
+                  {section.map(({ option, hotkey, icon }: any, optionIndex) => (
                     <React.Fragment key={optionIndex}>
                       {optionIndex != 0 && <Divider />}
                       <MenuItem onClick={() => handleClose(index)}>
                         <ListItemIcon>
-                          <ContentCut fontSize="small" />
+                          {icon}
                         </ListItemIcon>
-                        <ListItemText>{option}</ListItemText>
+                        <ListItemText sx={{width: 130}}>{option}</ListItemText>
                         <Typography variant="body2" color="text.secondary">
                           {hotkey}
                         </Typography>

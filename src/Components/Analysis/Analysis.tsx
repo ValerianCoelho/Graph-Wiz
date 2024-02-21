@@ -3,11 +3,9 @@ import { Divider } from "@mui/material";
 import { algorithms } from "./constants.ts";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import {
-  Box,
   Collapse,
   IconButton,
   List,
-  ListItem,
   Typography,
   Stack,
   ListItemButton,
