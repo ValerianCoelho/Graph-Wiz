@@ -4,7 +4,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import styled from "styled-components";
 import { navigationData } from "./constants";
-import { ContentCut } from "@mui/icons-material";
 import {
   Divider,
   List,
@@ -45,22 +44,26 @@ function TitleBar() {
               onClose={() => handleClose(index)}
             >
               {children.map((section, sectionIndex) => (
-                <List key={sectionIndex} sx={{m: 0, p: 0}}>
-                  {section.map(({ option, hotkey, icon }: any, optionIndex) => (
-                    <React.Fragment key={optionIndex}>
-                      {optionIndex != 0 && <Divider />}
-                      <MenuItem onClick={() => handleClose(index)}>
-                        <ListItemIcon>
-                          {icon}
-                        </ListItemIcon>
-                        <ListItemText sx={{width: 130}}>{option}</ListItemText>
-                        <Typography variant="body2" color="text.secondary">
-                          {hotkey}
-                        </Typography>
-                      </MenuItem>
-                    </React.Fragment>
-                  ))}
-                </List>
+                <>
+                  {sectionIndex != 0 && <Divider />}
+                  <List key={sectionIndex}>
+                    {section.map(
+                      ({ option, hotkey, icon }: any, optionIndex) => (
+                        <React.Fragment key={optionIndex}>
+                          <MenuItem onClick={() => handleClose(index)}>
+                            <ListItemIcon>{icon}</ListItemIcon>
+                            <ListItemText sx={{ width: 130 }}>
+                              {option}
+                            </ListItemText>
+                            <Typography variant="body2" color="text.secondary">
+                              {hotkey}
+                            </Typography>
+                          </MenuItem>
+                        </React.Fragment>
+                      )
+                    )}
+                  </List>
+                </>
               ))}
             </Menu>
           </React.Fragment>
