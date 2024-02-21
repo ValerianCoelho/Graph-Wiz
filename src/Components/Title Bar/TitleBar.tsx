@@ -17,6 +17,8 @@ const StyledTitleBar = styled.div`
   background-color: white;
   grid-column: 1 / span 3;
   z-index: 2;
+  display: flex;
+  align-items: center;
 `;
 
 function TitleBar() {
@@ -25,18 +27,18 @@ function TitleBar() {
   }>({});
 
   const handleClick = (event: any, index: any) => {
-    if(Object.keys(anchorEl).length == 1) {
+    if (Object.keys(anchorEl).length == 1) {
       setAnchorEl({});
     } else {
-      setAnchorEl({[index]: event.currentTarget });
+      setAnchorEl({ [index]: event.currentTarget });
     }
   };
 
   const handleHover = (event: any, index: any) => {
-    if(Object.keys(anchorEl).length == 1) {
-      setAnchorEl({[index]: event.currentTarget });
+    if (Object.keys(anchorEl).length == 1) {
+      setAnchorEl({ [index]: event.currentTarget });
     }
-  }
+  };
 
   const handleClose = () => {
     setAnchorEl({});
@@ -47,10 +49,10 @@ function TitleBar() {
       <StyledTitleBar className="title-bar__body">
         {navigationData.map(({ title, children }, index) => (
           <React.Fragment key={index}>
-            <Button 
-              onMouseOver={(event)=>handleHover(event, index)} 
+            <Button
+              onMouseOver={(event) => handleHover(event, index)}
               onClick={(event) => handleClick(event, index)}
-              sx={{zIndex: 2}}
+              sx={{ zIndex: 2 }}
             >
               {title}
             </Button>
@@ -62,23 +64,28 @@ function TitleBar() {
               sx={{
                 zIndex: 1,
               }}
-              transitionDuration={{enter: 0,exit: 0}}
+              transitionDuration={{ enter: 0, exit: 0 }}
             >
               {children.map((section, sectionIndex) => (
                 <Box key={sectionIndex}>
                   {sectionIndex != 0 && <Divider />}
                   <List>
                     {section.map(
-                      ({ option, hotkey, icon, children }: any, optionIndex) => (
+                      ({ option, hotkey, icon }: any, optionIndex) => (
                         <React.Fragment key={optionIndex}>
                           <MenuItem onClick={handleClose}>
                             <ListItemIcon>{icon}</ListItemIcon>
-                            <ListItemText sx={{ width: 130 }}>
-                              {option}
-                            </ListItemText>
-                            <Typography variant="body2" color="text.secondary">
-                              {hotkey}
-                            </Typography>
+                            <ListItemText>{option}</ListItemText>
+                            {hotkey && (
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                                textAlign={"right"}
+                                sx={{ width: 130 }}
+                              >
+                                {hotkey}
+                              </Typography>
+                            )}
                             {/* { children && <Menu open={true}></Menu> } */}
                           </MenuItem>
                         </React.Fragment>
