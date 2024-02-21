@@ -180,7 +180,7 @@ function Viewport(props: any) {
       <StyledViewportWrapper>
         <IconButton
           onClick={() => setIsAddBtnClicked(!isAddEdgeBtnClicked)}
-          sx={{ position: "absolute", zIndex: 5 }}
+          sx={{ position: "absolute", zIndex: 1 }}
           size="large"
       >
           <RouteIcon
