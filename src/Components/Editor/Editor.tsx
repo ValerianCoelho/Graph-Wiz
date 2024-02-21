@@ -2,11 +2,12 @@ import { connect } from "react-redux";
 import { addNode } from "../../Redux/index.tsx";
 import styled from "styled-components";
 import Theme from "../../Theme.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setWeightOption } from "../../Redux/index.tsx";
 import { setDirectedOption } from "../../Redux/index.tsx";
 import { updateWeight } from "../../Redux/index.tsx";
 import { changeDirection } from "../../Redux/index.tsx";
+import { setInstantNodeCreationMode } from "../../Redux/index.tsx";
 import {
   MenuItem,
   Typography,
@@ -15,8 +16,9 @@ import {
   Button,
   List,
   Divider,
+  IconButton,
 } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
 const StyledLeftDirectedEdgeBtn = styled.svg<{ $selected: boolean }>`
   color: ${Theme.fgColor};
@@ -84,7 +86,7 @@ function Editor(props: any) {
   };
 
   return (
-    <List sx={{backgroundColor: 'white'}}>
+    <List sx={{ backgroundColor: "white" }}>
       <Stack spacing={2} p={1.5}>
         <Typography variant="h6">Graph Type</Typography>
         <TextField
@@ -114,13 +116,23 @@ function Editor(props: any) {
           <MenuItem value="Weighted">Weighted</MenuItem>
         </TextField>
       </Stack>
-      <Divider/>
-      <Stack spacing={2} p={1.5}>
+      <Divider />
+      <Stack spacing={1.5} p={1.5}>
         <Stack direction={"row"} alignItems={"center"} spacing={1}>
-          <AddCircleIcon fontSize="large" color="primary" />
+          <IconButton
+            onClick={() => props.setInstantNodeCreationMode(!props.instantNodeCreationMode)}
+            size="small"
+            sx={{p: 0, m: 0}}
+          >
+            <RadioButtonCheckedIcon
+              fontSize="large"
+              // @ts-ignore
+              color={props.instantNodeCreationMode ? "primary" : ""}
+            />
+          </IconButton>
           <Typography>Node Label</Typography>
         </Stack>
-        <Stack direction={"row"} spacing={1}>
+        <Stack direction={"row"} spacing={1} pb={.5}>
           <TextField
             label={"Node Label"}
             value={nodeLabel}
@@ -151,7 +163,7 @@ function Editor(props: any) {
           <MenuItem value="Roman Numeral">Roman Numeral</MenuItem>
         </TextField>
       </Stack>
-      <Divider/>
+      <Divider />
       {(props.directedOption === "Directed" ||
         props.weightOption === "Weighted") && (
         <Stack spacing={1} p={1.5}>
@@ -237,6 +249,7 @@ const mapStateToProps = (state: any) => {
     directedOption: state.globalFlags.directedOption,
     selectedComponentID: state.globalFlags.selectedComponentID,
     path: state.path.pathData,
+    instantNodeCreationMode: state.globalFlags.instantNodeCreationMode,
   };
 };
 
@@ -261,6 +274,9 @@ const mapDispatchToProps = (dispatch: any) => {
     changeDirection: (pathID: string, direction: string) => {
       dispatch(changeDirection(pathID, direction));
     },
+    setInstantNodeCreationMode: (instantNodeCreationMode: boolean) => {
+      dispatch(setInstantNodeCreationMode(instantNodeCreationMode))
+    }
   };
 };
 

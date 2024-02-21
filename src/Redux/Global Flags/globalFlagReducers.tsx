@@ -2,7 +2,8 @@ import { SET_SELECTED_COMPONENT,
          SET_IS_CREATING_PATH, 
          UPDATE_PSEUDO_PATH_START_COORDS, 
          SET_WEIGHT_OPTION,
-         SET_DIRECTED_OPTION
+         SET_DIRECTED_OPTION,
+         SET_INSTANT_NODE_CREATION_MODE
        } from "./globalFlagActions";
 
 const initialGlobalFlagState = {
@@ -10,6 +11,7 @@ const initialGlobalFlagState = {
   directedOption: 'Undirected',
   isCreatingPath: false,
   selectedComponentID: null,
+  instantNodeCreationMode: false,
   pseudoPathStartCoords: {
     x: 0,
     y: 0
@@ -43,6 +45,11 @@ const globalFlagReducer = (state: any = initialGlobalFlagState, action: any)=> {
       return {
         ...state,
         directedOption: action.payload
+      }
+    case SET_INSTANT_NODE_CREATION_MODE:
+      return {
+        ...state,
+        instantNodeCreationMode: action.payload
       }
     default: return state;
   }

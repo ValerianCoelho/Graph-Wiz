@@ -2,7 +2,8 @@ import { SET_IS_CREATING_PATH,
          UPDATE_PSEUDO_PATH_START_COORDS,
          SET_SELECTED_COMPONENT,
          SET_WEIGHT_OPTION,
-         SET_DIRECTED_OPTION
+         SET_DIRECTED_OPTION,
+         SET_INSTANT_NODE_CREATION_MODE
        } from "./globalFlagActions";
 
 export const setIsCreatingPath = (isCreatingPath: boolean)=> {
@@ -37,5 +38,12 @@ export const setDirectedOption = (directedOption: string)=> {
   return {
     type: SET_DIRECTED_OPTION,
     payload: directedOption
+  }
+}
+
+export const setInstantNodeCreationMode = (instantNodeCreationMode: boolean)=> {
+  return {
+    type: SET_INSTANT_NODE_CREATION_MODE,
+    payload: instantNodeCreationMode
   }
 }
