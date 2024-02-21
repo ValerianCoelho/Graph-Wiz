@@ -25,22 +25,20 @@ function TitleBar() {
   }>({});
 
   const handleClick = (event: any, index: any) => {
-    setAnchorEl({[index]: event.currentTarget });
+    if(Object.keys(anchorEl).length == 1) {
+      setAnchorEl({});
+    } else {
+      setAnchorEl({[index]: event.currentTarget });
+    }
   };
-  
-  React.useEffect(()=>{
-    
-    console.log(anchorEl)
-  }, [anchorEl])
 
   const handleHover = (event: any, index: any) => {
-    console.log("Hovered")
     if(Object.keys(anchorEl).length == 1) {
       setAnchorEl({[index]: event.currentTarget });
     }
   }
 
-  const handleClose = (index: any) => {
+  const handleClose = () => {
     setAnchorEl({});
   };
 
@@ -59,11 +57,12 @@ function TitleBar() {
             <Menu
               anchorEl={anchorEl[index]}
               open={Boolean(anchorEl[index])}
-              onClose={() => handleClose(index)}
+              onClose={handleClose}
               disablePortal
               sx={{
                 zIndex: 1,
               }}
+              transitionDuration={{enter: 0,exit: 0}}
             >
               {children.map((section, sectionIndex) => (
                 <Box key={sectionIndex}>
@@ -72,7 +71,7 @@ function TitleBar() {
                     {section.map(
                       ({ option, hotkey, icon, children }: any, optionIndex) => (
                         <React.Fragment key={optionIndex}>
-                          <MenuItem onClick={() => handleClose(index)}>
+                          <MenuItem onClick={handleClose}>
                             <ListItemIcon>{icon}</ListItemIcon>
                             <ListItemText sx={{ width: 130 }}>
                               {option}
