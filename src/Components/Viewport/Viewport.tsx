@@ -156,39 +156,49 @@ function Viewport(props: any) {
       const panzoom = Panzoom(viewport.current, {
         canvas: true,
         excludeClass: "excluded-class",
-        cursor: "default",
+        cursor: props.instantNodeCreationMode ? 'crosshair' : 'default',
         noBind: true,
       });
 
       const parent = viewport.current.parentElement;
       let isPointerDown = false;
 
-      parent?.addEventListener("wheel", (event) => {
+      const handleWheel = (event: any) => {
         if (event.ctrlKey) {
           panzoom.zoomWithWheel(event);
           props.updateScale(panzoom.getScale());
           props.updatePan(panzoom.getPan());
         }
-      });
+      };
 
-      parent?.addEventListener("pointerdown", (event) => {
+      const handlePointerDown = (event: any) => {
         isPointerDown = true;
         panzoom.handleDown(event);
-      });
+      };
 
-      document.addEventListener("pointermove", (event) => {
+      const handlePointerMove = (event: any) => {
         if (isPointerDown) {
           props.updatePan(panzoom.getPan());
           panzoom.handleMove(event);
         }
-      });
+      };
 
-      document.addEventListener("pointerup", (event) => {
+      const handlePointerUp = (event: any) => {
         isPointerDown = false;
         panzoom.handleUp(event);
-      });
+      };
+
+      parent?.addEventListener("wheel", handleWheel);
+      parent?.addEventListener("pointerdown", handlePointerDown);
+      document.addEventListener("pointermove", handlePointerMove);
+      document.addEventListener("pointerup", handlePointerUp);
+
+      // Cleanup function
+      return () => {
+        panzoom.destroy();
+      };
     }
-  }, []);
+  }, [props.instantNodeCreationMode]);
 
   return (
     <>

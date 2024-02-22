@@ -86,7 +86,7 @@ function Editor(props: any) {
   };
 
   return (
-    <List sx={{ backgroundColor: "white" }}>
+    <List sx={{ backgroundColor: "white"}}>
       <Stack spacing={2} p={1.5}>
         <Typography variant="h6">Graph Type</Typography>
         <TextField
