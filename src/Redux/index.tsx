@@ -16,3 +16,4 @@ export { updatePseudoPathStartCoords } from './Global Flags/globalFlagActionCrea
 export { setInstantNodeCreationMode } from './Global Flags/globalFlagActionCreaters'
 export { incrementLabel } from './NodeLabel/nodeLabelActionCreaters'
 export { updateCustomNodeLabel } from './NodeLabel/nodeLabelActionCreaters'
+export { updateActiveNumberSystem } from './Global Flags/globalFlagActionCreaters'

@@ -12,8 +12,10 @@ import { deleteNode } from "../../Redux/index.tsx";
 import { setSelectedComponent } from "../../Redux/index.tsx";
 import { addAnchor } from "../../Redux/index.tsx";
 import { addNode } from "../../Redux/index.tsx";
+import { incrementLabel } from "../../Redux/index.tsx";
 
 import { handleDeleteComponent } from "../../utils/Viewport.ts";
+import { convert } from "../../utils/Conversion.ts";
 
 import Node from "../../Graph Components/Node/Node.tsx";
 import DisplayAnchorHandles from "./components/DisplayAnchorHandles/DisplayAnchorHandles.tsx";
@@ -78,8 +80,8 @@ function Viewport(props: any) {
   useEffect(()=>{
     const handleAddNode = ()=> {
       if(props.instantNodeCreationMode){
-      console.log(x2, y2)
-      props.addNode(crypto.randomUUID(), "A", { x: x2-15, y: y2-15 });
+      props.addNode(crypto.randomUUID(), convert(props.activeNumberSystem, props.nodeLabel[props.activeNumberSystem]), { x: x2-15, y: y2-15 });
+      props.incrementLabel(props.activeNumberSystem);
       }
     }
     viewport.current?.parentElement?.addEventListener('click', handleAddNode)
@@ -285,6 +287,8 @@ const mapStateToProps = (state: any) => {
     selectedComponentID: state.globalFlags.selectedComponentID,
     anchor: state.anchor.anchorData,
     instantNodeCreationMode: state.globalFlags.instantNodeCreationMode,
+    nodeLabel: state.nodeLabel,
+    activeNumberSystem: state.globalFlags.activeNumberSystem,
   };
 };
 
@@ -331,6 +335,9 @@ const mapDispatchToProps = (dispatch: any) => {
     ) => {
       dispatch(addNode(nodeID, label, coord));
     },
+    incrementLabel: (numberSystem: string)=> {
+      dispatch(incrementLabel(numberSystem))
+    }
   };
 };
 

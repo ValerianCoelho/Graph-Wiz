@@ -10,6 +10,7 @@ import { changeDirection } from "../../Redux/index.tsx";
 import { setInstantNodeCreationMode } from "../../Redux/index.tsx";
 import { incrementLabel } from "../../Redux/index.tsx";
 import { updateCustomNodeLabel } from "../../Redux/index.tsx";
+import { updateActiveNumberSystem } from "../../Redux/index.tsx";
 import { convert } from "../../utils/Conversion.ts";
 import {
   MenuItem,
@@ -72,13 +73,12 @@ function WeightInput(props: any) {
 }
 
 function Editor(props: any) {
-  const [numberSystem, setNumberSystem] = useState("Alphabetical");
 
   const handleAddNode = () => {
     console.log(props.nodeLabel)
-    const input = convert(numberSystem, props.nodeLabel[numberSystem]);
+    const input = convert(props.activeNumberSystem, props.nodeLabel[props.activeNumberSystem]);
     props.addNode(crypto.randomUUID(), input, { x: 0, y: 0 });
-    props.incrementLabel(numberSystem);
+    props.incrementLabel(props.activeNumberSystem);
   };
 
   return (
@@ -131,12 +131,12 @@ function Editor(props: any) {
         <Stack direction={"row"} spacing={1} pb={.5}>
           <TextField
             label={"Node Label"}
-            value={convert(numberSystem, props.nodeLabel[numberSystem])}
+            value={convert(props.activeNumberSystem, props.nodeLabel[props.activeNumberSystem])}
             variant="outlined"
             type={"text"}
             fullWidth={true}
             size="small"
-            disabled={numberSystem === 'Custom' ? false : true}
+            disabled={props.activeNumberSystem === 'Custom' ? false : true}
             onChange={(e) => {
               props.updateCustomNodeLabel(e.target.value)
             }}
@@ -149,10 +149,10 @@ function Editor(props: any) {
           select
           label={"Naming Convention"}
           fullWidth={true}
-          value={numberSystem}
+          value={props.activeNumberSystem}
           size="small"
           onChange={(e: any) => {
-            setNumberSystem(e.target.value);
+            props.updateActiveNumberSystem(e.target.value);
           }}
         >
           <MenuItem value="Alphabetical">Alphabetical</MenuItem>
@@ -248,7 +248,8 @@ const mapStateToProps = (state: any) => {
     selectedComponentID: state.globalFlags.selectedComponentID,
     path: state.path.pathData,
     instantNodeCreationMode: state.globalFlags.instantNodeCreationMode,
-    nodeLabel: state.nodeLabel
+    nodeLabel: state.nodeLabel,
+    activeNumberSystem: state.globalFlags.activeNumberSystem
   };
 };
 
@@ -281,6 +282,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     updateCustomNodeLabel: (label: string)=> {
       dispatch(updateCustomNodeLabel(label))
+    },
+    updateActiveNumberSystem: (numberSystem: string)=> {
+      dispatch(updateActiveNumberSystem(numberSystem))
     }
   };
 };
