@@ -10,6 +10,7 @@ import { changeDirection } from "../../Redux/index.tsx";
 import { setInstantNodeCreationMode } from "../../Redux/index.tsx";
 import { incrementLabel } from "../../Redux/index.tsx";
 import { updateCustomNodeLabel } from "../../Redux/index.tsx";
+import { convert } from "../../utils/Conversion.ts";
 import {
   MenuItem,
   Typography,
@@ -75,7 +76,7 @@ function Editor(props: any) {
 
   const handleAddNode = () => {
     console.log(props.nodeLabel)
-    const input = props.nodeLabel[numberSystem];
+    const input = convert(numberSystem, props.nodeLabel[numberSystem]);
     props.addNode(crypto.randomUUID(), input, { x: 0, y: 0 });
     props.incrementLabel(numberSystem);
   };
@@ -130,7 +131,7 @@ function Editor(props: any) {
         <Stack direction={"row"} spacing={1} pb={.5}>
           <TextField
             label={"Node Label"}
-            value={props.nodeLabel[numberSystem]}
+            value={convert(numberSystem, props.nodeLabel[numberSystem])}
             variant="outlined"
             type={"text"}
             fullWidth={true}
