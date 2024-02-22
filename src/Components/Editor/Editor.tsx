@@ -9,6 +9,7 @@ import { updateWeight } from "../../Redux/index.tsx";
 import { changeDirection } from "../../Redux/index.tsx";
 import { setInstantNodeCreationMode } from "../../Redux/index.tsx";
 import { incrementLabel } from "../../Redux/index.tsx";
+import { updateCustomNodeLabel } from "../../Redux/index.tsx";
 import {
   MenuItem,
   Typography,
@@ -134,10 +135,10 @@ function Editor(props: any) {
             type={"text"}
             fullWidth={true}
             size="small"
-            disabled
-            // onChange={(e) => {
-            //   setNodeLabel(e.target.value);
-            // }}
+            disabled={numberSystem === 'Custom' ? false : true}
+            onChange={(e) => {
+              props.updateCustomNodeLabel(e.target.value)
+            }}
           />
           <Button onClick={handleAddNode} variant="contained">
             Add
@@ -276,8 +277,10 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     incrementLabel: (numberSystem: string) => {
       dispatch(incrementLabel(numberSystem))
+    },
+    updateCustomNodeLabel: (label: string)=> {
+      dispatch(updateCustomNodeLabel(label))
     }
-
   };
 };
 
