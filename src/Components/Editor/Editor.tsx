@@ -8,6 +8,7 @@ import { setDirectedOption } from "../../Redux/index.tsx";
 import { updateWeight } from "../../Redux/index.tsx";
 import { changeDirection } from "../../Redux/index.tsx";
 import { setInstantNodeCreationMode } from "../../Redux/index.tsx";
+import { incrementLabel } from "../../Redux/index.tsx";
 import {
   MenuItem,
   Typography,
@@ -69,20 +70,13 @@ function WeightInput(props: any) {
 }
 
 function Editor(props: any) {
-  const [nodeLabel, setNodeLabel] = useState("");
-  const [namingConvention, setNamingConvention] = useState("Alphabetical");
+  const [numberSystem, setNumberSystem] = useState("Alphabetical");
 
   const handleAddNode = () => {
-    const input = nodeLabel;
-    if (nodeLabel == "") {
-      return;
-    }
-    if (input?.trim()) {
-      props.addNode(crypto.randomUUID(), input, { x: 0, y: 0 });
-      setNodeLabel("");
-    }
-    let newChar = String.fromCharCode(nodeLabel.charCodeAt(0) + 1);
-    setNodeLabel(newChar);
+    console.log(props.nodeLabel)
+    const input = props.nodeLabel[numberSystem];
+    props.addNode(crypto.randomUUID(), input, { x: 0, y: 0 });
+    props.incrementLabel(numberSystem);
   };
 
   return (
@@ -135,14 +129,15 @@ function Editor(props: any) {
         <Stack direction={"row"} spacing={1} pb={.5}>
           <TextField
             label={"Node Label"}
-            value={nodeLabel}
+            value={props.nodeLabel[numberSystem]}
             variant="outlined"
             type={"text"}
             fullWidth={true}
             size="small"
-            onChange={(e) => {
-              setNodeLabel(e.target.value);
-            }}
+            disabled
+            // onChange={(e) => {
+            //   setNodeLabel(e.target.value);
+            // }}
           />
           <Button onClick={handleAddNode} variant="contained">
             Add
@@ -152,15 +147,16 @@ function Editor(props: any) {
           select
           label={"Naming Convention"}
           fullWidth={true}
-          value={namingConvention}
+          value={numberSystem}
           size="small"
           onChange={(e: any) => {
-            setNamingConvention(e.target.value);
+            setNumberSystem(e.target.value);
           }}
         >
           <MenuItem value="Alphabetical">Alphabetical</MenuItem>
           <MenuItem value="Numerical">Numerical</MenuItem>
           <MenuItem value="Roman Numeral">Roman Numeral</MenuItem>
+          <MenuItem value="Custom">Custom</MenuItem>
         </TextField>
       </Stack>
       <Divider />
@@ -250,6 +246,7 @@ const mapStateToProps = (state: any) => {
     selectedComponentID: state.globalFlags.selectedComponentID,
     path: state.path.pathData,
     instantNodeCreationMode: state.globalFlags.instantNodeCreationMode,
+    nodeLabel: state.nodeLabel
   };
 };
 
@@ -276,7 +273,11 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     setInstantNodeCreationMode: (instantNodeCreationMode: boolean) => {
       dispatch(setInstantNodeCreationMode(instantNodeCreationMode))
+    },
+    incrementLabel: (numberSystem: string) => {
+      dispatch(incrementLabel(numberSystem))
     }
+
   };
 };
 
