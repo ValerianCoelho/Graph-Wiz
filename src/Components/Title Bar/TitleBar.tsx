@@ -71,7 +71,10 @@ function TitleBar() {
                   {sectionIndex != 0 && <Divider />}
                   <List>
                     {section.map(
-                      ({ option, hotkey, icon }: any, optionIndex) => (
+                      (
+                        { option, hotkey, icon, children }: any,
+                        optionIndex
+                      ) => (
                         <React.Fragment key={optionIndex}>
                           <MenuItem onClick={handleClose}>
                             <ListItemIcon>{icon}</ListItemIcon>
@@ -86,7 +89,60 @@ function TitleBar() {
                                 {hotkey}
                               </Typography>
                             )}
-                            { children && <Menu open={true} sx={{zIndex: 1}}></Menu> }
+                            {children && (
+                              <Menu
+                                open={true}
+                                anchorEl={anchorEl[index]}
+                                onClose={handleClose}
+                                disablePortal
+                                sx={{
+                                  zIndex: 1,
+                                }}
+                              >
+                                {children.map(
+                                  (section: any, sectionIndex: number) => (
+                                    <Box key={sectionIndex}>
+                                      {sectionIndex != 0 && <Divider />}
+                                      <List>
+                                        {section.map(
+                                          (
+                                            { option, hotkey, icon }: any,
+                                            optionIndex: number
+                                          ) => (
+                                            <React.Fragment key={optionIndex}>
+                                              <MenuItem onClick={handleClose}>
+                                                <ListItemIcon>
+                                                  {icon}
+                                                </ListItemIcon>
+                                                <ListItemText>
+                                                  {option}
+                                                </ListItemText>
+                                                {hotkey && (
+                                                  <Typography
+                                                    variant="body2"
+                                                    color="text.secondary"
+                                                    textAlign={"right"}
+                                                    sx={{ width: 130 }}
+                                                  >
+                                                    {hotkey}
+                                                  </Typography>
+                                                )}
+                                                {children && (
+                                                  <Menu
+                                                    open={true}
+                                                    sx={{ zIndex: 1 }}
+                                                  ></Menu>
+                                                )}
+                                              </MenuItem>
+                                            </React.Fragment>
+                                          )
+                                        )}
+                                      </List>
+                                    </Box>
+                                  )
+                                )}
+                              </Menu>
+                            )}
                           </MenuItem>
                         </React.Fragment>
                       )

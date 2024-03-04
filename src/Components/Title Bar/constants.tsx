@@ -25,6 +25,13 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import SubscriptionsRoundedIcon from "@mui/icons-material/SubscriptionsRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
+import InstagramIcon from '@mui/icons-material/Instagram';
+
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+
 export const navigationData = [
   {
     title: "File",
@@ -74,12 +81,15 @@ export const navigationData = [
             [
               {
                 option: "Whatsapp",
+                icon: <WhatsAppIcon/>,
               },
               {
                 option: "Instagram",
+                icon: <InstagramIcon/>
               },
               {
                 option: "Facebook",
+                icon: <FacebookRoundedIcon/>,
               },
               {
                 option: "Discord",
@@ -88,9 +98,11 @@ export const navigationData = [
             [
               {
                 option: "Copy Link",
+                icon: <ContentCopyIcon/>,
               },
               {
                 option: "Copy Github Link",
+                icon: <ContentCopyIcon/>,
               },
             ],
           ],
@@ -183,9 +195,11 @@ export const navigationData = [
             [
               {
                 option: "Dark",
+                icon: <DarkModeIcon/>,
               },
               {
                 option: "Light",
+                icon: <WbSunnyIcon/>,
               },
             ],
           ],
