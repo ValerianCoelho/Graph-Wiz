@@ -106,7 +106,7 @@ function TitleBar() {
                                       <List>
                                         {section.map(
                                           (
-                                            { option, hotkey, icon }: any,
+                                            { option, hotkey, icon, children }: any,
                                             optionIndex: number
                                           ) => (
                                             <React.Fragment key={optionIndex}>
@@ -131,7 +131,9 @@ function TitleBar() {
                                                   <Menu
                                                     open={true}
                                                     sx={{ zIndex: 1 }}
-                                                  ></Menu>
+                                                  >
+                                                    again we will have a sub menu
+                                                  </Menu>
                                                 )}
                                               </MenuItem>
                                             </React.Fragment>

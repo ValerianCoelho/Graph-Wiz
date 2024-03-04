@@ -8,6 +8,7 @@ const initialNodeState = {
 }
 
 const nodeReducer = (state: any = initialNodeState, action: any)=> {
+  console.log(state)
   switch(action.type) {
     case UPDATE_NODE_COORD: {
       const {nodeID, coord} = action.payload;

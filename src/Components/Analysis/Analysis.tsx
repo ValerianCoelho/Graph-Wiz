@@ -12,17 +12,22 @@ import {
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { calculateDensity } from "./utils/properties.ts";
+import { calculateIsolatedNodes } from "./utils/properties.ts";
+import { calculateSelfLoops } from "./utils/properties.ts";
+import { calculateNumberOfRegions } from "./utils/properties.ts";
 
-function Analysis() {
+function Analysis(props: any) {
   const [open, setOpen] = useState(-1);
   return (
     <List sx={{ backgroundColor: "white", overflow: "auto" }}>
       <Stack spacing={1} p={1.5}>
         <Typography variant="h6">Graph Properties</Typography>
-        <PropertyLabel property="Density" value="5/8" />
-        <PropertyLabel property="Isolated Nodes" value="0" />
-        <PropertyLabel property="Self-Loop" value="0" />
-        <PropertyLabel property="Regions" value="3" />
+        <PropertyLabel property="Density" value={calculateDensity(props.node, props.path)} />
+        <PropertyLabel property="Isolated Nodes" value={calculateIsolatedNodes(props.node, props.path)} />
+        <PropertyLabel property="Self-Loop" value={calculateSelfLoops(props.path)} />
+        <PropertyLabel property="Regions" value={calculateNumberOfRegions(props.node, props.path)} />
         <PropertyLabel property="Planar" value="True" />
         <PropertyLabel property="Eulerian" value="False" />
         <PropertyLabel property="Hamiltonian" value="True" />
@@ -63,4 +68,11 @@ function Analysis() {
   );
 }
 
-export default Analysis;
+const mapStateToProps = (state: any) => {
+  return {
+    node: state.node.data,
+    path: state.path.pathData,
+  };
+};
+
+export default connect(mapStateToProps)(Analysis);
