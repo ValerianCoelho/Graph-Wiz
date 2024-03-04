@@ -86,7 +86,7 @@ function TitleBar() {
                                 {hotkey}
                               </Typography>
                             )}
-                            {/* { children && <Menu open={true}></Menu> } */}
+                            { children && <Menu open={true} sx={{zIndex: 1}}></Menu> }
                           </MenuItem>
                         </React.Fragment>
                       )

@@ -226,7 +226,6 @@ function Viewport(props: any) {
                 // console.log("NODE") // [Performance Bug]: why is this line printing multiple times when I hover over the viewport
                 //                        [Reason]: this happens because the state updates everytime we dispatch an action regardless of that action belonging to the reducer
                 //                                  that deals with nodes, now when the action is passed to the nodeReducer it will go to the default case and return the state
-                console.log(nodeData)
                 return (
                   <Node
                     label={nodeData.label}

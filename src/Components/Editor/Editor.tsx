@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import { addNode } from "../../Redux/index.tsx";
 import styled from "styled-components";
 import Theme from "../../Theme.tsx";
-import { useEffect, useState } from "react";
 import { setWeightOption } from "../../Redux/index.tsx";
 import { setDirectedOption } from "../../Redux/index.tsx";
 import { updateWeight } from "../../Redux/index.tsx";
@@ -75,7 +74,6 @@ function WeightInput(props: any) {
 function Editor(props: any) {
 
   const handleAddNode = () => {
-    console.log(props.nodeLabel)
     const input = convert(props.activeNumberSystem, props.nodeLabel[props.activeNumberSystem]);
     props.addNode(crypto.randomUUID(), input, { x: 0, y: 0 });
     props.incrementLabel(props.activeNumberSystem);

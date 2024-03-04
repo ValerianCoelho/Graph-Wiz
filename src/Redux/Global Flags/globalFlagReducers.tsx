@@ -43,7 +43,6 @@ const globalFlagReducer = (state: any = initialGlobalFlagState, action: any)=> {
         weightOption: action.payload
       }
     case SET_DIRECTED_OPTION:
-      console.log(state.directedOption);
       return {
         ...state,
         directedOption: action.payload

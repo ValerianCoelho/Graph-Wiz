@@ -37,7 +37,6 @@ function Analysis() {
             sx={{ padding: 0 }}
             onClick={() => {
               setOpen(open === index ? -1 : index);
-              console.log(index, open);
             }}
             selected={open == index}
           >
