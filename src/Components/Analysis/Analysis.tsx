@@ -17,6 +17,8 @@ import { calculateDensity } from "./utils/properties.ts";
 import { calculateIsolatedNodes } from "./utils/properties.ts";
 import { calculateSelfLoops } from "./utils/properties.ts";
 import { calculateNumberOfRegions } from "./utils/properties.ts";
+import { isEulerian } from "./utils/properties.ts";
+import { isHamiltonian } from "./utils/properties.ts";
 
 function Analysis(props: any) {
   const [open, setOpen] = useState(-1);
@@ -29,8 +31,8 @@ function Analysis(props: any) {
         <PropertyLabel property="Self-Loop" value={calculateSelfLoops(props.path)} />
         <PropertyLabel property="Regions" value={calculateNumberOfRegions(props.node, props.path)} />
         <PropertyLabel property="Planar" value="True" />
-        <PropertyLabel property="Eulerian" value="False" />
-        <PropertyLabel property="Hamiltonian" value="True" />
+        <PropertyLabel property="Eulerian" value={isEulerian(props.node, props.path)} />
+        <PropertyLabel property="Hamiltonian" value={isHamiltonian(props.node, props.path)} />
       </Stack>
       <Divider />
       <Typography variant="h6" p={1.5}>Graph Algorithms</Typography>
